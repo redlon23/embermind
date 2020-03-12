@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch, NavLink } from 'react-router-dom'
-import Dashboard from '../Dashboard/Dashboard'
+import { NavLink } from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
