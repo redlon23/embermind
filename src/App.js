@@ -13,13 +13,21 @@ class App extends Component {
 		return (
 			<div>
 				<Switch>
-					<Route exact path="/" render={() => <Home />} />
-					<Route exact path="/dashboard" render={() => <Dashboard />} />
-					<Route exact path="/account-settings" render={() => <AccountSettings />} />
-					<Route exact path="/charts" render={() => <Charts />} />
-					<Route exact path="/signal-providers" render={() => <SignalProviders />} />
-					<Route exact path="/signal-settings" render={() => <SignalSettings />} />
-					<Route render={() => <NotFoundPage />} />
+					<Route exact path="/" render={(routeProps) => <Home {...routeProps} />} />
+					<Route exact path="/dashboard" render={(routeProps) => <Dashboard {...routeProps} />} />
+					<Route
+						exact
+						path="/account-settings"
+						render={(routeProps) => <AccountSettings {...routeProps} />}
+					/>
+					<Route exact path="/charts" render={(routeProps) => <Charts {...routeProps} />} />
+					<Route
+						exact
+						path="/signal-providers"
+						render={(routeProps) => <SignalProviders {...routeProps} />}
+					/>
+					<Route exact path="/signal-settings" render={(routeProps) => <SignalSettings {...routeProps} />} />
+					<Route render={(routeProps) => <NotFoundPage {...routeProps} />} />
 				</Switch>
 			</div>
 		)

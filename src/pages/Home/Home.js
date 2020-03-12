@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+// import { Button } from 'carbon-components-react'
 import './Home.css'
 
 class Home extends Component {
@@ -7,14 +7,13 @@ class Home extends Component {
 		return (
 			<div className="Home">
 				<h1>Home/Landing Page</h1>
-				<nav>
-					<NavLink exact to="/dashboard">
-						Register
-					</NavLink>
-					<NavLink exact to="/dashboard">
-						Login
-					</NavLink>
-				</nav>
+				<button className="button" onClick={() => this.props.history.push('/dashboard')}>
+					Register
+				</button>
+				<button className="button" onClick={() => this.props.history.push('/dashboard')}>
+					Login
+				</button>
+				{/* <Button onClick={() => this.props.history.push('/dashboard')}>Carbon Test Button</Button> */}
 			</div>
 		)
 	}
