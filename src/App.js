@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Home from './pages/Home/Home'
+import LandingPage from './pages/LandingPage/LandingPage'
 import Dashboard from './pages/Dashboard/Dashboard'
 import AccountSettings from './pages/AccountSettings/AccountSettings'
 import Charts from './pages/Charts/Charts'
@@ -13,7 +13,7 @@ class App extends Component {
 		return (
 			<div>
 				<Switch>
-					<Route exact path="/" render={(routeProps) => <Home {...routeProps} />} />
+					<Route exact path="/" render={(routeProps) => <LandingPage {...routeProps} />} />
 					<Route exact path="/dashboard" render={(routeProps) => <Dashboard {...routeProps} />} />
 					<Route
 						exact
