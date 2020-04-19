@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 export default class RegistrationForm extends Component {
+
 	submitHandler = async (event) => {
 		event.preventDefault()
 
@@ -12,39 +13,6 @@ export default class RegistrationForm extends Component {
 			confirmPassword: event.target.confirmPassword.value ? event.target.confirmPassword.value : null
 		}
 
-		const credsValid = await this.validateRegistrationCreds(registrationCreds)
-		if (credsValid === 'Creds Valid') {
-			this.registerNewUser(registrationCreds)
-		} else {
-			console.log(credsValid)
-		}
-	}
-
-	validateRegistrationCreds = async (registrationCreds) => {
-		console.log(JSON.stringify(registrationCreds))
-		for (const field of Object.values(registrationCreds)) {
-			console.log(field)
-			if (field === null) {
-				return 'Fields cannot be empty'
-			}
-		}
-
-		if (registrationCreds.password !== registrationCreds.confirmPassword) {
-			return 'Passwords must match'
-		}
-
-		// TODO: Check if email already in DB
-		// const emailExists = await fetch('/checkEmailExists') = {
-
-		// }
-		// if (emailExists) {
-		//   return false
-		// }
-
-		return 'Creds Valid'
-	}
-
-	registerNewUser = async (registrationCreds) => {
 		fetch('/api/registerNewUser', {
 			method: 'POST',
 			headers: {
@@ -54,7 +22,7 @@ export default class RegistrationForm extends Component {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log('Data on the frontend: ' + JSON.stringify(data))
+				console.log('Reponse on frontend: ' + JSON.stringify(data))
 			})
 			.catch((err) => console.log(err))
 	}
