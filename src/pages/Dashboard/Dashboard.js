@@ -12,9 +12,6 @@ class Dashboard extends Component {
 				<button className="button" onClick={() => this.props.history.push('/account-settings')}>
 					Account Settings
 				</button>
-				<button className="button" onClick={() => this.props.history.push('/charts')}>
-					Charts
-				</button>
 				<button className="button" onClick={() => this.props.history.push('/signal-providers')}>
 					Signal Providers
 				</button>
