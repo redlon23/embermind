@@ -1,7 +1,8 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-
 const app = express()
+require('dotenv').config()
+
+const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -9,6 +10,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const userRoutes = require('./apiRoutes/userRoutes')
 app.use('/api', userRoutes)
 
-app.listen(6000, () => {
+app.listen(process.env.PORT || 6000, () => {
 	console.log('Express server is running on localhost: 6000')
 })
