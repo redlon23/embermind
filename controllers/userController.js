@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const userModel = require('../apiModels/userModels')
+const userModel = require('../models/userModels')
 
 const bodyParser = require('body-parser')
 
