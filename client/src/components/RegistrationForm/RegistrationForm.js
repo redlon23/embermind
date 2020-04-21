@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 
-export default class RegistrationForm extends Component {
-
+class RegistrationForm extends Component {
 	submitHandler = async (event) => {
 		event.preventDefault()
 
@@ -23,6 +23,11 @@ export default class RegistrationForm extends Component {
 			.then((response) => response.json())
 			.then((data) => {
 				console.log('Reponse on frontend: ' + JSON.stringify(data))
+				if (data.status === 200) {
+					this.props.history.push('./dashboard')
+				} else {
+					//TODO: Prompt for correct input
+				}
 			})
 			.catch((err) => console.log(err))
 	}
@@ -73,3 +78,5 @@ export default class RegistrationForm extends Component {
 		)
 	}
 }
+
+export default withRouter(RegistrationForm)
