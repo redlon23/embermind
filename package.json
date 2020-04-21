@@ -1,33 +1,28 @@
 {
 	"name": "embermind",
-	"version": "0.1.0",
-	"private": true,
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
 	"dependencies": {
-		"@testing-library/jest-dom": "^4.2.4",
-		"@testing-library/react": "^9.3.2",
-		"@testing-library/user-event": "^7.1.2",
 		"concurrently": "^5.1.0",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
-		"http-proxy-middleware": "^1.0.3",
-		"mongodb": "^3.5.6",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"react-router-dom": "^5.1.2",
-		"react-scripts": "3.4.0"
+		"mongodb": "^3.5.6"
 	},
+	"devDependencies": {},
 	"scripts": {
-		"start": "react-scripts start",
-		"dev": "concurrently --kill-others-on-fail \"nodemon server.js\" \"npm start\"",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js",
+		"dev": "concurrently --kill-others-on-fail \"nodemon server.js\" \"cd client && npm start\""
 	},
-	"eslintConfig": {
-		"extends": "react-app"
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AdamDoquiatan/test-embermind-repo.git"
 	},
-	"browserslist": {
-		"production": [ ">0.2%", "not dead", "not op_mini all" ],
-		"development": [ "last 1 chrome version", "last 1 firefox version", "last 1 safari version" ]
-	}
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/AdamDoquiatan/test-embermind-repo/issues"
+	},
+	"homepage": "https://github.com/AdamDoquiatan/test-embermind-repo#readme"
 }
