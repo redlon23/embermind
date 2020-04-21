@@ -3,3 +3,9 @@
 .LandingPage {
 	text-align: center;
 }
+
+.regLoginButtons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
