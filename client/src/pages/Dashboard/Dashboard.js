@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import './Dashboard.css'
 
+import { Layout, Menu, Button } from 'antd'
+
+const { Header, Content, Sider } = Layout
+
 class Dashboard extends Component {
+	onPanelChange(value, mode) {
+		console.log(value.format('YYYY-MM-DD'), mode)
+	}
+
 	render() {
 		return (
 			<div className="Dashboard">
@@ -18,6 +26,7 @@ class Dashboard extends Component {
 				<button className="button" onClick={() => this.props.history.push('/signal-settings')}>
 					Signal Settings
 				</button>
+				<Button type="primary">Ant Test Button</Button>
 			</div>
 		)
 	}
