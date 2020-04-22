@@ -1,9 +1,16 @@
 const User = require('../models/user');
 
-exports.registerNewUser = async (req) => {
-	var user = new User(req);
-	var result = await user.save();
-	return result;
+exports.registerNewUser = async (userDetails) => {
+	var user = new User(userDetails);
+	try{
+		var result = await user.save();
+	} catch(error){
+		if(error.name === "ValidationError"){
+			result = null
+		}
+	} finally{
+		return result
+	}
 };
 
 exports.loginUser = async (loginCreds) => {

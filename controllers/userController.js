@@ -1,20 +1,11 @@
-const express = require('express')
-const app = express()
 const userModel = require('../models/userModels')
-
-const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
 
 exports.loginUser = async (req, res) => {
 	try {
 		const result = await userModel.loginUser(req.body)
-		console.log("LOGING IN")
 		if (result.length !== 0) {
-			//login success
 			res.status(200).send({ status: 200, ...result })
 		} else {
-			//login failed
 			res.status(400).send({ status: 400, message: 'Invalid Credentials' })
 		}
 	} catch (err) {
@@ -23,17 +14,15 @@ exports.loginUser = async (req, res) => {
 }
 
 exports.registerNewUser = async (req, res) => {
-	try {
-		const credsValid = await validateRegistrationCreds(req.body)
-		if (credsValid === 'Creds Valid') {
-			const result = await userModel.registerNewUser(req.body)
-			console.log("controller"+result);
-			return res.status(200).send({ status: 200, message: `New listing created with id: ${result.insertedId}` })
-		} else {
-			return res.status(400).send({ status: 400, message: credsValid })
-		}
-	} catch (err) {
-		res.send(' ' + err)
+	const {firstName, lastName, email, password, confirmPassword} = req.body
+	if(password !== confirmPassword){
+		res.send("Password and Confirm Password didn't match")
+	}
+	const newUser = await userModel.registerNewUser({ firstName, lastName, email, password })
+	if(!newUser){
+		res.send("Provided email is in use!")
+	} else{
+		res.send("Success!")
 	}
 }
 
