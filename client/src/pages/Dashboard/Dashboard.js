@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import './Dashboard.css'
 
-import { Layout, Menu, Button } from 'antd'
-
-const { Header, Content, Sider } = Layout
+import { Button } from 'antd'
 
 class Dashboard extends Component {
 	onPanelChange(value, mode) {

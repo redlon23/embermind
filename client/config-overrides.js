@@ -10,6 +10,7 @@ module.exports = override(
 		javascriptEnabled: true,
 		modifyVars: {
 			// Custom Style Colors
+			'@black': '#020202',
 			'@primary-1': '#1D222C',
 			'@primary-2': '#1A1C25',
 			'@primary-3': '#1A3554',
@@ -21,9 +22,10 @@ module.exports = override(
 			'@primary-9': '#FFB800',
 
 			// Text Styles
-			'@text-color': '@primary-6',
-			'@text-color-secondary': '@primary-5',
-			'@text-color-dark': '@primary-4',
+			'@text-color': '@black',
+			'@text-color-secondary': '@primary-6',
+			'@text-color-dark': '@primary-5',
+			'@text-color-dark-secondary': '@primary-4',
 
 			// Component Styles
 			'@body-background': '@primary-1',
