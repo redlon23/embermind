@@ -9,9 +9,12 @@ app.use(bodyParser.json())
 exports.loginUser = async (req, res) => {
 	try {
 		const result = await userModel.loginUser(req.body)
+		console.log("LOGING IN")
 		if (result.length !== 0) {
+			//login success
 			res.status(200).send({ status: 200, ...result })
 		} else {
+			//login failed
 			res.status(400).send({ status: 400, message: 'Invalid Credentials' })
 		}
 	} catch (err) {
@@ -24,6 +27,7 @@ exports.registerNewUser = async (req, res) => {
 		const credsValid = await validateRegistrationCreds(req.body)
 		if (credsValid === 'Creds Valid') {
 			const result = await userModel.registerNewUser(req.body)
+			console.log("controller"+result);
 			return res.status(200).send({ status: 200, message: `New listing created with id: ${result.insertedId}` })
 		} else {
 			return res.status(400).send({ status: 400, message: credsValid })

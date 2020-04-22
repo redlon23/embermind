@@ -1,27 +1,25 @@
-let userModel = null
 const User = require('../models/user');
 
-
-// userModel loaded by database when server.js started
-exports.loadUserModel = async (client) => {
-	userModel = await client.db('embermind-test-db').collection('users')
-}
-
-exports.registerNewUser = async (registrationCreds) => {
-	try {
-		var user = new User(registrationCreds)
-		result = userModel.insertOne(user)
-		return result
-	} catch (err) {
-		throw err
-	}
-}
+exports.registerNewUser = async (req) => {
+	var user = new User(req);
+	var result = await user.save();
+	console.log(result);
+	return result;
+    //return await user.save(function (err, obj) {
+	//	if (err) throw err;
+	//	//else user is registered
+	//	console.log("models" + obj);
+	//	//return obj ?
+	//}).obj;
+};
 
 exports.loginUser = async (loginCreds) => {
-	try {
-		result = await userModel.find({ email: loginCreds.email, password: loginCreds.password }).toArray()
-		return result
-	} catch (err) {
-		throw err
-	}
+	var query  = User.where({ email: loginCreds.email, password: loginCreds.password });
+	query.findOne(function (err, user) {
+  		if (err) throw err;
+  		if (user) {
+			//save in session?
+			return user;
+  		}
+	});
 }
