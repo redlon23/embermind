@@ -1,3 +1,7 @@
 .Dashboard {
 	text-align: center;
 }
+
+.ant-btn-primary:after {
+	animation: none !important;
+}
