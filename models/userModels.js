@@ -1,4 +1,6 @@
 let userModel = null
+const User = require('../models/user');
+
 
 // userModel loaded by database when server.js started
 exports.loadUserModel = async (client) => {
@@ -7,7 +9,8 @@ exports.loadUserModel = async (client) => {
 
 exports.registerNewUser = async (registrationCreds) => {
 	try {
-		result = userModel.insertOne(registrationCreds)
+		var user = new User(registrationCreds)
+		result = userModel.insertOne(user)
 		return result
 	} catch (err) {
 		throw err
