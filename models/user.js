@@ -10,9 +10,10 @@ const User = new Schema ({
     publicAPI: { type: String, required: false },
     secretAPI: { type: String, required: false },
     subscription: {
-        lastPayment: { type: Date, required: false },
-        nextPayment: { type: Date, required: false },
-        subscriptionType: { type: String, required: false, default: "monthly"},
+        lastPayment: { type: Date, required: false, default: new Date() },
+        //7 day free trial default, next payment due 7 days from today
+        nextPayment: { type: Date, required: false, default: new Date(new Date().setDate(new Date().getDate() + 7))},
+        subscriptionType: { type: String, required: false, default: "trial"},
         subscribed: { type: Boolean, required: true, default: false }
     }
 });
