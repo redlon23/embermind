@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-db.setupDatabase()
+//db.setupDatabase()
 
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
