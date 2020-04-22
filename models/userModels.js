@@ -8,6 +8,6 @@ exports.registerNewUser = async (req) => {
 
 exports.loginUser = async (loginCreds) => {
 	var query  = User.where({ email: loginCreds.email, password: loginCreds.password });
-	var result = query.findOne();
+	var result = await query.findOne();
 	return result;
 }
