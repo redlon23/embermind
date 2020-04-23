@@ -22,8 +22,8 @@ class RegistrationForm extends Component {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log('Reponse on frontend: ' + JSON.stringify(data))
 				if (data.status === 200) {
+					console.log(JSON.stringify(data.message))
 					this.props.history.push('./dashboard')
 				} else {
 					//TODO: Prompt for correct input

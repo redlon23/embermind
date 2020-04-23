@@ -30,7 +30,7 @@ class LandingPage extends Component {
 			if (data.status === 200) {
 				this.props.history.push('./dashboard')
 			} else {
-				//TODO: Prompt use to retry creds
+				//TODO: Prompt user to retry creds
 				console.log('Invalid Credentials')
 			}
 		} catch (err) {

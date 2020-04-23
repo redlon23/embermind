@@ -1,12 +1,12 @@
 const userModel = require('../models/userModels')
 
 exports.loginUser = async (req, res) => {
-	const { email, password } = req.body;
-	
-	const user = await userModel.loginUser({email, password})
+	const { email, password } = req.body
 
-	if(!user){
-		res.send("Invalid Credentials")
+	const user = await userModel.loginUser({ email, password })
+
+	if (!user) {
+		res.send('Invalid Credentials')
 	}
 
 	const validPassword = await userModel.comparePasswords(user.password, password)
@@ -17,20 +17,20 @@ exports.loginUser = async (req, res) => {
 
 exports.registerNewUser = async (req, res) => {
 	const { firstName, lastName, email, password, confirmPassword } = req.body
-	if(password !== confirmPassword){
+	if (password !== confirmPassword) {
 		res.send("Password and Confirm Password didn't match")
 	}
 
 	const user = await userModel.registerNewUser({ firstName, lastName, email, password })
-	if(!user){
-		res.send("Provided email is in use!");
+	if (!user) {
+		res.send('Provided email is in use!')
 	}
 
-	req.session.userId = user._id; // Added by cookie-session
-	res.send("Account Created");
+	req.session.userId = user._id // Added by cookie-session
+	res.status(200).send({ status: 200, message: 'Account Created' })
 }
 
-exports.logout = async (req, res) =>{
-	req.session = null;
-	res.redirect("/");
+exports.logout = async (req, res) => {
+	req.session = null
+	res.redirect('/')
 }
