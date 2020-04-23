@@ -3,10 +3,14 @@ const app = express()
 require('dotenv').config()
 const db = require('./util/database')
 const path = require('path')
+const cookieSession = require("cookie-session")
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieSession({
+	keys: ["jd78h756ad98s81224nvm7125j"]
+}));
 
 //db.setupDatabase()
 

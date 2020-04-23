@@ -1,7 +1,15 @@
 const User = require('../models/user');
+const crypto = require('crypto')
+const util = require("util")
+const scrypt = util.promisify(crypto.scrypt)
 
 exports.registerNewUser = async (userDetails) => {
-	var user = new User(userDetails);
+	const hashed = await saltyHash(userDetails.password);
+	const hashedDetails = {
+		...userDetails,
+		password: hashed
+	} 
+	var user = new User(hashedDetails);
 	try{
 		var result = await user.save();
 	} catch(error){
@@ -13,8 +21,21 @@ exports.registerNewUser = async (userDetails) => {
 	}
 };
 
+async function saltyHash(password){
+	const salt = crypto.randomBytes(8).toString('hex');
+	const buf = await scrypt(password, salt, 64)
+	return `${buf.toString('hex')}.${salt}`;
+}
+
+ exports.comparePasswords = async (saved, supplied) =>{
+	const [hashed, salt] = saved.split('.');
+	const hashedSuppliedBuf = await scrypt(supplied, salt, 64)
+	
+	return hashed === hashedSuppliedBuf.toString('hex')
+}
+
 exports.loginUser = async (loginCreds) => {
-	var query  = User.where({ email: loginCreds.email, password: loginCreds.password });
+	var query  = User.where({ email: loginCreds.email});
 	var result = await query.findOne();
 	return result;
 }

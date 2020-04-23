@@ -1,48 +1,36 @@
 const userModel = require('../models/userModels')
 
 exports.loginUser = async (req, res) => {
-	try {
-		const result = await userModel.loginUser(req.body)
-		if (result.length !== 0) {
-			res.status(200).send({ status: 200, ...result })
-		} else {
-			res.status(400).send({ status: 400, message: 'Invalid Credentials' })
-		}
-	} catch (err) {
-		res.send(' ' + err)
+	const { email, password } = req.body;
+	
+	const user = await userModel.loginUser({email, password})
+
+	if(!user){
+		res.send("Invalid Credentials")
 	}
+
+	const validPassword = await userModel.comparePasswords(user.password, password)
+
+	req.session.userId = user._id
+	res.status(200).send({ status: 200, ...user })
 }
 
 exports.registerNewUser = async (req, res) => {
-	const {firstName, lastName, email, password, confirmPassword} = req.body
+	const { firstName, lastName, email, password, confirmPassword } = req.body
 	if(password !== confirmPassword){
 		res.send("Password and Confirm Password didn't match")
 	}
-	const newUser = await userModel.registerNewUser({ firstName, lastName, email, password })
-	if(!newUser){
-		res.send("Provided email is in use!")
-	} else{
-		res.send("Success!")
+
+	const user = await userModel.registerNewUser({ firstName, lastName, email, password })
+	if(!user){
+		res.send("Provided email is in use!");
 	}
+
+	req.session.userId = user._id; // Added by cookie-session
+	res.send("Account Created");
 }
 
-const validateRegistrationCreds = async (registrationCreds) => {
-	for (const field of Object.values(registrationCreds)) {
-		if (field === null) {
-			return 'Fields cannot be empty'
-		}
-	}
-
-	if (registrationCreds.password !== registrationCreds.confirmPassword) {
-		return 'Passwords must match'
-	}
-
-	// const emailExists = await fetch('/checkEmailExists') = {
-
-	// }
-	// if (emailExists) {
-	//   return false
-	// }
-
-	return 'Creds Valid'
+exports.logout = async (req, res) =>{
+	req.session = null;
+	res.redirect("/");
 }
