@@ -32,31 +32,6 @@ class Dashboard extends Component {
 			// 	</button>
 			// 	<Button type="primary">Ant Test Button</Button>
 			// </div>
-			// <div>
-			// 	<Row>
-			// 		<Col span={24}>
-			// 			<div className="logo" style={style2}>
-			// 				Header Nav Bar Here
-			// 			</div>
-			// 		</Col>
-			// 	</Row>
-			// 	<Row>
-			// 		<Row>
-			// 			<Col span={3}>
-			// 				<div style={contentStyle}>Side Nav Bar Here</div>
-			// 			</Col>
-			// 		</Row>
-			// 		<Col span={3}>
-			// 			<div style={contentStyle}>Side Nav Bar Here</div>
-			// 		</Col>
-			// 		<Col span={6}>
-			// 			<div style={style1}>col-6</div>
-			// 		</Col>
-			// 		<Col span={6}>
-			// 			<div style={style1}>col-6</div>
-			// 		</Col>
-			// 	</Row>
-			// </div>
 			<div>
 				<Layout>
 					<Sider style={{ color: 'white' }}>SideNavBar Goes Here</Sider>

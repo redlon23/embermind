@@ -10,6 +10,7 @@ module.exports = override(
 		javascriptEnabled: true,
 		modifyVars: {
 			// Custom Style Colors
+			'@white': '#fcfcfc',
 			'@black': '#020202',
 			'@primary-1': '#1D222C',
 			'@primary-2': '#1A1C25',
@@ -20,6 +21,7 @@ module.exports = override(
 			'@primary-7': '#0DDD22',
 			'@primary-8': '#B40500',
 			'@primary-9': '#FFB800',
+			'@primary-10': '#006BB3',
 
 			// Text Styles
 			'@text-color': '@black',
@@ -28,9 +30,10 @@ module.exports = override(
 			'@text-color-dark-secondary': '@primary-4',
 
 			// Component Styles
-			'@body-background': '@primary-1',
-			'@component-background': '@primary-2',
-			'@btn-primary-bg': '@primary-8'
+			// '@body-background': '@primary-1',
+			'@component-background': '@white',
+			'@body-background': '@white',
+			'@btn-primary-bg': '@primary-5'
 		}
 	})
 )

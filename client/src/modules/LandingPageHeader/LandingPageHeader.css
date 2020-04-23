@@ -1,0 +1,15 @@
+.landingPageHeader {
+	background-color: #1d222c;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.ant-btn-primary:after {
+	animation: none !important;
+}
+
+.ant-btn-primary {
+	background-color: #244b66;
+}
