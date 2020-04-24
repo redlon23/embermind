@@ -32,7 +32,8 @@ class LandingPageHeader extends Component {
 			})
 			const data = await response.json()
 			if (data.status === 200) {
-				this.props.history.push('./dashboard')
+				window.location.reload()
+				// this.props.history.push('./dashboard')
 			} else {
 				//TODO: Prompt user to retry creds
 				console.log('Invalid Credentials')

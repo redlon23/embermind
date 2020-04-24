@@ -5,7 +5,7 @@
 // 	next()
 // }
 
-exports.isAuthenticated = (req, res) => {
+exports.isReactAuthenticated = (req, res) => {
 	console.log('your Sess' + JSON.stringify(req.session))
 	res.send(req.session)
 }

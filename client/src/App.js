@@ -48,23 +48,19 @@ class App extends Component {
 		return this.state.userId
 	}
 
-	PrivateRoute({ children, context, ...routeProps }) {
+	RootRouteRedirect({ children, context }) {
 		if (!context.state.validating) {
 			return (
-				<Route
-					{...routeProps}
-					render={() =>
-						context.checkAuth() ? (
-							children
-						) : (
-							<Redirect
-								to={{
-									pathname: '/bobby'
-								}}
-							/>
-						)}
-				/>
+				<Route render={() => (context.checkAuth() ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
 			)
+		} else {
+			return null
+		}
+	}
+
+	PrivateRoute({ children, context }) {
+		if (!context.state.validating) {
+			return <Route render={() => (context.checkAuth() ? children : <Redirect to={{ pathname: '/' }} />)} />
 		} else {
 			return null
 		}
@@ -74,7 +70,9 @@ class App extends Component {
 		return (
 			<div>
 				<Switch>
-					<Route exact path="/" render={(routeProps) => <LandingPage {...routeProps} />} />
+					<this.RootRouteRedirect exact path="/" context={this}>
+						<LandingPage />
+					</this.RootRouteRedirect>
 					<this.PrivateRoute exact path="/dashboard" context={this}>
 						<Dashboard />
 					</this.PrivateRoute>

@@ -11,8 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(
 	cookieSession({
 		httpOnly: false,
-		keys: [ 'jd78h756ad98s81224nvm7125j' ],
-		user_id: '999'
+		keys: [ 'jd78h756ad98s81224nvm7125j' ]
 	})
 )
 
