@@ -25,10 +25,11 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 // }
 
 class App extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = { userId: '', validating: true }
 		console.log('state: ' + JSON.stringify(this.state))
+		console.log('PROPS: ' + JSON.stringify(this.props))
 	}
 
 	async componentWillMount() {
@@ -50,9 +51,7 @@ class App extends Component {
 
 	RootRouteRedirect({ children, context }) {
 		if (!context.state.validating) {
-			return (
-				<Route render={() => (context.checkAuth() ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
-			)
+			return <Route render={() => (context.checkAuth() ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
 		} else {
 			return null
 		}
@@ -71,23 +70,25 @@ class App extends Component {
 			<div>
 				<Switch>
 					<this.RootRouteRedirect exact path="/" context={this}>
-						<LandingPage />
+						<Route exact path="/" render={(routeProps) => <LandingPage {...routeProps} />} />
 					</this.RootRouteRedirect>
+
 					<this.PrivateRoute exact path="/dashboard" context={this}>
-						<Dashboard />
+						<Route exact path="/dashboard" render={(routeProps) => <Dashboard {...routeProps} />} />
 					</this.PrivateRoute>
-					/>
-					<Route
-						exact
-						path="/account-settings"
-						render={(routeProps) => <AccountSettings {...routeProps} />}
-					/>
-					<Route
-						exact
-						path="/signal-providers"
-						render={(routeProps) => <SignalProviders {...routeProps} />}
-					/>
-					<Route exact path="/signal-settings" render={(routeProps) => <SignalSettings {...routeProps} />} />
+
+					<this.PrivateRoute exact path="/account-settings" context={this}>
+						<Route exact path="/account-settings" render={(routeProps) => <AccountSettings {...routeProps} />} />
+					</this.PrivateRoute>
+
+					<this.PrivateRoute exact path="/signal-providers" context={this}>
+						<Route exact path="/signal-providers" render={(routeProps) => <SignalProviders {...routeProps} />} />
+					</this.PrivateRoute>
+
+					<this.PrivateRoute exact path="/signal-settings" context={this}>
+						<Route exact path="/signal-settings" render={(routeProps) => <SignalSettings {...routeProps} />} />
+					</this.PrivateRoute>
+
 					<Route render={(routeProps) => <NotFoundPage {...routeProps} />} />
 				</Switch>
 			</div>

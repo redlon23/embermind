@@ -47,6 +47,7 @@ class LandingPageHeader extends Component {
 		return (
 			<div>
 				<h1> {'COOL THING: ' + document.cookie}</h1>
+				<h1> {'PROPS: ' + JSON.stringify(this.props)}</h1>
 				{console.log('AHHH' + document.cookie)}
 				<Layout>
 					<Header className="landingPageHeader">

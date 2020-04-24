@@ -32,5 +32,6 @@ exports.registerNewUser = async (req, res) => {
 
 exports.logout = async (req, res) => {
 	req.session = null
-	res.redirect('/')
+	console.log('THIS3: ' + JSON.stringify(req.session))
+	res.status(200).send({ status: 200 })
 }
