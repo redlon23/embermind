@@ -29,14 +29,9 @@ class App extends Component {
 		this.forceUpdate()
 	}
 
-	checkAuth = () => {
-		console.log('COOL' + JSON.stringify(this.state))
-		return this.state.hasSession
-	}
-
 	RootRouteRedirect({ children, context }) {
 		if (!context.state.validating) {
-			return <Route render={() => (context.checkAuth() ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
+			return <Route render={() => (context.state.hasSession ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
 		} else {
 			return null
 		}
@@ -44,7 +39,7 @@ class App extends Component {
 
 	PrivateRoute({ children, context }) {
 		if (!context.state.validating) {
-			return <Route render={() => (context.checkAuth() ? children : <Redirect to={{ pathname: '/' }} />)} />
+			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
 		} else {
 			return null
 		}

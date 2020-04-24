@@ -11,8 +11,10 @@ exports.loginUser = async (req, res) => {
 
 	const validPassword = await userModel.comparePasswords(user.password, password)
 
-	req.session.userId = user._id
-	res.status(200).send({ status: 200, ...user })
+	if (validPassword) {
+		req.session.userId = user._id
+		res.status(200).send({ status: 200, ...user })
+	}
 }
 
 exports.registerNewUser = async (req, res) => {

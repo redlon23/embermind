@@ -20,6 +20,9 @@ app.use(
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
 
+const utilRoutes = require('./routes/utilRoutes')
+app.use('/api', utilRoutes)
+
 // If hosted, node backend loads react frontend, which handles further routing
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'))
