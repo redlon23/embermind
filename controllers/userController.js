@@ -32,6 +32,17 @@ exports.registerNewUser = async (req, res) => {
 	res.status(200).send({ status: 200, message: 'Account Created' })
 }
 
+//TODO: Test once front end is finished
+exports.setAPIKeys = async (req, res) => {
+	const { publicAPI, privateAPI } = req.body;
+
+	const result = await userModel.updateAPIKeys({ publicAPI, privateAPI, userId: req.session.userId });
+	if(!result){
+		res.send('API Keys failed to update');
+	}
+	res.status(200).send({ status: 200, message: 'API Keys Updated' });
+}
+
 exports.logout = async (req, res) => {
 	req.session = null
 	console.log('THIS3: ' + JSON.stringify(req.session))
