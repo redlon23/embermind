@@ -30,9 +30,12 @@ exports.loginUser = async (loginCreds) => {
 
 exports.updateAPIKeys = async (req) => {
 	try{
-		User.update({_id: req.userId}, { $set:{ publicAPI: req.publicAPI, secretAPI: req.secretAPI }}).exec();
+		var result = User.update({_id: req.userId}, { $set:{ publicAPI: req.publicAPI, secretAPI: req.secretAPI }}).exec();
 	} catch(err) {
 		console.log(err);
+		result = null;
+	} finally {
+		return result;
 	}
 }
 
