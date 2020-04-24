@@ -5,21 +5,22 @@ import './LandingPageHeader.css'
 import { Layout, Button, Form, Input } from 'antd'
 const { Header } = Layout
 
-export default class LandingPageHeader extends Component {
+class LandingPageHeader extends Component {
 	constructor(props) {
 		super(props)
+		console.log('HERE:' + JSON.stringify(this.props))
 		this.state = {
 			showRegForm: false
 		}
 	}
 
 	loginHandler = async (event) => {
-		event.preventDefault()
+		console.log('EVENT: ' + JSON.stringify(event))
 
 		try {
 			const loginCreds = {
-				email: event.target.email.value ? event.target.email.value : null,
-				password: event.target.password.value ? event.target.password.value : null
+				email: event.email ? event.email : null,
+				password: event.password ? event.password : null
 			}
 
 			const response = await fetch('./api/loginUser', {
@@ -66,9 +67,6 @@ export default class LandingPageHeader extends Component {
 						</Form>
 					</Header>
 				</Layout>
-				<button className="button" onClick={() => this.props.history.push('/dashboard')}>
-					(DEV skip login)
-				</button>
 				<button className="button" onClick={() => this.setState({ showRegForm: true })}>
 					Register
 				</button>
@@ -95,3 +93,5 @@ export default class LandingPageHeader extends Component {
 		)
 	}
 }
+
+export default LandingPageHeader

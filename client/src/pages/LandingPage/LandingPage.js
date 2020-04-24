@@ -7,7 +7,10 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div className="LandingPage">
-				<LandingPageHeader />
+				<LandingPageHeader {...this.props} />
+				<button className="button" onClick={() => this.props.history.push('/dashboard')}>
+					(DEV skip login)
+				</button>
 			</div>
 		)
 	}

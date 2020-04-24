@@ -8,7 +8,7 @@ exports.loginUser = async (req, res) => {
 	if (!user) {
 		res.send('Invalid Credentials')
 	}
-	
+
 	const validPassword = await userModel.comparePasswords(user.password, password)
 
 	req.session.userId = user._id
@@ -34,5 +34,3 @@ exports.logout = async (req, res) => {
 	req.session = null
 	res.redirect('/')
 }
-
-
