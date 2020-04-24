@@ -7,37 +7,22 @@ import SignalProviders from './pages/SignalProviders/SignalProviders'
 import SignalSettings from './pages/SignalSettings/SignalSettings'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
-// const checkAuth = async (routeProps) => {
-// 	const response = await fetch('./api/isAuth')
-// 	const data = await response.json()
-
-// 	if (data.status === 200) {
-// 		console.log('Authenticated')
-// 		return false
-// 	} else {
-// 		console.log('Not Authenticated')
-// 		return undefined
-// 	}
-// }
-
-// const handleRouteDashboard = (routeProps) => {
-// 	checkAuth(routeProps) ? <Dashboard {...routeProps} /> : null
-// }
-
 class App extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { userId: '', validating: true }
+		this.state = { hasSession: false, validating: true }
 		console.log('state: ' + JSON.stringify(this.state))
 		console.log('PROPS: ' + JSON.stringify(this.props))
 	}
 
 	async componentWillMount() {
-		const response = await fetch(`./api/isAuth`)
+		const response = await fetch(`./api/isReactAuth`)
 		const json = await response.json()
-		console.log(json)
-		this.setState({ userId: json.userId, validating: false })
-		console.log('This was called!:' + JSON.stringify(json))
+		console.log('JSON: ' + JSON.stringify(json))
+		if (json) {
+			this.setState({ hasSession: json.hasSession, validating: false })
+			console.log('COOL2' + JSON.stringify(this.state))
+		}
 	}
 
 	componentDidMount() {
@@ -46,7 +31,7 @@ class App extends Component {
 
 	checkAuth = () => {
 		console.log('COOL' + JSON.stringify(this.state))
-		return this.state.userId
+		return this.state.hasSession
 	}
 
 	RootRouteRedirect({ children, context }) {

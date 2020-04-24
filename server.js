@@ -10,7 +10,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(
 	cookieSession({
-		httpOnly: false,
+		httpOnly: true,
 		keys: [ 'jd78h756ad98s81224nvm7125j' ]
 	})
 )
