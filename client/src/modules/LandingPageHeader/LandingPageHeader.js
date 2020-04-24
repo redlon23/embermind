@@ -8,15 +8,12 @@ const { Header } = Layout
 class LandingPageHeader extends Component {
 	constructor(props) {
 		super(props)
-		console.log('HERE:' + JSON.stringify(this.props))
 		this.state = {
 			showRegForm: false
 		}
 	}
 
 	loginHandler = async (event) => {
-		console.log('EVENT: ' + JSON.stringify(event))
-
 		try {
 			const loginCreds = {
 				email: event.email ? event.email : null,
@@ -33,7 +30,6 @@ class LandingPageHeader extends Component {
 			const data = await response.json()
 			if (data.status === 200) {
 				window.location.reload()
-				// this.props.history.push('./dashboard')
 			} else {
 				//TODO: Prompt user to retry creds
 				console.log('Invalid Credentials')
@@ -46,19 +42,13 @@ class LandingPageHeader extends Component {
 	render() {
 		return (
 			<div>
-				<h1> {'COOL THING: ' + document.cookie}</h1>
-				<h1> {'PROPS: ' + JSON.stringify(this.props)}</h1>
-				{console.log('AHHH' + document.cookie)}
 				<Layout>
 					<Header className="landingPageHeader">
 						<Form name="horizontal_login" layout="inline" onFinish={this.loginHandler}>
 							<Form.Item name="email" rules={[ { required: true, message: 'Please input your email!' } ]}>
 								<Input placeholder="Email" />
 							</Form.Item>
-							<Form.Item
-								name="password"
-								rules={[ { required: true, message: 'Please input your password!' } ]}
-							>
+							<Form.Item name="password" rules={[ { required: true, message: 'Please input your password!' } ]}>
 								<Input type="password" placeholder="Password" />
 							</Form.Item>
 							<Form.Item shouldUpdate={true}>

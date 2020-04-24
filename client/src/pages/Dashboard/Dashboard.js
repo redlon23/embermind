@@ -12,7 +12,6 @@ const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
 class Dashboard extends Component {
 	constructor(props) {
 		super(props)
-		console.log('NEW PROPS:' + JSON.stringify(props))
 
 		this.handleLogout = this.handleLogout.bind(this)
 	}
