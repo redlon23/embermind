@@ -30,7 +30,9 @@ exports.loginUser = async (loginCreds) => {
 
 exports.updateAPIKeys = async (req) => {
 	try{
-		var result = User.update({_id: req.userId}, { $set:{ publicAPI: req.publicAPI, secretAPI: req.secretAPI }}).exec();
+		var hashedPublic = await saltyHash(req.publicAPI);
+		var hashedSecret = await saltyHash(req.secretAPI);
+		var result = User.update({_id: req.userId}, { $set:{ publicAPI: hashedPublic, secretAPI: hashedSecret }}).exec();
 	} catch(err) {
 		console.log(err);
 		result = null;
