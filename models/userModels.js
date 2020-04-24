@@ -21,6 +21,21 @@ exports.registerNewUser = async (userDetails) => {
 	}
 };
 
+
+exports.loginUser = async (loginCreds) => {
+	var query  = User.where({ email: loginCreds.email});
+	var result = await query.findOne();
+	return result;
+}
+
+exports.updateAPIKeys = async (req) => {
+	try{
+		User.update({_id: req.userId}, { $set:{ publicAPI: req.publicAPI, secretAPI: req.secretAPI }}).exec();
+	} catch(err) {
+		console.log(err);
+	}
+}
+
 async function saltyHash(password){
 	const salt = crypto.randomBytes(8).toString('hex');
 	const buf = await scrypt(password, salt, 64)
@@ -32,10 +47,4 @@ async function saltyHash(password){
 	const hashedSuppliedBuf = await scrypt(supplied, salt, 64)
 	
 	return hashed === hashedSuppliedBuf.toString('hex')
-}
-
-exports.loginUser = async (loginCreds) => {
-	var query  = User.where({ email: loginCreds.email});
-	var result = await query.findOne();
-	return result;
 }
