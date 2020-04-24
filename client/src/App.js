@@ -11,24 +11,35 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { hasSession: false, validating: true }
-		console.log('state: ' + JSON.stringify(this.state))
-		console.log('PROPS: ' + JSON.stringify(this.props))
 	}
 
+	/*
+	Runs every time a request for a page is made.
+	Checks if there's as userId in the secure session data -- returns true or false.
+	Changes the validating flag to false when done.
+	*/
 	async componentWillMount() {
 		const response = await fetch(`./api/isReactAuth`)
 		const json = await response.json()
-		console.log('JSON: ' + JSON.stringify(json))
 		if (json) {
 			this.setState({ hasSession: json.hasSession, validating: false })
-			console.log('COOL2' + JSON.stringify(this.state))
 		}
 	}
 
+	/*
+		Because React is asynchronous and doesn't wait for componentWillMount to finish before rendering the routes below, this will
+		force them to render again with the updated state.  
+	*/
 	componentDidMount() {
 		this.forceUpdate()
 	}
 
+	/*
+		Executed when user navigates to '/'.
+		If componentWillMount is done validating the existance of a userId in session, this checks state for hasSession:
+			If true, '/' redirects to the dashboard.
+			If false, '/' rerenders the landing page.
+	*/
 	RootRouteRedirect({ children, context }) {
 		if (!context.state.validating) {
 			return <Route render={() => (context.state.hasSession ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
@@ -37,6 +48,12 @@ class App extends Component {
 		}
 	}
 
+	/*
+		Executed if user navigates to any route requiring authentication.
+		If componentWillMount is done validating the existance of a userId in session, it checks state for hasSession:
+			If true, user is redirected to desired page.
+			If false, user is redirected to landing page.
+	*/
 	PrivateRoute({ children, context }) {
 		if (!context.state.validating) {
 			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
@@ -45,6 +62,10 @@ class App extends Component {
 		}
 	}
 
+	/* 
+		Each route below is wrapped in an authenticator route, that first checks if the user has a valid session
+		before allowing access to the route.
+	*/
 	render() {
 		return (
 			<div>
