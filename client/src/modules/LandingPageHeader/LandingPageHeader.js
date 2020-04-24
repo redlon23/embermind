@@ -45,6 +45,8 @@ class LandingPageHeader extends Component {
 	render() {
 		return (
 			<div>
+				<h1> {'COOL THING: ' + document.cookie}</h1>
+				{console.log('AHHH' + document.cookie)}
 				<Layout>
 					<Header className="landingPageHeader">
 						<Form name="horizontal_login" layout="inline" onFinish={this.loginHandler}>
