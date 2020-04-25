@@ -11,8 +11,10 @@ exports.loginUser = async (req, res) => {
 
 	const validPassword = await userModel.comparePasswords(user.password, password)
 
-	req.session.userId = user._id
-	res.status(200).send({ status: 200, ...user })
+	if (validPassword) {
+		req.session.userId = user._id
+		res.status(200).send({ status: 200, ...user })
+	}
 }
 
 exports.registerNewUser = async (req, res) => {
@@ -32,16 +34,16 @@ exports.registerNewUser = async (req, res) => {
 
 //TODO: Test once front end is finished
 exports.setAPIKeys = async (req, res) => {
-	const { publicAPI, privateAPI } = req.body;
+	const { publicAPI, privateAPI } = req.body
 
-	const result = await userModel.updateAPIKeys({ publicAPI, privateAPI, userId: req.session.userId });
-	if(!result){
-		res.send('API Keys failed to update');
+	const result = await userModel.updateAPIKeys({ publicAPI, privateAPI, userId: req.session.userId })
+	if (!result) {
+		res.send('API Keys failed to update')
 	}
-	res.status(200).send({ status: 200, message: 'API Keys Updated' });
+	res.status(200).send({ status: 200, message: 'API Keys Updated' })
 }
 
 exports.logout = async (req, res) => {
 	req.session = null
-	res.redirect('/')
+	res.status(200).send({ status: 200 })
 }

@@ -3,19 +3,25 @@ const app = express()
 require('dotenv').config()
 const db = require('./util/database')
 const path = require('path')
-const cookieSession = require("cookie-session")
+const cookieSession = require('cookie-session')
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieSession({
-	keys: ["jd78h756ad98s81224nvm7125j"]
-}));
+app.use(
+	cookieSession({
+		httpOnly: true,
+		keys: [ 'jd78h756ad98s81224nvm7125j' ]
+	})
+)
 
 //db.setupDatabase()
 
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
+
+const utilRoutes = require('./routes/utilRoutes')
+app.use('/api', utilRoutes)
 
 // If hosted, node backend loads react frontend, which handles further routing
 if (process.env.NODE_ENV === 'production') {

@@ -24,7 +24,7 @@ class RegistrationForm extends Component {
 			.then((data) => {
 				if (data.status === 200) {
 					console.log(JSON.stringify(data.message))
-					this.props.history.push('./dashboard')
+					window.location.reload()
 				} else {
 					//TODO: Prompt for correct input
 				}
