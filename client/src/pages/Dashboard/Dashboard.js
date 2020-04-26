@@ -35,11 +35,11 @@ class Dashboard extends Component {
 				<button className="button" onClick={() => this.props.history.push('/account-settings')}>
 					Account Settings
 				</button>
-				<button className="button" onClick={() => this.props.history.push('/signal-providers')}>
-					Signal Providers
+				<button className="button" onClick={() => this.props.history.push('/strategy-listings')}>
+					Strategy Listings
 				</button>
-				<button className="button" onClick={() => this.props.history.push('/signal-settings')}>
-					Signal Settings
+				<button className="button" onClick={() => this.props.history.push('/strategy-settings')}>
+					Strategy Settings
 				</button>
 				<Button type="primary">Ant Test Button</Button>
 			</div>

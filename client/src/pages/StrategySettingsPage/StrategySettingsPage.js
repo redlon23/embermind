@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import './SignalSettings.css'
+import './StrategySettingsPage.css'
 
-class SignalSettings extends Component {
+class StrategySettingsPage extends Component {
 	render() {
 		return (
-			<div className="SignalSettings">
+			<div className="StrategySettingsPage">
 				<h1>Signal Settings</h1>
 				<button className="button" onClick={() => this.props.history.push('/dashboard')}>
 					Dashboard
@@ -14,4 +14,4 @@ class SignalSettings extends Component {
 	}
 }
 
-export default SignalSettings
+export default StrategySettingsPage

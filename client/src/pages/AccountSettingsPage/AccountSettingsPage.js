@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import './AccountSettings.css'
+import './AccountSettingsPage.css'
 
-class AccountSettings extends Component {
+class AccountSettingsPage extends Component {
 	render() {
 		return (
-			<div className="AccountSettings">
+			<div className="AccountSettingsPage">
 				<h1>Account Settings</h1>
 				<button className="button" onClick={() => this.props.history.push('/dashboard')}>
 					Dashboard
@@ -14,4 +14,4 @@ class AccountSettings extends Component {
 	}
 }
 
-export default AccountSettings
+export default AccountSettingsPage
