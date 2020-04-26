@@ -3,8 +3,8 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import LandingPage from './pages/LandingPage/LandingPage'
 import Dashboard from './pages/Dashboard/Dashboard'
 import AccountSettings from './pages/AccountSettingsPage/AccountSettingsPage'
-import SignalProviders from './pages/StrategyListingsPage/StrategyListingsPage'
-import SignalSettings from './pages/StrategySettingsPage/StrategySettingsPage'
+import BrowseStrategiesPage from './pages/BrowseStrategiesPage/BrowseStrategiesPage'
+import StrategySettingsPage from './pages/StrategySettingsPage/StrategySettingsPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 class App extends Component {
@@ -82,12 +82,12 @@ class App extends Component {
 						<Route exact path="/account-settings" render={(routeProps) => <AccountSettings {...routeProps} />} />
 					</this.PrivateRoute>
 
-					<this.PrivateRoute exact path="/strategy-listings" context={this}>
-						<Route exact path="/strategy-listings" render={(routeProps) => <SignalProviders {...routeProps} />} />
+					<this.PrivateRoute exact path="/browse-strategies" context={this}>
+						<Route exact path="/browse-strategies" render={(routeProps) => <BrowseStrategiesPage {...routeProps} />} />
 					</this.PrivateRoute>
 
 					<this.PrivateRoute exact path="/strategy-settings" context={this}>
-						<Route exact path="/strategy-settings" render={(routeProps) => <SignalSettings {...routeProps} />} />
+						<Route exact path="/strategy-settings" render={(routeProps) => <StrategySettingsPage {...routeProps} />} />
 					</this.PrivateRoute>
 
 					<Route render={(routeProps) => <NotFoundPage {...routeProps} />} />

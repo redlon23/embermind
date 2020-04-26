@@ -5,7 +5,7 @@ class StrategySettingsPage extends Component {
 	render() {
 		return (
 			<div className="StrategySettingsPage">
-				<h1>Signal Settings</h1>
+				<h1>Strategy Settings</h1>
 				<button className="button" onClick={() => this.props.history.push('/dashboard')}>
 					Dashboard
 				</button>

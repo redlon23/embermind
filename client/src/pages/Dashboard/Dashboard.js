@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import HeaderNavBar from '../../modules/HeaderNavBar/HeaderNavBar'
 import './Dashboard.css'
 
 import { Button } from 'antd'
@@ -10,70 +11,59 @@ const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
 const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
 
 class Dashboard extends Component {
-	constructor(props) {
-		super(props)
-
-		this.handleLogout = this.handleLogout.bind(this)
-	}
-
 	onPanelChange(value, mode) {
 		console.log(value.format('YYYY-MM-DD'), mode)
 	}
 
-	async handleLogout() {
-		await fetch(`./api/logout`)
-		window.location.reload()
-	}
-
 	render() {
 		return (
-			<div className="Dashboard">
-				<h1>Dashboard</h1>
-				<button className="button" onClick={this.handleLogout}>
-					Logout
-				</button>
-				<button className="button" onClick={() => this.props.history.push('/account-settings')}>
-					Account Settings
-				</button>
-				<button className="button" onClick={() => this.props.history.push('/strategy-listings')}>
-					Strategy Listings
-				</button>
-				<button className="button" onClick={() => this.props.history.push('/strategy-settings')}>
-					Strategy Settings
-				</button>
-				<Button type="primary">Ant Test Button</Button>
-			</div>
-			// <div>
-			// 	<Layout>
-			// 		<Sider style={{ color: 'white' }}>SideNavBar Goes Here</Sider>
-			// 		<Layout>
-			// 			<Header style={{ height: '3.5rem', color: 'white' }}>HeaderNavBar Goes Here</Header>
-			// 			<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
-			// 				<Row gutter={contentGutter}>
-			// 					<Col span={24}>
-			// 						<div style={{ ...contentStyle, height: '3rem' }}>Content 0</div>
-			// 					</Col>
-			// 				</Row>
-			// 				<Row gutter={contentGutter}>
-			// 					<Col span={15}>
-			// 						<div style={{ ...contentStyle, height: '22rem' }}>Content 1</div>
-			// 					</Col>
-			// 					<Col span={9}>
-			// 						<div style={{ ...contentStyle, height: '22rem' }}>Content 2</div>
-			// 					</Col>
-			// 				</Row>
-			// 				<Row gutter={contentGutter}>
-			// 					<Col span={15}>
-			// 						<div style={{ ...contentStyle, height: '15rem' }}>Content 3</div>
-			// 					</Col>
-			// 					<Col span={9}>
-			// 						<div style={{ ...contentStyle, height: '15rem' }}>Content 4</div>
-			// 					</Col>
-			// 				</Row>
-			// 			</Content>
-			// 		</Layout>
-			// 	</Layout>
+			// <div className="Dashboard">
+			// 	<h1>Dashboard</h1>
+			// 	<button className="button" onClick={this.handleLogout}>
+			// 		Logout
+			// 	</button>
+			// 	<button className="button" onClick={() => this.props.history.push('/account-settings')}>
+			// 		Account Settings
+			// 	</button>
+			// 	<button className="button" onClick={() => this.props.history.push('/strategy-listings')}>
+			// 		Strategy Listings
+			// 	</button>
+			// 	<button className="button" onClick={() => this.props.history.push('/strategy-settings')}>
+			// 		Strategy Settings
+			// 	</button>
+			// 	<Button type="primary">Ant Test Button</Button>
 			// </div>
+			<div>
+				<Layout>
+					<Sider style={{ color: 'white' }}>SideNavBar Goes Here</Sider>
+					<Layout>
+						<HeaderNavBar />
+						<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
+							<Row gutter={contentGutter}>
+								<Col span={24}>
+									<div style={{ ...contentStyle, height: '3rem' }}>Content 0</div>
+								</Col>
+							</Row>
+							<Row gutter={contentGutter}>
+								<Col span={15}>
+									<div style={{ ...contentStyle, height: '22rem' }}>Content 1</div>
+								</Col>
+								<Col span={9}>
+									<div style={{ ...contentStyle, height: '22rem' }}>Content 2</div>
+								</Col>
+							</Row>
+							<Row gutter={contentGutter}>
+								<Col span={15}>
+									<div style={{ ...contentStyle, height: '15rem' }}>Content 3</div>
+								</Col>
+								<Col span={9}>
+									<div style={{ ...contentStyle, height: '15rem' }}>Content 4</div>
+								</Col>
+							</Row>
+						</Content>
+					</Layout>
+				</Layout>
+			</div>
 		)
 	}
 }
