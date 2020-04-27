@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import LandingPage from './pages/LandingPage/LandingPage'
 import Dashboard from './pages/Dashboard/Dashboard'
-import AccountSettings from './pages/AccountSettings/AccountSettings'
-import SignalProviders from './pages/SignalProviders/SignalProviders'
-import SignalSettings from './pages/SignalSettings/SignalSettings'
+import AccountSettings from './pages/AccountSettingsPage/AccountSettingsPage'
+import BrowseStrategiesPage from './pages/BrowseStrategiesPage/BrowseStrategiesPage'
+import StrategySettingsPage from './pages/StrategySettingsPage/StrategySettingsPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 class App extends Component {
@@ -82,12 +82,12 @@ class App extends Component {
 						<Route exact path="/account-settings" render={(routeProps) => <AccountSettings {...routeProps} />} />
 					</this.PrivateRoute>
 
-					<this.PrivateRoute exact path="/signal-providers" context={this}>
-						<Route exact path="/signal-providers" render={(routeProps) => <SignalProviders {...routeProps} />} />
+					<this.PrivateRoute exact path="/browse-strategies" context={this}>
+						<Route exact path="/browse-strategies" render={(routeProps) => <BrowseStrategiesPage {...routeProps} />} />
 					</this.PrivateRoute>
 
-					<this.PrivateRoute exact path="/signal-settings" context={this}>
-						<Route exact path="/signal-settings" render={(routeProps) => <SignalSettings {...routeProps} />} />
+					<this.PrivateRoute exact path="/strategy-settings" context={this}>
+						<Route exact path="/strategy-settings" render={(routeProps) => <StrategySettingsPage {...routeProps} />} />
 					</this.PrivateRoute>
 
 					<Route render={(routeProps) => <NotFoundPage {...routeProps} />} />

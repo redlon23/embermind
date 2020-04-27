@@ -9,7 +9,3 @@
 .ant-btn-primary:after {
 	animation: none !important;
 }
-
-.ant-btn-primary {
-	background-color: #244b66;
-}

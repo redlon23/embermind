@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
-import RegistrationForm from '../RegistrationForm/RegistrationForm.js'
 import './LandingPageHeader.css'
 
 import { Layout, Button, Form, Input } from 'antd'
 const { Header } = Layout
 
 class LandingPageHeader extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			showRegForm: false
-		}
-	}
-
 	loginHandler = async (event) => {
 		try {
 			const loginCreds = {
@@ -61,29 +53,7 @@ class LandingPageHeader extends Component {
 						</Form>
 					</Header>
 				</Layout>
-				<button className="button" onClick={() => this.setState({ showRegForm: true })}>
-					Register
-				</button>
-				{this.state.showRegForm ? <RegistrationForm /> : null}
 			</div>
-			// <div>
-			// 	<form className="loginForm" onSubmit={this.loginHandler}>
-			// 		<button className="button" type="submit">
-			// 			Login
-			// 				</button>
-			// 		<input className="inp_email" name="email" type="text" maxLength="99" placeholder="email" />
-			// 		<input
-			// 			className="inp_password"
-			// 			name="password"
-			// 			type="text"
-			// 			maxLength="40"
-			// 			placeholder="password"
-			// 		/>
-			// 	</form>
-			// 	<Button className="button" onClick={() => this.setState({ showRegForm: true })}>
-			// 		Register
-			// 			</Button>
-			// </div>
 		)
 	}
 }
