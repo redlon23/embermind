@@ -21,7 +21,7 @@ const layout = {
 }
 
 const tailLayout = {
-	wrapperCol: { offset: 18, span: 1 }
+	wrapperCol: { offset: 17, span: 7 }
 }
 
 class UserSettingsForm extends Component {

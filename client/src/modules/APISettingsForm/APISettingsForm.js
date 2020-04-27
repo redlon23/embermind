@@ -20,10 +20,16 @@ const layout = {
 	style: { padding: '1rem' }
 }
 
+const tailLayout = {
+	wrapperCol: { offset: 17, span: 7 }
+}
+
 class APISettingsForm extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { exchange: 'Submit' }
+		this.state = { publicApi: '', secretApi: '', exchange: 'Submit' }
+
+		this.handleSaveInputToState = this.handleSaveInputToState.bind(this)
 		this.handleExchangeSelect = this.handleExchangeSelect.bind(this)
 		this.handleSubmitAPISettings = this.handleSubmitAPISettings.bind(this)
 
@@ -31,17 +37,23 @@ class APISettingsForm extends Component {
 			<Menu onClick={this.handleExchangeSelect}>
 				<Menu.Item key="Binance">Binance</Menu.Item>
 				<Menu.Item key="Bybit">Bybit</Menu.Item>
+				<Menu.Item key="None">None</Menu.Item>
 			</Menu>
 		)
+	}
+
+	handleSaveInputToState(event) {
+		this.setState({ [event.target.id]: event.target.value })
+		console.log({ [event.target.id]: event.target.value })
 	}
 
 	handleExchangeSelect({ key }) {
 		this.setState({ exchange: key })
 	}
 
-	handleSubmitAPISettings(event) {
+	handleSubmitAPISettings() {
 		// Make your requests to backend here:
-		console.log(event.publicApi + ' ' + event.secretApi + ' ' + (this.state.exchange === 'Submit' ? '' : this.state.exchange))
+		console.log(this.state.publicApi + ' ' + this.state.secretApi + ' ' + (this.state.exchange === 'Submit' ? 'Submit' : this.state.exchange))
 	}
 
 	render() {
@@ -49,15 +61,15 @@ class APISettingsForm extends Component {
 			<div style={{ ...contentStyle }}>
 				API Settings
 				<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitAPISettings}>
-					<Form.Item className="form-group" label="Public API" name="publicApi">
+					<Form.Item className="form-group" label="Public API" name="publicApi" onChange={this.handleSaveInputToState}>
 						<Input />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Secret API" name="secretApi">
+					<Form.Item className="form-group" label="Secret API" name="secretApi" onChange={this.handleSaveInputToState}>
 						<Input.Password />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Exchange" name="exchange">
+					<Form.Item className="form-group" label="Exchange" name="exchange" onChange={this.handleSaveInputToState}>
 						<Dropdown overlay={this.menu}>
 							<Button>
 								{this.state.exchange}
@@ -66,7 +78,7 @@ class APISettingsForm extends Component {
 						</Dropdown>
 					</Form.Item>
 
-					<Form.Item>
+					<Form.Item {...tailLayout}>
 						<Button type="primary" htmlType="submit">
 							Submit
 						</Button>
