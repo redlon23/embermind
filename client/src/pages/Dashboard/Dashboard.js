@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import HeaderNavBar from '../../modules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../modules/SideNavBar/SideNavBar'
 
-import { Button } from 'antd'
 import { Row, Col, Layout } from 'antd'
 
-const { Header, Content, Sider } = Layout
+const { Content } = Layout
 
 const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
 const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
@@ -17,22 +16,6 @@ class Dashboard extends Component {
 
 	render() {
 		return (
-			// <div className="Dashboard">
-			// 	<h1>Dashboard</h1>
-			// 	<button className="button" onClick={this.handleLogout}>
-			// 		Logout
-			// 	</button>
-			// 	<button className="button" onClick={() => this.props.history.push('/account-settings')}>
-			// 		Account Settings
-			// 	</button>
-			// 	<button className="button" onClick={() => this.props.history.push('/strategy-listings')}>
-			// 		Strategy Listings
-			// 	</button>
-			// 	<button className="button" onClick={() => this.props.history.push('/strategy-settings')}>
-			// 		Strategy Settings
-			// 	</button>
-			// 	<Button type="primary">Ant Test Button</Button>
-			// </div>
 			<div>
 				<Layout>
 					<SideNavBar />

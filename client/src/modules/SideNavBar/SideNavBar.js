@@ -30,10 +30,8 @@ class SideNavBar extends Component {
 					</div>
 					<Menu theme="dark" mode="inline" defaultSelectedKeys={[ '1' ]}>
 						<Menu.Divider />
-						<Menu.Item key="1">
-							<span className="nav-text" onClick={() => this.props.history.push('/dashboard')}>
-								Dashboard
-							</span>
+						<Menu.Item key="1" onClick={() => this.props.history.push('/dashboard')}>
+							<span className="nav-text">Dashboard</span>
 						</Menu.Item>
 						<Menu.Item key="2">
 							<span className="nav-text">Trade Records</span>
@@ -42,15 +40,11 @@ class SideNavBar extends Component {
 							<span className="nav-text">Equipped Strategies</span>
 						</Menu.Item>
 						<Menu.Divider />
-						<Menu.Item key="4">
-							<span className="nav-text" onClick={() => this.props.history.push('/account-settings')}>
-								Account Settings
-							</span>
+						<Menu.Item key="4" onClick={() => this.props.history.push('/account-settings')}>
+							<span className="nav-text">Account Settings</span>
 						</Menu.Item>
-						<Menu.Item key="5">
-							<span className="nav-text" onClick={() => this.props.history.push('/strategy-settings')}>
-								Strategy Settings
-							</span>
+						<Menu.Item key="5" onClick={() => this.props.history.push('/strategy-settings')}>
+							<span className="nav-text">Strategy Settings</span>
 						</Menu.Item>
 						<Menu.Item key="6">
 							<span className="nav-text">Active / Inactive</span>
