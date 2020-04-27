@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import HeaderNavBar from '../../modules/HeaderNavBar/HeaderNavBar'
-import './Dashboard.css'
+import SideNavBar from '../../modules/SideNavBar/SideNavBar'
 
 import { Button } from 'antd'
 import { Row, Col, Layout } from 'antd'
@@ -35,7 +35,7 @@ class Dashboard extends Component {
 			// </div>
 			<div>
 				<Layout>
-					<Sider style={{ color: 'white' }}>SideNavBar Goes Here</Sider>
+					<SideNavBar />
 					<Layout>
 						<HeaderNavBar />
 						<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>

@@ -3,12 +3,11 @@ import { withRouter } from 'react-router-dom'
 
 import { Row, Col, Layout, Button } from 'antd'
 
-const { Header, Content, Sider } = Layout
+const { Header } = Layout
 
 class HeaderNavBar extends Component {
 	constructor(props) {
 		super(props)
-		console.log('MAH PROPS: ' + JSON.stringify(props))
 		this.handleLogout = this.handleLogout.bind(this)
 	}
 
