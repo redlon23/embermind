@@ -5,7 +5,7 @@ import { Layout, Button, Form, Input } from 'antd'
 const { Header } = Layout
 
 class LandingPageHeader extends Component {
-	loginHandler = async (event) => {
+	handleLogin = async (event) => {
 		try {
 			const loginCreds = {
 				email: event.email ? event.email : null,
@@ -36,7 +36,7 @@ class LandingPageHeader extends Component {
 			<div>
 				<Layout>
 					<Header className="landingPageHeader">
-						<Form name="horizontal_login" layout="inline" onFinish={this.loginHandler}>
+						<Form name="horizontal_login" layout="inline" onFinish={this.handleLogin}>
 							<Form.Item name="email" rules={[ { required: true, message: 'Please input your email!' } ]}>
 								<Input placeholder="Email" />
 							</Form.Item>
