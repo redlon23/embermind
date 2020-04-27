@@ -1,0 +1,9 @@
+.AccountSettingsPage {
+	background-color: red;
+}
+
+.header-bar {
+	height: '3rem';
+	background-color: '#1A1C25';
+	color: '#EBEBEB';
+}
