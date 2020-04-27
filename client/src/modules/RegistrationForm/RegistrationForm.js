@@ -6,8 +6,7 @@ class RegistrationForm extends Component {
 		event.preventDefault()
 
 		const registrationCreds = {
-			firstName: event.target.firstName.value ? event.target.firstName.value : null,
-			lastName: event.target.lastName.value ? event.target.lastName.value : null,
+			name: event.target.name.value ? event.target.name.value : null,
 			email: event.target.email.value ? event.target.email.value : null,
 			password: event.target.password.value ? event.target.password.value : null,
 			confirmPassword: event.target.confirmPassword.value ? event.target.confirmPassword.value : null
@@ -40,18 +39,11 @@ class RegistrationForm extends Component {
 						<strong>Sign Up!</strong>
 					</h2>
 					<input
-						className="inp_firstName"
-						name="firstName"
+						className="inp_name"
+						name="name"
 						type="text"
 						maxLength="40"
-						placeholder="first name"
-					/>
-					<input
-						className="inp_lastName"
-						name="lastName"
-						type="text"
-						maxLength="40"
-						placeholder="last name"
+						placeholder="name"
 					/>
 					<br />
 					<input className="inp_email" name="email" type="text" maxLength="99" placeholder="email" />

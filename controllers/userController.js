@@ -18,12 +18,12 @@ exports.loginUser = async (req, res) => {
 }
 
 exports.registerNewUser = async (req, res) => {
-	const { firstName, lastName, email, password, confirmPassword } = req.body
+	const { name, email, password, confirmPassword } = req.body
 	if (password !== confirmPassword) {
 		res.send("Password and Confirm Password didn't match")
 	}
 
-	const user = await userModel.registerNewUser({ firstName, lastName, email, password })
+	const user = await userModel.registerNewUser({ name, email, password })
 	if (!user) {
 		res.send('Provided email is in use!')
 	}
@@ -39,6 +39,17 @@ exports.setAPIKeys = async (req, res) => {
 	const result = await userModel.updateAPIKeys({ publicAPI, privateAPI, userId: req.session.userId })
 	if (!result) {
 		res.send('API Keys failed to update')
+	}
+	res.status(200).send({ status: 200, message: 'API Keys Updated' })
+}
+
+//TODO: Test once front end is finished
+exports.updateAccount = async (req, res) => {
+	const { name, email, password } = req.body
+
+	const result = await userModel.updateAccount({ name, email, password, userId: req.session.userId })
+	if (!result) {
+		res.send('Account Keys failed to update')
 	}
 	res.status(200).send({ status: 200, message: 'API Keys Updated' })
 }
