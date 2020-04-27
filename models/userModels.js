@@ -32,7 +32,7 @@ exports.updateAPIKeys = async (req) => {
 	try{
 		var hashedPublic = await saltyHash(req.publicAPI);
 		var hashedSecret = await saltyHash(req.secretAPI);
-		var result = User.update({_id: req.userId}, { $set:{ publicAPI: hashedPublic, secretAPI: hashedSecret }}).exec();
+		var result = User.update({_id: req.userId}, { $set:{ publicAPI: hashedPublic, secretAPI: hashedSecret, exchange: req.exchange }}).exec();
 	} catch(err) {
 		console.log(err);
 		result = null;

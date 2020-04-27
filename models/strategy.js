@@ -17,4 +17,4 @@ const Strategy = new Schema ({
     }]
 });
 
-module.exports = mongoose.model('Strategy', Strategy, 'strategy')
+module.exports = mongoose.model('Strategy', Strategy, 'strategies')
