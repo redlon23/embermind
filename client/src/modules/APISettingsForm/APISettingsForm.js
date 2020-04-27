@@ -44,7 +44,6 @@ class APISettingsForm extends Component {
 
 	handleSaveInputToState(event) {
 		this.setState({ [event.target.id]: event.target.value })
-		console.log({ [event.target.id]: event.target.value })
 	}
 
 	handleExchangeSelect({ key }) {

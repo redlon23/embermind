@@ -28,21 +28,46 @@ class UserSettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { name: '', email: '', password: '' }
+
+		this.handleSaveInputToState = this.handleSaveInputToState.bind(this)
+		this.handleSubmitUserSettings = this.handleSubmitUserSettings.bind(this)
 	}
+
+	handleSaveInputToState(event) {
+		this.setState({ [event.target.id]: event.target.value })
+	}
+
+	handleSubmitUserSettings() {
+		// Make your requests to backend here:
+		console.log(this.state.name + ' ' + this.state.email + ' ' + this.state.password)
+	}
+
 	render() {
 		return (
 			<div style={{ ...contentStyle }}>
 				User Settings
-				<Form className="form-section" {...layout} size={'small'}>
-					<Form.Item className="form-group" label="Name" name="Name" rules={[ { required: true } ]}>
+				<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitUserSettings}>
+					<Form.Item className="form-group" label="Name" name="name" rules={[ { required: true } ]} onChange={this.handleSaveInputToState}>
 						<Input />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Email" name="Email" rules={[ { required: true } ]}>
+					<Form.Item
+						className="form-group"
+						label="Email"
+						name="email"
+						rules={[ { required: true } ]}
+						onChange={this.handleSaveInputToState}
+					>
 						<Input />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Password" name="Password" rules={[ { required: true } ]}>
+					<Form.Item
+						className="form-group"
+						label="Password"
+						name="password"
+						rules={[ { required: true } ]}
+						onChange={this.handleSaveInputToState}
+					>
 						<Input.Password />
 					</Form.Item>
 
