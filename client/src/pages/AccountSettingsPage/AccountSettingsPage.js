@@ -1,14 +1,31 @@
 import React, { Component } from 'react'
-
 import HeaderNavBar from '../../modules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../modules/SideNavBar/SideNavBar'
+import UserSettingsForm from '../../modules/UserSettingsForm/UserSettingsForm'
+import APISettingsForm from '../../modules/APISettingsForm/APISettingsForm'
 
 import { Row, Col, Layout } from 'antd'
 
 const { Content } = Layout
 
-const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
-const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
+const headerStyle = {
+	height: '3rem',
+	backgroundColor: '#1A1C25',
+	color: '#EBEBEB',
+	display: 'flex',
+	alignItems: 'center',
+	fontSize: '16pt',
+	padding: '1rem'
+}
+
+const contentStyle = {
+	background: '#1A1C25',
+	height: '19.5rem',
+	fontSize: '16pt',
+	padding: '1rem',
+	color: '#EBEBEB'
+}
+const contentGutter = [ 4, 4 ]
 
 class AccountSettingsPage extends Component {
 	render() {
@@ -20,7 +37,27 @@ class AccountSettingsPage extends Component {
 						<Layout>
 							<HeaderNavBar />
 							<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
-								<h1>Account Settings</h1>
+								<Row gutter={[ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]}>
+									<Col span={24}>
+										<div style={headerStyle}>Account Settings</div>
+									</Col>
+								</Row>
+								<Row gutter={contentGutter}>
+									<Col span={12}>
+										<UserSettingsForm />
+									</Col>
+									<Col span={12}>
+										<APISettingsForm />
+									</Col>
+								</Row>
+								<Row gutter={contentGutter}>
+									<Col span={12}>
+										<div style={{ ...contentStyle }}>Subscription Details</div>
+									</Col>
+									<Col span={12}>
+										<div style={{ ...contentStyle }}>Purchase Subscription</div>
+									</Col>
+								</Row>
 							</Content>
 						</Layout>
 					</Layout>

@@ -1,0 +1,18 @@
+/* 
+ANT DESIGN related
+These styles are available to any component in the app that has the className.
+If the styles are here, it's because I couldn't find any other way of styling the component.
+
+NOTE: It seems like if one component imports this style sheet, all pages import it automatically.
+It's currently imported in Dashboard.js
+
+*/
+
+.ant-btn-primary:after {
+	animation: none !important;
+}
+
+.form-section .form-group label {
+	font-size: 15px;
+	color: #ebebeb;
+}

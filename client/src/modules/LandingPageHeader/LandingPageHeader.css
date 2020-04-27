@@ -5,7 +5,3 @@
 	justify-content: flex-end;
 	align-items: center;
 }
-
-.ant-btn-primary:after {
-	animation: none !important;
-}
