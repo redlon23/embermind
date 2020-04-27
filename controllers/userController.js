@@ -34,9 +34,9 @@ exports.registerNewUser = async (req, res) => {
 
 //TODO: Test once front end is finished
 exports.setAPIKeys = async (req, res) => {
-	const { publicAPI, privateAPI } = req.body
+	const { publicAPI, privateAPI, exchange } = req.body
 
-	const result = await userModel.updateAPIKeys({ publicAPI, privateAPI, userId: req.session.userId })
+	const result = await userModel.updateAPIKeys({ publicAPI, privateAPI, exchange, userId: req.session.userId })
 	if (!result) {
 		res.send('API Keys failed to update')
 	}
