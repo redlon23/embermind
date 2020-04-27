@@ -20,45 +20,54 @@ const layout = {
 	style: { padding: '1rem' }
 }
 
-function handleButtonClick(e) {
-	console.log('click left button', e)
-}
-
-function handleMenuClick(e) {
-	console.log('click', e)
-}
-
-const menu = (
-	<Menu onClick={handleMenuClick}>
-		<Menu.Item key="1">Binance</Menu.Item>
-		<Menu.Item key="2">Bybit</Menu.Item>
-	</Menu>
-)
-
 class APISettingsForm extends Component {
+	constructor(props) {
+		super(props)
+		this.state = { exchange: 'Submit' }
+		this.handleExchangeSelect = this.handleExchangeSelect.bind(this)
+		this.handleSubmitAPISettings = this.handleSubmitAPISettings.bind(this)
+
+		this.menu = (
+			<Menu onClick={this.handleExchangeSelect}>
+				<Menu.Item key="Binance">Binance</Menu.Item>
+				<Menu.Item key="Bybit">Bybit</Menu.Item>
+			</Menu>
+		)
+	}
+
+	handleExchangeSelect({ key }) {
+		this.setState({ exchange: key })
+	}
+
+	handleSubmitAPISettings(event) {
+		// Make your requests to backend here:
+		console.log(event.publicApi + ' ' + event.secretApi + ' ' + (this.state.exchange === 'Submit' ? '' : this.state.exchange))
+	}
+
 	render() {
 		return (
 			<div style={{ ...contentStyle }}>
 				API Settings
-				<Form className="form-section" {...layout} size={'small'}>
-					<Form.Item className="form-group" label="Public API" name="Public API">
+				<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitAPISettings}>
+					<Form.Item className="form-group" label="Public API" name="publicApi">
 						<Input />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Secret API" name="Secret API">
+					<Form.Item className="form-group" label="Secret API" name="secretApi">
 						<Input.Password />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Exchange" name="Exchange" placeholder="">
-						<Dropdown overlay={menu}>
+					<Form.Item className="form-group" label="Exchange" name="exchange">
+						<Dropdown overlay={this.menu}>
 							<Button>
-								Select<DownOutlined />
+								{this.state.exchange}
+								<DownOutlined />
 							</Button>
 						</Dropdown>
 					</Form.Item>
 
 					<Form.Item>
-						<Button className="form-group" type="primary" htmlType="submit">
+						<Button type="primary" htmlType="submit">
 							Submit
 						</Button>
 					</Form.Item>
