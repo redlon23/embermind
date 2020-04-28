@@ -8,7 +8,7 @@ import { Row, Col, Layout } from 'antd'
 const { Content } = Layout
 
 const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
-const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
+const contentGutter = [ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]
 
 class Dashboard extends Component {
 	onPanelChange(value, mode) {
@@ -25,23 +25,23 @@ class Dashboard extends Component {
 						<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
-									<div style={{ ...contentStyle, height: '3rem' }}>Content 0</div>
+									<div style={{ ...contentStyle, height: '2.6rem' }}>Content 0</div>
 								</Col>
 							</Row>
 							<Row gutter={contentGutter}>
 								<Col span={15}>
-									<div style={{ ...contentStyle, height: '22rem' }}>Content 1</div>
+									<div style={{ ...contentStyle, height: '20rem' }}>Content 1</div>
 								</Col>
 								<Col span={9}>
-									<div style={{ ...contentStyle, height: '22rem' }}>Content 2</div>
+									<div style={{ ...contentStyle, height: '20rem' }}>Content 2</div>
 								</Col>
 							</Row>
 							<Row gutter={contentGutter}>
 								<Col span={15}>
-									<div style={{ ...contentStyle, height: '15rem' }}>Content 3</div>
+									<div style={{ ...contentStyle, height: '13rem' }}>Content 3</div>
 								</Col>
 								<Col span={9}>
-									<div style={{ ...contentStyle, height: '15rem' }}>Content 4</div>
+									<div style={{ ...contentStyle, height: '13rem' }}>Content 4</div>
 								</Col>
 							</Row>
 						</Content>

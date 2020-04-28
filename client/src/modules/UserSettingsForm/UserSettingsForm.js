@@ -3,7 +3,7 @@ import { Form, Input, Button } from 'antd'
 
 const contentStyle = {
 	background: '#1A1C25',
-	height: '19.5rem',
+	height: '17.5rem',
 	fontSize: '16pt',
 	padding: '1rem',
 	color: '#EBEBEB'

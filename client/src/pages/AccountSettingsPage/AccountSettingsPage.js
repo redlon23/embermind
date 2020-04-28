@@ -21,8 +21,8 @@ const headerStyle = {
 
 const contentStyle = {
 	background: '#1A1C25',
-	height: '19.5rem',
-	fontSize: '16pt',
+	height: '17.5rem',
+	fontSize: '16.5pt',
 	padding: '1rem',
 	color: '#EBEBEB'
 }
@@ -37,7 +37,7 @@ class AccountSettingsPage extends Component {
 						<Layout>
 							<HeaderNavBar />
 							<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
-								<Row gutter={[ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]}>
+								<Row gutter={[ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]}>
 									<Col span={24}>
 										<div style={headerStyle}>Account Settings</div>
 									</Col>

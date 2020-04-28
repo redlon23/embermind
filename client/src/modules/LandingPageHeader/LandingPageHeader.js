@@ -36,7 +36,7 @@ class LandingPageHeader extends Component {
 			<div>
 				<Layout>
 					<Header className="landingPageHeader">
-						<Form name="horizontal_login" layout="inline" onFinish={this.handleLogin}>
+						<Form name="horizontal_login" layout="inline" size="small" onFinish={this.handleLogin}>
 							<Form.Item name="email" rules={[ { required: true, message: 'Please input your email!' } ]}>
 								<Input placeholder="Email" />
 							</Form.Item>

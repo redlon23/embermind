@@ -4,8 +4,8 @@ import { DownOutlined } from '@ant-design/icons'
 
 const contentStyle = {
 	background: '#1A1C25',
-	height: '19.5rem',
-	fontSize: '16pt',
+	height: '17.5rem',
+	fontSize: '16.5pt',
 	padding: '1rem',
 	color: '#EBEBEB'
 }
