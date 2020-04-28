@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import { Form, Input, Button } from 'antd'
 
 const contentStyle = {
@@ -37,30 +36,29 @@ class UserSettingsForm extends Component {
 		this.setState({ [event.target.id]: event.target.value })
 	}
 
-	handleSubmitUserSettings = async (event) => {
-			try {	
-				const accountRequest = {
-					name: this.state.name  ? this.state.name  : null,
-					email: this.state.email ? this.state.email : null,
-					password: this.state.password ? this.state.password : null,
-				}
-				const response = await fetch('/api/updateAccount', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(accountRequest)
-				})
-				const data = await response.json()
-				if (data.status === 200) {
-					console.log(JSON.stringify(data.message))
-				} else {
-					//TODO: Prompt for correct input
-				}
-			} catch (err) {
-				console.log(err)
-			}		
-			//console.log(this.state.name + ' ' + this.state.email + ' ' + this.state.password)
+	handleSubmitUserSettings = async () => {
+		try {
+			const accountRequest = {
+				name: this.state.name ? this.state.name : null,
+				email: this.state.email ? this.state.email : null,
+				password: this.state.password ? this.state.password : null
+			}
+			const response = await fetch('/api/updateAccount', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(accountRequest)
+			})
+			const data = await response.json()
+			if (data.status === 200) {
+				console.log(JSON.stringify(data.message))
+			} else {
+				//TODO: Prompt for correct input
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	render() {

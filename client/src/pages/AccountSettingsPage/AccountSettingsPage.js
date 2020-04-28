@@ -3,6 +3,7 @@ import HeaderNavBar from '../../modules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../modules/SideNavBar/SideNavBar'
 import UserSettingsForm from '../../modules/UserSettingsForm/UserSettingsForm'
 import APISettingsForm from '../../modules/APISettingsForm/APISettingsForm'
+import SubscriptionDetails from '../../modules/SubscriptionDetails/SubscriptionDetails'
 
 import { Row, Col, Layout } from 'antd'
 
@@ -25,7 +26,6 @@ const contentStyle = {
 	padding: '1rem',
 	color: '#EBEBEB'
 }
-const contentGutter = [ 4, 4 ]
 
 class AccountSettingsPage extends Component {
 	render() {
@@ -42,7 +42,7 @@ class AccountSettingsPage extends Component {
 										<div style={headerStyle}>Account Settings</div>
 									</Col>
 								</Row>
-								<Row gutter={contentGutter}>
+								<Row gutter={[ 4, 4 ]}>
 									<Col span={12}>
 										<UserSettingsForm />
 									</Col>
@@ -50,12 +50,12 @@ class AccountSettingsPage extends Component {
 										<APISettingsForm />
 									</Col>
 								</Row>
-								<Row gutter={contentGutter}>
+								<Row gutter={[ 0, 0 ]}>
 									<Col span={12}>
-										<div style={{ ...contentStyle }}>Subscription Details</div>
+										<SubscriptionDetails />
 									</Col>
 									<Col span={12}>
-										<div style={{ ...contentStyle }}>Purchase Subscription</div>
+										<div style={{ ...contentStyle }} />
 									</Col>
 								</Row>
 							</Content>
