@@ -53,6 +53,17 @@ exports.updateAccount = async (req) => {
 	}
 }
 
+exports.getUser = async (req) => {
+	try{
+		var result = User.findOne({_id: req.userId});
+	} catch(err) {
+		console.log(err);
+		result = null;
+	} finally {
+		return result;
+	}
+}
+
 async function saltyHash(password){
 	const salt = crypto.randomBytes(8).toString('hex');
 	const buf = await scrypt(password, salt, 64)

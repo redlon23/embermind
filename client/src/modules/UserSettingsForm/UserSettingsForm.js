@@ -27,10 +27,32 @@ const tailLayout = {
 class UserSettingsForm extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { name: '', email: '', password: '' }
-
+		this.state = {
+			ready: false,
+		  };
+		this.handlePreFillForm = this.handlePreFillForm.bind(this)
 		this.handleSaveInputToState = this.handleSaveInputToState.bind(this)
 		this.handleSubmitUserSettings = this.handleSubmitUserSettings.bind(this)
+	}
+
+	async componentDidMount() {
+		this.setState({ loading: 'true' });
+		await this.handlePreFillForm();
+		console.log("ready")
+		this.setState({
+			ready: true
+		});
+	}
+
+	handlePreFillForm = async (event) => {
+		try{
+			const result = await fetch('/api/getAccount')
+			console.log(result);
+			this.state = { name: result.name, email: result.email, password: '********' }
+		} catch (err){
+			console.log(err)
+			this.state = { name: '', email: '', password: '********' }
+		}
 	}
 
 	handleSaveInputToState(event) {
@@ -64,12 +86,13 @@ class UserSettingsForm extends Component {
 	}
 
 	render() {
+		if (this.state.ready){
 		return (
 			<div style={{ ...contentStyle }}>
 				User Settings
 				<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitUserSettings}>
 					<Form.Item className="form-group" label="Name" name="name" rules={[ { required: true } ]} onChange={this.handleSaveInputToState}>
-						<Input />
+						<Input value={this.state?.name} />
 					</Form.Item>
 
 					<Form.Item
@@ -79,7 +102,7 @@ class UserSettingsForm extends Component {
 						rules={[ { required: true } ]}
 						onChange={this.handleSaveInputToState}
 					>
-						<Input />
+						<Input value={this.state?.email} />
 					</Form.Item>
 
 					<Form.Item
@@ -89,7 +112,7 @@ class UserSettingsForm extends Component {
 						rules={[ { required: true } ]}
 						onChange={this.handleSaveInputToState}
 					>
-						<Input.Password />
+						<Input.Password value={this.state?.password}/>
 					</Form.Item>
 
 					<Form.Item {...tailLayout}>
@@ -100,6 +123,9 @@ class UserSettingsForm extends Component {
 				</Form>
 			</div>
 		)
+		} else {
+			return null
+		}
 	}
 }
 
