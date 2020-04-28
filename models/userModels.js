@@ -44,7 +44,7 @@ exports.updateAPIKeys = async (req) => {
 exports.updateAccount = async (req) => {
 	try{
 		var hashedPassword = await saltyHash(req.password);
-		var result = User.update({_id: req.userId}, { $set:{ name: name, password: hashedPassword, email: email }}).exec();
+		var result = User.update({_id: req.userId}, { $set:{ name: req.name, password: hashedPassword, email: req.email }}).exec();
 	} catch(err) {
 		console.log(err);
 		result = null;
