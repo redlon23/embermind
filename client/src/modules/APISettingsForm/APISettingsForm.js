@@ -50,9 +50,30 @@ class APISettingsForm extends Component {
 		this.setState({ exchange: key })
 	}
 
-	handleSubmitAPISettings() {
-		// Make your requests to backend here:
-		console.log(this.state.publicApi + ' ' + this.state.secretApi + ' ' + (this.state.exchange === 'Submit' ? 'Submit' : this.state.exchange))
+	handleSubmitAPISettings = async (event) => {
+			try {	
+				const setAPIRequest = {
+					publicAPI: this.state.publicApi  ? this.state.publicApi  : null,
+					secretAPI: this.state.secretApi ? this.state.secretApi : null,
+					exchange: this.state.exchange ? this.state.exchange : null,
+				}
+				const response = await fetch('/api/setAPIKeys', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(setAPIRequest)
+				})
+				const data = await response.json()
+				if (data.status === 200) {
+					console.log(JSON.stringify(data.message))
+				} else {
+					//TODO: Prompt for correct input
+				}
+			} catch (err) {
+				console.log(err)
+			}
+				//console.log(this.state.publicApi + ' ' + this.state.secretApi + ' ' + (this.state.exchange === 'Submit' ? 'Submit' : this.state.exchange))
 	}
 
 	render() {
