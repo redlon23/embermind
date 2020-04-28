@@ -12,6 +12,10 @@ It's currently imported in Dashboard.js
 	animation: none !important;
 }
 
+.ant-badge-zoom-appear {
+	animation: none !important;
+}
+
 .form-section .form-group label {
 	font-size: 15px;
 	color: #ebebeb;
