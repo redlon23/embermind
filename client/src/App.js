@@ -18,20 +18,12 @@ class App extends Component {
 	Checks if there's as userId in the secure session data -- returns true or false.
 	Changes the validating flag to false when done.
 	*/
-	async componentWillMount() {
+	async componentDidMount() {
 		const response = await fetch(`./api/isReactAuth`)
 		const json = await response.json()
 		if (json) {
 			this.setState({ hasSession: json.hasSession, validating: false })
 		}
-	}
-
-	/*
-		Because React is asynchronous and doesn't wait for componentWillMount to finish before rendering the routes below, this will
-		force them to render again with the updated state.  
-	*/
-	componentDidMount() {
-		this.forceUpdate()
 	}
 
 	/*

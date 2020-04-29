@@ -4,7 +4,7 @@ import { DownOutlined } from '@ant-design/icons'
 
 const contentStyle = {
 	background: '#1A1C25',
-	height: '17.5rem',
+	height: '19rem',
 	fontSize: '16.5pt',
 	padding: '1rem',
 	color: '#EBEBEB'
@@ -12,7 +12,7 @@ const contentStyle = {
 
 const layout = {
 	labelCol: {
-		span: 4
+		span: 6
 	},
 	wrapperCol: {
 		span: 16
@@ -21,7 +21,11 @@ const layout = {
 }
 
 const tailLayout = {
-	wrapperCol: { offset: 17, span: 7 }
+	wrapperCol: { offset: 20, span: 7 },
+	style: {
+		marginTop: '4.4rem',
+		marginBottom: '0'
+	}
 }
 
 class APISettingsForm extends Component {
@@ -99,7 +103,7 @@ class APISettingsForm extends Component {
 
 					<Form.Item {...tailLayout}>
 						<Button type="primary" htmlType="submit">
-							Submit
+							Update
 						</Button>
 					</Form.Item>
 				</Form>
