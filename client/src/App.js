@@ -18,7 +18,7 @@ class App extends Component {
 	Checks if there's as userId in the secure session data -- returns true or false.
 	Changes the validating flag to false when done.
 	*/
-	async componentWillMount() {
+	async componentDidMount() {
 		const response = await fetch(`./api/isReactAuth`)
 		const json = await response.json()
 		if (json) {

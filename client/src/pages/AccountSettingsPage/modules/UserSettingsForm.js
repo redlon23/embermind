@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { Form, Input, Button } from 'antd'
 
 const contentStyle = {
@@ -37,7 +38,7 @@ class UserSettingsForm extends Component {
 		this.handleSubmitUserSettings = this.handleSubmitUserSettings.bind(this)
 	}
 
-	async componentWillMount() {
+	async componentDidMount() {
 		const response = await fetch('/api/getUserInfo')
 		const json = await response.json()
 		if (json) {
@@ -71,6 +72,7 @@ class UserSettingsForm extends Component {
 			const data = await response.json()
 			if (data.status === 200) {
 				console.log(JSON.stringify(data.message))
+				this.props.history.push('./dashboard')
 			} else {
 				//TODO: Prompt for correct input
 			}
@@ -115,4 +117,4 @@ class UserSettingsForm extends Component {
 	}
 }
 
-export default UserSettingsForm
+export default withRouter(UserSettingsForm)
