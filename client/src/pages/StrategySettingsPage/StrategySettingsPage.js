@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import validateSessionStatus from '../../sessionValidator'
 import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 
@@ -10,6 +11,16 @@ const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
 const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
 
 class StrategySettingsPage extends Component {
+	constructor(props) {
+		super(props)
+		this.state = { hasSession: false }
+	}
+
+	async componentDidMount() {
+		const result = await validateSessionStatus()
+		this.setState(result)
+	}
+
 	render() {
 		return (
 			<div className="StrategySettingsPage">

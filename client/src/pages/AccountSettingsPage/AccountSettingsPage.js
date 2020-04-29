@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import validateSessionStatus from '../../sessionValidator'
 import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
@@ -19,6 +20,16 @@ const contentStyle = {
 }
 
 class AccountSettingsPage extends Component {
+	constructor(props) {
+		super(props)
+		this.state = { hasSession: false }
+	}
+
+	async componentDidMount() {
+		const result = await validateSessionStatus()
+		this.setState(result)
+	}
+
 	render() {
 		return (
 			<div className="AccountSettingsPage">

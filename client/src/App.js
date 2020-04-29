@@ -12,16 +12,16 @@ class App extends Component {
 		super(props)
 		this.state = { hasSession: false, validating: true }
 
-		this.validateSessionStatus = this.validateSessionStatus.bind(this)
+		this.validateInitialSessionStatus = this.validateInitialSessionStatus.bind(this)
 	}
 
 	/*
 	Runs every time a request for a page is made.
 	Checks if there's as userId in the secure session data -- returns true or false.
 	Changes the validating flag to false when done.
+	Slightly different than the validateSessionStatus methods found on other pages.
 	*/
-
-	async validateSessionStatus() {
+	async validateInitialSessionStatus() {
 		console.log('3: ' + this.state.hasSession)
 		const response = await fetch(`./api/isReactAuthLogin`)
 		const json = await response.json()
@@ -32,15 +32,14 @@ class App extends Component {
 
 	/*
 		Executed when user navigates to '/'.
-		If componentWillMount is done validating the existance of a userId in session, this checks state for hasSession:
+		if session not validated yet, run validateInitialSessionStatus to check for existance of a userId in session.
 			If true, '/' redirects to the dashboard.
 			If false, '/' rerenders the landing page.
 	*/
 	RootRouteRedirect({ children, context }) {
 		console.log('1: ' + context.state.hasSession)
 		if (context.state.validating) {
-			context.validateSessionStatus()
-			console.log('4: ' + context.state.hasSession)
+			context.validateInitialSessionStatus()
 		} else {
 			return <Route render={() => (context.state.hasSession ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
 		}
@@ -49,14 +48,14 @@ class App extends Component {
 
 	/*
 		Executed if user navigates to any route requiring authentication.
-		If componentWillMount is done validating the existance of a userId in session, it checks state for hasSession:
+		if session not validated yet, run validateInitialSessionStatus to check for existance of a userId in session.
 			If true, user is redirected to desired page.
 			If false, user is redirected to landing page.
 	*/
 	PrivateRoute({ children, context }) {
 		console.log('2: ' + context.state.hasSession)
 		if (context.state.validating) {
-			context.validateSessionStatus()
+			context.validateInitialSessionStatus()
 		} else {
 			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
 		}

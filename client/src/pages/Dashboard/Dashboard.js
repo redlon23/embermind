@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import validateSessionStatus from '../../sessionValidator'
 import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import '../../sharedStyles.css'
@@ -17,25 +18,11 @@ class Dashboard extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { hasSession: false }
-
-		this.validateSessionStatus = this.validateSessionStatus.bind(this)
 	}
 
 	async componentDidMount() {
-		this.validateSessionStatus()
-	}
-
-	async validateSessionStatus() {
-		console.log('33: ' + this.state.hasSession)
-		const response = await fetch(`./api/isReactAuthPrivateRoute`)
-		const json = await response.json()
-		console.log('json: ' + JSON.stringify(json))
-		if (json.hasSession) {
-			this.setState({ hasSession: true })
-		} else {
-			await fetch(`./api/logout`)
-			window.location.reload()
-		}
+		const result = await validateSessionStatus()
+		this.setState(result)
 	}
 
 	onPanelChange(value, mode) {
