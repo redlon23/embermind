@@ -42,9 +42,20 @@ exports.updateAPIKeys = async (req) => {
 }
 
 exports.updateAccount = async (req) => {
+	console.log(req)
 	try{
-		var hashedPassword = await saltyHash(req.password);
-		var result = User.update({_id: req.userId}, { $set:{ name: req.name, password: hashedPassword, email: req.email }}).exec();
+		let query = {};
+		if(req.name != null && req.name != ''){
+			query["name"] = req.name;
+		}
+		if(req.password != null && req.password != ''){
+			var hashedPassword = await saltyHash(req.password);
+			query["password"] = hashedPassword;
+		}
+		if(req.email != null && req.email != ''){
+			query["email"] = req.email;
+		}
+		var result = User.update({_id: req.userId}, query).exec();
 	} catch(err) {
 		console.log(err);
 		result = null;
