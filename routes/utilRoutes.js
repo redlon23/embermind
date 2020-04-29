@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const isReactAuth = require('../util/isReactAuth')
 
-router.get('/isReactAuth', isReactAuth.isReactAuthenticated)
+router.get('/isReactAuthLogin', isReactAuth.isReactAuthLogin)
+router.get('/isReactAuthPrivateRoute', isReactAuth.isReactAuthPrivateRoute)
 
 module.exports = router

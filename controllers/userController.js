@@ -56,5 +56,5 @@ exports.updateAccount = async (req, res) => {
 
 exports.logout = async (req, res) => {
 	req.session = null
-	res.status(200).send({ status: 200 })
+	res.status(200).send()
 }

@@ -11,6 +11,8 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { hasSession: false, validating: true }
+
+		this.validateSessionStatus = this.validateSessionStatus.bind(this)
 	}
 
 	/*
@@ -18,20 +20,14 @@ class App extends Component {
 	Checks if there's as userId in the secure session data -- returns true or false.
 	Changes the validating flag to false when done.
 	*/
-	async componentWillMount() {
-		const response = await fetch(`./api/isReactAuth`)
+
+	async validateSessionStatus() {
+		console.log('3: ' + this.state.hasSession)
+		const response = await fetch(`./api/isReactAuthLogin`)
 		const json = await response.json()
 		if (json) {
 			this.setState({ hasSession: json.hasSession, validating: false })
 		}
-	}
-
-	/*
-		Because React is asynchronous and doesn't wait for componentWillMount to finish before rendering the routes below, this will
-		force them to render again with the updated state.  
-	*/
-	componentDidMount() {
-		this.forceUpdate()
 	}
 
 	/*
@@ -41,11 +37,14 @@ class App extends Component {
 			If false, '/' rerenders the landing page.
 	*/
 	RootRouteRedirect({ children, context }) {
-		if (!context.state.validating) {
-			return <Route render={() => (context.state.hasSession ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
+		console.log('1: ' + context.state.hasSession)
+		if (context.state.validating) {
+			context.validateSessionStatus()
+			console.log('4: ' + context.state.hasSession)
 		} else {
-			return null
+			return <Route render={() => (context.state.hasSession ? <Redirect to={{ pathname: '/dashboard' }} /> : children)} />
 		}
+		return null
 	}
 
 	/*
@@ -55,11 +54,13 @@ class App extends Component {
 			If false, user is redirected to landing page.
 	*/
 	PrivateRoute({ children, context }) {
-		if (!context.state.validating) {
-			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
+		console.log('2: ' + context.state.hasSession)
+		if (context.state.validating) {
+			context.validateSessionStatus()
 		} else {
-			return null
+			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
 		}
+		return null
 	}
 
 	/* 

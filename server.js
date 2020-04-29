@@ -11,11 +11,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(
 	cookieSession({
 		httpOnly: true,
-		keys: [ 'jd78h756ad98s81224nvm7125j' ]
+		keys: [ 'jd78h756ad98s81224nvm7125j' ],
+		maxAge: 5000
 	})
 )
-
-//db.setupDatabase()
 
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
