@@ -8,6 +8,6 @@ router.post('/loginUser', userController.loginUser)
 router.get('/logout', userController.logout)
 router.post('/setAPIKeys', userController.setAPIKeys)
 router.post('/updateAccount', userController.updateAccount)
-router.get('/getAccount', userController.getAccount)
+router.get('/getUserInfo', userController.getUserInfo)
 
 module.exports = router

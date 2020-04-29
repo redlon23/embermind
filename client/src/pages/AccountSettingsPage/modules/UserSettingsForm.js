@@ -3,7 +3,7 @@ import { Form, Input, Button } from 'antd'
 
 const contentStyle = {
 	background: '#1A1C25',
-	height: '17.5rem',
+	height: '19rem',
 	fontSize: '16pt',
 	padding: '1rem',
 	color: '#EBEBEB'
@@ -11,16 +11,16 @@ const contentStyle = {
 
 const layout = {
 	labelCol: {
-		span: 4
+		span: 6
 	},
 	wrapperCol: {
 		span: 16
 	},
-	style: { padding: '1rem' }
+	style: { paddingTop: '1rem' }
 }
 
 const tailLayout = {
-	wrapperCol: { offset: 17, span: 7 }
+	wrapperCol: { offset: 20, span: 7 }
 }
 
 class UserSettingsForm extends Component {
@@ -30,6 +30,7 @@ class UserSettingsForm extends Component {
 			name: '',
 			email: '',
 			password: '',
+			confirmPassword: '',
 			ready: false
 		}
 		this.handleSaveInputToState = this.handleSaveInputToState.bind(this)
@@ -37,7 +38,7 @@ class UserSettingsForm extends Component {
 	}
 
 	async componentWillMount() {
-		const response = await fetch('/api/getAccount')
+		const response = await fetch('/api/getUserInfo')
 		const json = await response.json()
 		if (json) {
 			this.setState({ name: json.name, email: json.email, ready: true })
@@ -49,10 +50,15 @@ class UserSettingsForm extends Component {
 	}
 
 	handleSubmitUserSettings = async () => {
+		if (this.state.password && this.state.password !== this.state.confirmPassword) {
+			console.log('Your passwords must match')
+			return
+		}
+
 		try {
 			const accountRequest = {
-				name: this.state.name ? this.state.name : null,
-				email: this.state.email ? this.state.email : null,
+				name: this.state.name,
+				email: this.state.email,
 				password: this.state.password ? this.state.password : null
 			}
 			const response = await fetch('/api/updateAccount', {
@@ -91,13 +97,13 @@ class UserSettingsForm extends Component {
 							<Input.Password placeholder="*****************" />
 						</Form.Item>
 
-						<Form.Item className="form-group" label="Confrim Password" name="confirmPassword" onChange={this.handleSaveInputToState}>
-							<Input.Password placeholder="*****************" />
+						<Form.Item className="form-group" label="Confirm Password" name="confirmPassword" onChange={this.handleSaveInputToState}>
+							<Input.Password />
 						</Form.Item>
 
 						<Form.Item {...tailLayout}>
 							<Button className="form-group" type="primary" htmlType="submit">
-								Submit
+								Update
 							</Button>
 						</Form.Item>
 					</Form>

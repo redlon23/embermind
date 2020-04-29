@@ -47,12 +47,12 @@ exports.updateAccount = async (req, res) => {
 
 	const result = await userModel.updateAccount({ name, email, password, userId: req.session.userId })
 	if (!result) {
-		res.send('Account Keys failed to update')
+		res.send('Account Details failed to update')
 	}
-	res.status(200).send({ status: 200, message: 'API Keys Updated' })
+	res.status(200).send({ status: 200, message: 'Account Details Updated' })
 }
 
-exports.getAccount = async (req, res) => {
+exports.getUserInfo = async (req, res) => {
 	const result = await userModel.getUser({ userId: req.session.userId })
 	if (!result) {
 		res.send('Account not found')
