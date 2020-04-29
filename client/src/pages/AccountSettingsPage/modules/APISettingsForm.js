@@ -71,6 +71,7 @@ class APISettingsForm extends Component {
 			const data = await response.json()
 			if (data.status === 200) {
 				console.log(JSON.stringify(data.message))
+				window.location.reload()
 			} else {
 				//TODO: Prompt for correct input
 			}

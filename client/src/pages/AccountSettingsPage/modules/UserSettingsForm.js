@@ -72,7 +72,7 @@ class UserSettingsForm extends Component {
 			const data = await response.json()
 			if (data.status === 200) {
 				console.log(JSON.stringify(data.message))
-				this.props.history.push('./dashboard')
+				window.location.reload()
 			} else {
 				//TODO: Prompt for correct input
 			}
