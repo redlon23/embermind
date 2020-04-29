@@ -33,7 +33,8 @@ module.exports = override(
 			// '@body-background': '@primary-1',
 			'@component-background': '@white',
 			'@body-background': '@white',
-			'@btn-primary-bg': '@primary-5'
+			'@btn-primary-bg': '@primary-5',
+			'@card-background': '@primary-2'
 		}
 	})
 )

@@ -5,6 +5,9 @@ import '../../sharedStyles.css'
 
 import { Row, Col, Layout } from 'antd'
 
+//Dashboard Content Components
+import AccountBalancesBar from './modules/AccountBalancesBar/AccountBalancesBar'
+
 const { Content } = Layout
 
 const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
@@ -25,7 +28,7 @@ class Dashboard extends Component {
 						<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
-									<div style={{ ...contentStyle, height: '2.6rem' }}>Content 0</div>
+									<div style={{ ...contentStyle, height: '2.6rem' }}><AccountBalancesBar/></div>
 								</Col>
 							</Row>
 							<Row gutter={contentGutter}>
