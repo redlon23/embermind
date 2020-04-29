@@ -10,11 +10,13 @@ const contentStyle = {
 }
 
 const categoryStyle = {
-	color: '#bfbfbf'
+	color: '#bfbfbf',
+	fontSize: '14pt'
 }
 
 const valueStyle = {
-	backgroundColor: '#1D222C'
+	backgroundColor: '#1D222C',
+	fontSize: '14pt'
 }
 
 class SubscriptionDetails extends Component {
@@ -25,9 +27,9 @@ class SubscriptionDetails extends Component {
 	}
 	render() {
 		return (
-			<div className="SubscriptionDetails" style={contentStyle}>
+			<div className="SubscriptionModule" style={contentStyle}>
 				Subscription Details
-				<div style={{ padding: '3rem' }}>
+				<div style={{ padding: '2rem' }}>
 					<Row gutter={[ 10, 18 ]}>
 						<Col span={12} style={categoryStyle}>
 							Subscription Status:

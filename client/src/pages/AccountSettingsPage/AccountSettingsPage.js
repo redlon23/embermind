@@ -6,18 +6,11 @@ import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader
 import UserSettingsForm from './modules/UserSettingsForm'
 import APISettingsForm from './modules/APISettingsForm'
 import SubscriptionDetails from './modules/SubscriptionDetails'
+import SubscribeModule from './modules/SubscribeModule'
 
 import { Row, Col, Layout } from 'antd'
 
 const { Content } = Layout
-
-const contentStyle = {
-	background: '#1A1C25',
-	height: '17rem',
-	fontSize: '16.5pt',
-	padding: '1rem',
-	color: '#EBEBEB'
-}
 
 class AccountSettingsPage extends Component {
 	async componentDidMount() {
@@ -51,7 +44,7 @@ class AccountSettingsPage extends Component {
 										<SubscriptionDetails />
 									</Col>
 									<Col span={12}>
-										<div style={{ ...contentStyle }} />
+										<SubscribeModule />
 									</Col>
 								</Row>
 							</Content>
