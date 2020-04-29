@@ -13,7 +13,7 @@ const { Content } = Layout
 
 const contentStyle = {
 	background: '#1A1C25',
-	height: '17.5rem',
+	height: '17rem',
 	fontSize: '16.5pt',
 	padding: '1rem',
 	color: '#EBEBEB'

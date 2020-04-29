@@ -13,7 +13,12 @@ class SideNavBar extends Component {
 			<div className="SideNavBar">
 				<Sider style={{ backgroundColor: '#001529', height: '100vh' }}>
 					<div className="logo-container">
-						<img className="logo" src={process.env.PUBLIC_URL + 'logo-text.png'} onClick={() => this.props.history.push('/dashboard')} />
+						<img
+							className="logo"
+							src={process.env.PUBLIC_URL + 'logo-text.png'}
+							alt="EmberMind"
+							onClick={() => this.props.history.push('/dashboard')}
+						/>
 					</div>
 					<div className="user-container">
 						<Button type="link" className="user-name" onClick={() => this.props.history.push('/account-settings')}>
