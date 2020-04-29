@@ -27,30 +27,20 @@ class UserSettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			ready: false,
-		  };
-		this.handlePreFillForm = this.handlePreFillForm.bind(this)
+			name: '',
+			email: '',
+			password: '',
+			ready: false
+		}
 		this.handleSaveInputToState = this.handleSaveInputToState.bind(this)
 		this.handleSubmitUserSettings = this.handleSubmitUserSettings.bind(this)
 	}
 
-	async componentDidMount() {
-		this.setState({ loading: 'true' });
-		await this.handlePreFillForm();
-		console.log("ready")
-		this.setState({
-			ready: true
-		});
-	}
-
-	handlePreFillForm = async (event) => {
-		try{
-			const result = await fetch('/api/getAccount')
-			console.log(result);
-			this.state = { name: result.name, email: result.email, password: '********' }
-		} catch (err){
-			console.log(err)
-			this.state = { name: '', email: '', password: '********' }
+	async componentWillMount() {
+		const response = await fetch('/api/getAccount')
+		const json = await response.json()
+		if (json) {
+			this.setState({ name: json.name, email: json.email, ready: true })
 		}
 	}
 
@@ -84,43 +74,35 @@ class UserSettingsForm extends Component {
 	}
 
 	render() {
-		if (this.state.ready){
-		return (
-			<div style={{ ...contentStyle }}>
-				User Settings
-				<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitUserSettings}>
-					<Form.Item className="form-group" label="Name" name="name" rules={[ { required: true } ]} onChange={this.handleSaveInputToState}>
-						<Input value={this.state?.name} />
-					</Form.Item>
+		if (this.state.ready) {
+			return (
+				<div style={{ ...contentStyle }}>
+					User Settings
+					<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitUserSettings}>
+						<Form.Item className="form-group" label="Name" name="name" onChange={this.handleSaveInputToState}>
+							<Input placeholder={this.state.name} />
+						</Form.Item>
 
-					<Form.Item
-						className="form-group"
-						label="Email"
-						name="email"
-						rules={[ { required: true } ]}
-						onChange={this.handleSaveInputToState}
-					>
-						<Input value={this.state?.email} />
-					</Form.Item>
+						<Form.Item className="form-group" label="Email" name="email" onChange={this.handleSaveInputToState}>
+							<Input placeholder={this.state.email} />
+						</Form.Item>
 
-					<Form.Item
-						className="form-group"
-						label="Password"
-						name="password"
-						rules={[ { required: true } ]}
-						onChange={this.handleSaveInputToState}
-					>
-						<Input.Password value={this.state?.password}/>
-					</Form.Item>
+						<Form.Item className="form-group" label="Password" name="password" onChange={this.handleSaveInputToState}>
+							<Input.Password placeholder="*****************" />
+						</Form.Item>
 
-					<Form.Item {...tailLayout}>
-						<Button className="form-group" type="primary" htmlType="submit">
-							Submit
-						</Button>
-					</Form.Item>
-				</Form>
-			</div>
-		)
+						<Form.Item className="form-group" label="Confrim Password" name="confirmPassword" onChange={this.handleSaveInputToState}>
+							<Input.Password placeholder="*****************" />
+						</Form.Item>
+
+						<Form.Item {...tailLayout}>
+							<Button className="form-group" type="primary" htmlType="submit">
+								Submit
+							</Button>
+						</Form.Item>
+					</Form>
+				</div>
+			)
 		} else {
 			return null
 		}

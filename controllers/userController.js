@@ -57,8 +57,8 @@ exports.getAccount = async (req, res) => {
 	if (!result) {
 		res.send('Account not found')
 	}
-	let {name, email} = result;
-	res.status(200).send({name, email})
+	let { name, email } = result
+	res.status(200).send({ name, email })
 }
 
 exports.logout = async (req, res) => {

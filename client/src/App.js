@@ -27,14 +27,6 @@ class App extends Component {
 	}
 
 	/*
-		Because React is asynchronous and doesn't wait for componentWillMount to finish before rendering the routes below, this will
-		force them to render again with the updated state.  
-	*/
-	componentDidMount() {
-		this.forceUpdate()
-	}
-
-	/*
 		Executed when user navigates to '/'.
 		If componentWillMount is done validating the existance of a userId in session, this checks state for hasSession:
 			If true, '/' redirects to the dashboard.
