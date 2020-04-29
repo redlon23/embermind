@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import LandingPageHeader from '../../modules/LandingPageHeader/LandingPageHeader.js'
-import RegistrationForm from '../../modules/RegistrationForm/RegistrationForm.js'
+import LandingPageHeader from './modules/LandingPageHeader.js'
+import RegistrationForm from './modules/RegistrationForm.js'
 
 import './LandingPage.css'
 

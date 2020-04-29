@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import HeaderNavBar from '../../modules/HeaderNavBar/HeaderNavBar'
-import SideNavBar from '../../modules/SideNavBar/SideNavBar'
+import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
+import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 
 import { Row, Col, Layout } from 'antd'
 

@@ -1,23 +1,14 @@
 import React, { Component } from 'react'
-import HeaderNavBar from '../../modules/HeaderNavBar/HeaderNavBar'
-import SideNavBar from '../../modules/SideNavBar/SideNavBar'
-import UserSettingsForm from '../../modules/UserSettingsForm/UserSettingsForm'
-import APISettingsForm from '../../modules/APISettingsForm/APISettingsForm'
-import SubscriptionDetails from '../../modules/SubscriptionDetails/SubscriptionDetails'
+import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
+import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
+import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
+import UserSettingsForm from './modules/UserSettingsForm'
+import APISettingsForm from './modules/APISettingsForm'
+import SubscriptionDetails from './modules/SubscriptionDetails'
 
 import { Row, Col, Layout } from 'antd'
 
 const { Content } = Layout
-
-const headerStyle = {
-	height: '3rem',
-	backgroundColor: '#1A1C25',
-	color: '#EBEBEB',
-	display: 'flex',
-	alignItems: 'center',
-	fontSize: '16pt',
-	padding: '1rem'
-}
 
 const contentStyle = {
 	background: '#1A1C25',
@@ -39,7 +30,7 @@ class AccountSettingsPage extends Component {
 							<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
 								<Row gutter={[ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]}>
 									<Col span={24}>
-										<div style={headerStyle}>Account Settings</div>
+										<PageTitleHeader />
 									</Col>
 								</Row>
 								<Row gutter={[ 4, 4 ]}>
