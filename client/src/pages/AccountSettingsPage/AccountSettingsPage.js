@@ -20,14 +20,8 @@ const contentStyle = {
 }
 
 class AccountSettingsPage extends Component {
-	constructor(props) {
-		super(props)
-		this.state = { hasSession: false }
-	}
-
 	async componentDidMount() {
-		const result = await validateSessionStatus()
-		this.setState(result)
+		await validateSessionStatus()
 	}
 
 	render() {

@@ -4,7 +4,7 @@ exports.isReactAuthLogin = (req, res) => {
 
 exports.isReactAuthPrivateRoute = (req, res) => {
 	if (req.session.userId) {
-		req.session.maxAge = 900000 //15 minutes -- timer should restart each time user changes page
+		req.session.expiry = Date.now() // Resets the session expiry time whenever user changes page
 		res.send({ hasSession: true })
 	} else {
 		res.send({ hasSession: false })

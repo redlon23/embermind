@@ -11,14 +11,8 @@ const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
 const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
 
 class BrowseStrategiesPage extends Component {
-	constructor(props) {
-		super(props)
-		this.state = { hasSession: false }
-	}
-
 	async componentDidMount() {
-		const result = await validateSessionStatus()
-		this.setState(result)
+		await validateSessionStatus()
 	}
 
 	render() {

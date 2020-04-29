@@ -15,14 +15,8 @@ const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
 const contentGutter = [ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]
 
 class Dashboard extends Component {
-	constructor(props) {
-		super(props)
-		this.state = { hasSession: false }
-	}
-
 	async componentDidMount() {
-		const result = await validateSessionStatus()
-		this.setState(result)
+		await validateSessionStatus()
 	}
 
 	onPanelChange(value, mode) {
