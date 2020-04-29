@@ -3,11 +3,8 @@ exports.isReactAuthLogin = (req, res) => {
 }
 
 exports.isReactAuthPrivateRoute = (req, res) => {
-	console.log('HERRREEE: ' + JSON.stringify(req.session))
-	console.log('HERRREEE 2: ' + JSON.stringify(req.session))
-
 	if (req.session.userId) {
-		req.sessionOptions.maxAge = 900000 //15 minutes -- refreshed each time user changes page
+		req.session.maxAge = 900000 //15 minutes -- timer should restart each time user changes page
 		res.send({ hasSession: true })
 	} else {
 		res.send({ hasSession: false })

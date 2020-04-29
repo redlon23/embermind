@@ -22,7 +22,6 @@ class App extends Component {
 	Slightly different than the validateSessionStatus methods found on other pages.
 	*/
 	async validateInitialSessionStatus() {
-		console.log('3: ' + this.state.hasSession)
 		const response = await fetch(`./api/isReactAuthLogin`)
 		const json = await response.json()
 		if (json) {
@@ -37,7 +36,6 @@ class App extends Component {
 			If false, '/' rerenders the landing page.
 	*/
 	RootRouteRedirect({ children, context }) {
-		console.log('1: ' + context.state.hasSession)
 		if (context.state.validating) {
 			context.validateInitialSessionStatus()
 		} else {
@@ -53,7 +51,6 @@ class App extends Component {
 			If false, user is redirected to landing page.
 	*/
 	PrivateRoute({ children, context }) {
-		console.log('2: ' + context.state.hasSession)
 		if (context.state.validating) {
 			context.validateInitialSessionStatus()
 		} else {

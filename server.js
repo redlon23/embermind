@@ -12,7 +12,7 @@ app.use(
 	cookieSession({
 		httpOnly: true,
 		keys: [ 'jd78h756ad98s81224nvm7125j' ],
-		maxAge: 5000
+		maxAge: 900000 //15 minutes
 	})
 )
 
