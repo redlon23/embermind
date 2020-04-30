@@ -34,7 +34,10 @@ module.exports = override(
 			'@component-background': '@white',
 			'@body-background': '@white',
 			'@btn-primary-bg': '@primary-5',
-			'@card-background': '@primary-2'
+			'@card-background': '@primary-2',
+			'@card-head-color': '@white',
+			'@border-color-base': '@primary-3',
+			'@table-bg': '@primary-2'
 		}
 	})
 )
