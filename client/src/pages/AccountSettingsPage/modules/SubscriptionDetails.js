@@ -10,30 +10,27 @@ const contentStyle = {
 }
 
 const categoryStyle = {
-	color: '#bfbfbf'
+	color: '#bfbfbf',
+	fontSize: '14pt'
 }
 
 const valueStyle = {
-	backgroundColor: '#1D222C'
+	backgroundColor: '#1D222C',
+	fontSize: '14pt'
 }
 
 class SubscriptionDetails extends Component {
-	constructor(props) {
-		super(props)
-
-		this.state = { subStatus: 'Active', expBillDate: '20/12/01', isRecurring: true }
-	}
 	render() {
 		return (
-			<div className="SubscriptionDetails" style={contentStyle}>
+			<div className="SubscriptionModule" style={contentStyle}>
 				Subscription Details
-				<div style={{ padding: '3rem' }}>
+				<div style={{ padding: '2rem' }}>
 					<Row gutter={[ 10, 18 ]}>
 						<Col span={12} style={categoryStyle}>
 							Subscription Status:
 						</Col>
 						<Col span={12} style={valueStyle}>
-							{this.state.subStatus}
+							{this.props.subStatus}
 						</Col>
 					</Row>
 					<Row gutter={[ 10, 12 ]}>
@@ -41,7 +38,7 @@ class SubscriptionDetails extends Component {
 							Expiry/Billing Date:
 						</Col>
 						<Col span={12} style={valueStyle}>
-							{this.state.expBillDate}
+							{this.props.expBillDate}
 						</Col>
 					</Row>
 					<Row gutter={[ 10, 6 ]}>
@@ -49,7 +46,7 @@ class SubscriptionDetails extends Component {
 							Recurring Monthly:
 						</Col>
 						<Col span={12} style={valueStyle}>
-							{this.state.isRecurring ? 'Yes' : 'No'}
+							{this.props.isRecurring ? 'Yes' : 'No'}
 						</Col>
 					</Row>
 				</div>
