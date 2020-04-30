@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/schemas/user');
 const crypto = require('crypto')
 const util = require("util")
 const scrypt = util.promisify(crypto.scrypt)
