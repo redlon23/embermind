@@ -8,6 +8,7 @@ import { Row, Col, Layout } from 'antd'
 
 //Dashboard Content Components
 import AccountBalancesBar from './modules/AccountBalancesBar/AccountBalancesBar'
+import OpenPositionsTable from './modules/OpenPositionsTable/OpenPositionsTable'
 
 const { Content } = Layout
 
@@ -48,7 +49,7 @@ class Dashboard extends Component {
 							</Row>
 							<Row gutter={contentGutter}>
 								<Col span={15}>
-									<div style={{ ...contentStyle, height: '13rem' }}>Content 3</div>
+									<div style={{ ...contentStyle, height: '13rem' }}><OpenPositionsTable/></div>
 								</Col>
 								<Col span={9}>
 									<div style={{ ...contentStyle, height: '13rem' }}>Content 4</div>
