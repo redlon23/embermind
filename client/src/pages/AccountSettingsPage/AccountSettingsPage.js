@@ -34,7 +34,7 @@ class AccountSettingsPage extends Component {
 							<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
 								<Row gutter={[ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]}>
 									<Col span={24}>
-										<PageTitleHeader />
+										<PageTitleHeader header="Account Settings" />
 									</Col>
 								</Row>
 								<Row gutter={[ 4, 4 ]}>

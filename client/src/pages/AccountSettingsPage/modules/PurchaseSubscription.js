@@ -9,7 +9,7 @@ const componentStyle = {
 	color: '#EBEBEB'
 }
 
-const categoryStyle = {
+const featureText = {
 	color: '#3FB2FF',
 	fontSize: '14pt',
 	textAlign: 'right',
@@ -51,9 +51,9 @@ class PurchaseSubscription extends Component {
 					<Col span={12}>
 						Purchase Subscription
 						<Row justify="end" style={{ marginTop: '1rem', marginRight: '2.5rem' }}>
-							<Row style={categoryStyle}>• Only $30/month</Row>
-							<Row style={categoryStyle}>• Total Access</Row>
-							<Row style={categoryStyle}>• Unlimited Positions</Row>
+							<Row style={featureText}>• Only $30/month</Row>
+							<Row style={featureText}>• Total Access</Row>
+							<Row style={featureText}>• Unlimited Positions</Row>
 						</Row>
 					</Col>
 					<Col span={12} style={{ padding: 0 }}>
