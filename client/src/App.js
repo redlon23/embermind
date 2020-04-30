@@ -16,7 +16,7 @@ class App extends Component {
 	}
 
 	/*
-	Runs every time a request for a page is made.
+	Runs when user initially logs into site (once logged on, each page validates session themselves)
 	Checks if there's as userId in the secure session data -- returns true or false.
 	Changes the validating flag to false when done.
 	Slightly different than the validateSessionStatus methods found on other pages.
@@ -46,17 +46,12 @@ class App extends Component {
 
 	/*
 		Executed if user navigates to any route requiring authentication.
-		if session not validated yet, run validateInitialSessionStatus to check for existance of a userId in session.
+		Check for existance of a userId in session.
 			If true, user is redirected to desired page.
 			If false, user is redirected to landing page.
 	*/
 	PrivateRoute({ children, context }) {
-		if (context.state.validating) {
-			context.validateInitialSessionStatus()
-		} else {
-			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
-		}
-		return null
+		return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
 	}
 
 	/* 
