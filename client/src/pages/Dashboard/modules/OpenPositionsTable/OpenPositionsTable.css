@@ -1,0 +1,22 @@
+.ant-card-head-title{
+    color: #fcfcfc;
+}
+
+.ant-table{
+    background-color: #1A1C25;
+    color: #fcfcfc;
+}
+
+.ant-table-thead{
+    background-color: #1A1C25;
+}
+
+.ant-table-thead tr th{
+    background-color: #1A1C25;
+    color: #fcfcfc;
+    text-align: center;
+}
+
+div.virtual-table-cell{
+    text-align: center;
+}
