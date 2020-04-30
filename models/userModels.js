@@ -30,8 +30,18 @@ exports.loginUser = async (loginCreds) => {
 
 exports.updateAPIKeys = async (req) => {
 	try{
-		var hashedPublic = await saltyHash(req.publicAPI);
-		var hashedSecret = await saltyHash(req.secretAPI);
+		var hashedPublic = encrypt(req.publicAPI);
+		var hashedSecret = encrypt(req.secretAPI);
+		let query = {};
+		if(req.publicAPI != null && req.publicAPI != undefined){
+			query["publicAPI"] = await saltyHash(req.publicAPI);
+		}
+		if(req.secretAPI != null && req.secretAPI != undefined){
+			query["secretAPI"] = await saltyHash(req.secretAPI);
+		}
+		if(req.exchange != null && req.exchange != ''){
+			query["exchange"] = req.exchange;
+		}
 		var result = User.update({_id: req.userId}, { $set:{ publicAPI: hashedPublic, secretAPI: hashedSecret, exchange: req.exchange }}).exec();
 	} catch(err) {
 		console.log(err);
@@ -42,7 +52,6 @@ exports.updateAPIKeys = async (req) => {
 }
 
 exports.updateAccount = async (req) => {
-	console.log(req)
 	try{
 		let query = {};
 		if(req.name != null && req.name != ''){
@@ -66,7 +75,13 @@ exports.updateAccount = async (req) => {
 
 exports.getUser = async (req) => {
 	try{
-		var result = User.findOne({_id: req.userId});
+		var result = await User.findOne({_id: req.userId});
+		if(result.publicAPI != undefined && result.publicAPI != null){
+			result.publicAPI = decrypt(result.publicAPI);
+		}
+		if(result.secretAPI != undefined && result.secretAPI != null){
+			result.secretAPI = decrypt(result.secretAPI);
+		}
 	} catch(err) {
 		console.log(err);
 		result = null;
@@ -87,3 +102,29 @@ async function saltyHash(password){
 	
 	return hashed === hashedSuppliedBuf.toString('hex')
 }
+  
+var config = {
+	cryptkey: crypto.createHash('sha256').update('asehtlknajsbipqmanckkahdfs').digest(),
+	iv: 'a2xhcgAAAAAAAAAA'
+  }
+  
+  function encrypt (text) {
+	console.log(config.cryptkey)
+	var cipher = crypto.createCipheriv('aes-256-cbc', config.cryptkey, config.iv)
+	return Buffer.concat([
+	  cipher.update(text),
+	  cipher.final()
+	]).toString('base64') // Output base64 string
+  }
+  
+  function decrypt (text) {
+	console.log(config.cryptkey)
+	if (text === null || typeof text === 'undefined' || text === '') {
+	  return text
+	}
+	var decipher = crypto.createDecipheriv('aes-256-cbc', config.cryptkey, config.iv)
+	return Buffer.concat([
+	  decipher.update(text, 'base64'), // Expect `text` to be a base64 string
+	  decipher.final()
+	]).toString()
+  }

@@ -57,8 +57,8 @@ exports.getUserInfo = async (req, res) => {
 	if (!result) {
 		res.send('Account not found')
 	}
-	let { name, email } = result
-	res.status(200).send({ name, email })
+	let { name, email, publicAPI, secretAPI, exchange } = result
+	res.status(200).send({ name, email, publicAPI, secretAPI, exchange })
 }
 
 exports.logout = async (req, res) => {
