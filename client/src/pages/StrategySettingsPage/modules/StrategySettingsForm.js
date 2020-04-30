@@ -3,39 +3,47 @@ import React, { Component } from 'react'
 import { Layout, Menu, Form, Input, Button } from 'antd'
 
 const { Content, Sider } = Layout
-
 class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			category: 'basic'
+			displayCategory: 'basic',
+			contractQuantity: '',
+			DCA: '',
+			maxContractSize: '',
+			noTradingZoneSize: '',
+			noTradingZoneRange: '',
+			numOrders: '',
+			orderSpread: '',
+			spread: '',
+			takeProfit: '',
+			tradeInterval: '',
+			trailingSafety: '',
+			trailingStop: ''
 		}
 
-		this.settingsOptions = {
+		this.displayOptions = {
 			basic: this.basicSettingsFields
 		}
 	}
 
-	componentDidMount() {
-		console.log('1: ' + this.state.category)
-		console.log('2: ' + JSON.stringify(this.basicSettingsFields))
-		console.log('3: ' + this.settingsOptions[this.state.category])
+	handleSaveInputToState = (event) => {
+		this.setState({ [event.target.id]: event.target.value })
 	}
 
 	basicSettingsFields = (
 		<div>
-			<Form name="nest-messages">
-				<Form.Item
-					name={[ 'user', 'name' ]}
-					label="Name"
-					rules={[
-						{
-							required: true
-						}
-					]}
-				>
+			<Form className="form-section">
+				<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
 					<Input />
 				</Form.Item>
+				<Form.Item className="form-group" name="takeProfit" label="Contract Quantity" onChange={this.handleSaveInputToState}>
+					<Input />
+				</Form.Item>
+				<Form.Item className="form-group" name="quantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
+					<Input />
+				</Form.Item>
+
 				<Form.Item>
 					<Button type="primary" htmlType="submit">
 						Submit
@@ -47,22 +55,21 @@ class StrategySettingsForm extends Component {
 
 	render() {
 		return (
-			<div>
-				<Layout>
+			<div className="StrategySettingsForm">
+				<Layout style={{ height: '28rem', marginTop: '0.5rem' }}>
 					<Sider>
-						<div className="logo" />
 						<Menu theme="dark" mode="inline" defaultSelectedKeys={[ 'basic' ]}>
-							<Menu.Item key="basic" onClick={() => this.setState({ category: 'basic' })}>
+							<Menu.Item key="basic" onClick={() => this.setState({ displayCategory: 'basic' })}>
 								Basic
 							</Menu.Item>
-							<Menu.Item key="advanced" onClick={() => this.setState({ category: 'advanced' })}>
+							<Menu.Item key="advanced" onClick={() => this.setState({ displayCategory: 'advanced' })}>
 								Advanced
 							</Menu.Item>
 						</Menu>
 					</Sider>
-					<Content style={{ margin: '24px 16px 0' }}>
-						<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-							{this.settingsOptions[this.state.category]}
+					<Content>
+						<div className="site-layout-background" style={{ padding: 24, margin: 0, height: '28rem' }}>
+							{this.displayOptions[this.state.displayCategory]}
 						</div>
 					</Content>
 				</Layout>

@@ -39,7 +39,7 @@ class StrategySettingsPage extends Component {
 									<PageTitleHeader header="Strategy Settings" />
 								</Col>
 							</Row>
-							<Row>
+							<Row style={{ height: '10rem' }}>
 								<Col span={24}>
 									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" defaultActiveKey="1" animated={false}>
 										<TabPane tab="Global" key="Global">
