@@ -24,3 +24,7 @@ It's currently imported in Dashboard.js
 .ant-tabs-top-bar .ant-tabs-card-bar {
 	margin-bottom: 0;
 }
+
+.site-layout-background {
+	background-color: #1d222c;
+}

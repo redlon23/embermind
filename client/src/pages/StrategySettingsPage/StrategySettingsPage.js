@@ -3,6 +3,7 @@ import validateSessionStatus from '../../sessionValidator'
 import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
+import StrategySettingsForm from './modules/StrategySettingsForm'
 
 import { Row, Col, Layout, Tabs } from 'antd'
 
@@ -42,7 +43,10 @@ class StrategySettingsPage extends Component {
 								<Col span={24}>
 									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" defaultActiveKey="1" animated={false}>
 										<TabPane tab="Global" key="Global">
-											<div style={paneStyle}>Global Strategy Settings</div>
+											<div style={paneStyle}>
+												Global Strategy Settings
+												<StrategySettingsForm />
+											</div>
 										</TabPane>
 										<TabPane tab="Gnome Strat" key="Gnome Strat">
 											<div style={paneStyle}>Gnome Strat Settings</div>
