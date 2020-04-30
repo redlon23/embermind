@@ -104,7 +104,7 @@ class UserSettingsForm extends Component {
 						</Form.Item>
 
 						<Form.Item {...tailLayout}>
-							<Button className="form-group" type="primary" htmlType="submit">
+							<Button className="form-group" type="primary" size="medium" htmlType="submit">
 								Update
 							</Button>
 						</Form.Item>

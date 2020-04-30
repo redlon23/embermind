@@ -20,3 +20,7 @@ It's currently imported in Dashboard.js
 	font-size: 15px;
 	color: #ebebeb;
 }
+
+.ant-tabs-top-bar .ant-tabs-card-bar {
+	margin-bottom: 0;
+}

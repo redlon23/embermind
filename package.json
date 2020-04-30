@@ -12,6 +12,7 @@
 		"mongodb": "^3.5.6",
 		"mongoose": "^5.9.10",
 		"nodemon": "^2.0.3",
+		"react-window": "^1.8.5",
 		"validator": "^13.0.0"
 	},
 	"devDependencies": {},

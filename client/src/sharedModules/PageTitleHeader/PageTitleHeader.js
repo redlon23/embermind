@@ -12,7 +12,7 @@ const headerStyle = {
 
 class PageTitleHeader extends Component {
 	render() {
-		return <div style={headerStyle}>Account Settings</div>
+		return <div style={headerStyle}>{this.props.header}</div>
 	}
 }
 
