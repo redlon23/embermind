@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, Menu, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
+import { withRouter } from 'react-router-dom'
 
 const contentStyle = {
 	background: '#1A1C25',
@@ -31,7 +32,7 @@ const tailLayout = {
 class APISettingsForm extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { publicApi: '', secretApi: '', exchange: 'Submit' }
+		this.state = { publicApi: '', secretApi: '', exchange: '', ready2: false }
 
 		this.handleSaveInputToState = this.handleSaveInputToState.bind(this)
 		this.handleExchangeSelect = this.handleExchangeSelect.bind(this)
@@ -44,6 +45,14 @@ class APISettingsForm extends Component {
 				<Menu.Item key="None">None</Menu.Item>
 			</Menu>
 		)
+	}
+
+	async componentDidMount() {
+		const response = await fetch('/api/getUserInfo')
+		const json = await response.json()
+		if (json) {
+			this.setState({ exchange: json.exchange, publicApi: json.publicAPI, secretApi: json.secretAPI, ready2: true })
+		}
 	}
 
 	handleSaveInputToState(event) {
@@ -81,36 +90,40 @@ class APISettingsForm extends Component {
 	}
 
 	render() {
-		return (
-			<div style={{ ...contentStyle }}>
-				API Settings
-				<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitAPISettings}>
-					<Form.Item className="form-group" label="Public API" name="publicApi" onChange={this.handleSaveInputToState}>
-						<Input />
-					</Form.Item>
+		if (this.state.ready2) {
+			return (
+				<div style={{ ...contentStyle }}>
+					API Settings
+					<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitAPISettings}>
+						<Form.Item className="form-group" label="Public API" name="publicApi" onChange={this.handleSaveInputToState}>
+							<Input placeholder={this.state.publicApi} />
+						</Form.Item>
 
-					<Form.Item className="form-group" label="Secret API" name="secretApi" onChange={this.handleSaveInputToState}>
-						<Input.Password />
-					</Form.Item>
+						<Form.Item className="form-group" label="Secret API" name="secretApi" onChange={this.handleSaveInputToState}>
+							<Input.Password placeholder={this.state.secretApi} />
+						</Form.Item>
 
-					<Form.Item className="form-group" label="Exchange" name="exchange" onChange={this.handleSaveInputToState}>
-						<Dropdown overlay={this.menu}>
-							<Button>
-								{this.state.exchange}
-								<DownOutlined />
+						<Form.Item className="form-group" label="Exchange" name="exchange" onChange={this.handleSaveInputToState}>
+							<Dropdown overlay={this.menu}>
+								<Button>
+									{this.state.exchange}
+									<DownOutlined />
+								</Button>
+							</Dropdown>
+						</Form.Item>
+
+						<Form.Item {...tailLayout}>
+							<Button type="primary" htmlType="submit">
+								Update
 							</Button>
-						</Dropdown>
-					</Form.Item>
-
-					<Form.Item {...tailLayout}>
-						<Button type="primary" htmlType="submit">
-							Update
-						</Button>
-					</Form.Item>
-				</Form>
-			</div>
-		)
+						</Form.Item>
+					</Form>
+				</div>
+			)
+		} else {
+			return null
+		}
 	}
 }
 
-export default APISettingsForm
+export default withRouter(APISettingsForm)
