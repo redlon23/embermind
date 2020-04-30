@@ -6,13 +6,19 @@ import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader
 import UserSettingsForm from './modules/UserSettingsForm'
 import APISettingsForm from './modules/APISettingsForm'
 import SubscriptionDetails from './modules/SubscriptionDetails'
-import SubscribeModule from './modules/SubscribeModule'
+import PurchaseSubscription from './modules/PurchaseSubscription'
 
 import { Row, Col, Layout } from 'antd'
 
 const { Content } = Layout
 
 class AccountSettingsPage extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = { subStatus: 'Active', expBillDate: '20/12/01', isRecurring: true }
+	}
+
 	async componentDidMount() {
 		await validateSessionStatus()
 	}
@@ -41,10 +47,10 @@ class AccountSettingsPage extends Component {
 								</Row>
 								<Row gutter={[ 0, 0 ]}>
 									<Col span={12}>
-										<SubscriptionDetails />
+										<SubscriptionDetails {...this.state} />
 									</Col>
 									<Col span={12}>
-										<SubscribeModule />
+										<PurchaseSubscription {...this.state} />
 									</Col>
 								</Row>
 							</Content>

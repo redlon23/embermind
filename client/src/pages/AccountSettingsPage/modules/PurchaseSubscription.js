@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Row, Col, Button } from 'antd'
+import { Row, Col, Button, Space } from 'antd'
 
-const contentStyle = {
+const componentStyle = {
 	background: '#1A1C25',
 	height: '17rem',
 	fontSize: '16pt',
@@ -17,13 +17,36 @@ const categoryStyle = {
 }
 
 const handleNewSubscription = () => {
-	console.log('hello!')
+	console.log('handling new subscription!')
 }
 
-class SubscribeModule extends Component {
+const toggleAutoRenew = () => {
+	console.log('toggling auto-reneew')
+}
+
+class PurchaseSubscription extends Component {
+	buttonsActiveSub = (
+		<Space>
+			<Button type="dashed" ghost size="medium" onClick={toggleAutoRenew}>
+				{this.props.isRecurring ? 'Auto-Renew Off' : 'Auto-Renew On'}
+			</Button>
+			<Button type="primary" size="medium" onClick={handleNewSubscription}>
+				Unsubscribe
+			</Button>
+		</Space>
+	)
+
+	buttonsInactiveSub = (
+		<Space>
+			<Button type="primary" size="medium" onClick={handleNewSubscription}>
+				Subscribe
+			</Button>
+		</Space>
+	)
+
 	render() {
 		return (
-			<div className="SubscribeModule" style={contentStyle}>
+			<div className="PurchaseSubscription" style={componentStyle}>
 				<Row gutter={[ 10, 18 ]}>
 					<Col span={12}>
 						Purchase Subscription
@@ -43,14 +66,10 @@ class SubscribeModule extends Component {
 						/>
 					</Col>
 				</Row>
-				<Row justify="end">
-					<Button type="primary" size="medium" onClick={handleNewSubscription}>
-						Subscribe
-					</Button>
-				</Row>
+				<Row justify="end">{this.props.subStatus === 'Active' ? this.buttonsActiveSub : this.buttonsInactiveSub}</Row>
 			</div>
 		)
 	}
 }
 
-export default SubscribeModule
+export default PurchaseSubscription
