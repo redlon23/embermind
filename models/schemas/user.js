@@ -5,7 +5,7 @@ const User = new Schema ({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    exchange: { type: String, required: false },
+    exchange: { type: String, required: false, default: "None" },
     publicAPI: { type: String, required: false },
     secretAPI: { type: String, required: false },
     subscription: {

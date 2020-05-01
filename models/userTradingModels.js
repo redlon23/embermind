@@ -1,4 +1,5 @@
-const User = require('../models/userStrategySetting');
+const UserStrategySetting = require('./schemas/userStrategySetting');
+const TradeLog = require('./schemas/tradeLog');
 
 exports.insertStrategySetting = async (req) => {
     var stratSetting = new UserStrategySetting(req);
@@ -30,6 +31,28 @@ exports.updateStrategySetting = async (req) => {
                 noTradingZoneSize: req.noTradingZoneSize,
                 noTradingZoneRange: req.noTradingZoneRange
                 }}).exec();
+	} catch(err) {
+		console.log(err);
+		result = null;
+	} finally {
+		return result;
+	}
+}
+
+exports.getStrategySetting = async (req) => {
+	try{
+		var result = await TradeLog.findOne({userId: req.userId, strategyId: req.strategyId});
+	} catch(err) {
+		console.log(err);
+		result = null;
+	} finally {
+		return result;
+	}
+}
+
+exports.getTradeLogs = async (req) => {
+	try{
+		var result = await TradeLog.find({userId: req.userId}).toArray();
 	} catch(err) {
 		console.log(err);
 		result = null;
