@@ -10,8 +10,6 @@ import { Row, Col, Layout, Tabs } from 'antd'
 const { Content } = Layout
 const { TabPane } = Tabs
 
-const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
-const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
 const paneStyle = {
 	background: '#1A1C25',
 	minHeight: '33rem',
@@ -45,7 +43,7 @@ class StrategySettingsPage extends Component {
 										<TabPane tab="Global" key="Global">
 											<div style={paneStyle}>
 												Global Strategy Settings
-												<StrategySettingsForm />
+												<StrategySettingsForm strategyName={'global'} />
 											</div>
 										</TabPane>
 										<TabPane tab="Gnome Strat" key="Gnome Strat">

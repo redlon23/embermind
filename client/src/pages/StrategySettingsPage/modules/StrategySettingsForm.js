@@ -1,13 +1,32 @@
 import React, { Component } from 'react'
 
-import { Layout, Menu, Form, Input, Button, InputNumber } from 'antd'
+import { Layout, Menu, Form, Button, InputNumber, Transfer } from 'antd'
 
 const { Content, Sider } = Layout
+
+const layout = {
+	labelCol: {
+		span: 6
+	},
+	wrapperCol: {
+		span: 16
+	},
+	style: { paddingTop: '1rem' }
+}
+
+const tailLayout = {
+	wrapperCol: { offset: 20, span: 7 }
+}
+
+const fieldStyle = { width: '15rem' }
+
 class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
+			acceptedCoins: [],
 			contractQuantity: '',
 			DCA: '',
 			maxContractSize: '',
@@ -39,20 +58,23 @@ class StrategySettingsForm extends Component {
 		}
 	}
 
+	handleSubmitUserSettings = async () => {
+		console.log('Submitting User Settings!')
+	}
+
 	basicSettingsFields = (
 		<div>
-			<Form className="form-section">
+			<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
 				<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-					<InputNumber parser={this.numInputRegEx} />
+					<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
 				</Form.Item>
 				<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
-					<InputNumber parser={this.numDecInputRegEx} />
+					<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
 				</Form.Item>
-				<Form.Item className="form-group" name="quantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-					<InputNumber parser={this.numDecInputRegEx} />
+				<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
+					<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
 				</Form.Item>
-
-				<Form.Item>
+				<Form.Item {...tailLayout}>
 					<Button type="primary" htmlType="submit">
 						Submit
 					</Button>
