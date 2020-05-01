@@ -42,7 +42,7 @@ class StrategySettingsPage extends Component {
 									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" defaultActiveKey="1" animated={false}>
 										<TabPane tab="Global" key="Global">
 											<div style={paneStyle}>
-												Global Strategy Settings
+												EpicTradesX Settings
 												<StrategySettingsForm strategyName={'Global'} />
 											</div>
 										</TabPane>

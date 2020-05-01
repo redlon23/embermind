@@ -25,9 +25,10 @@ class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			strategyId: '',
 			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
-			acceptedCoins: [],
+			acceptedCoins: [ 'bitcoin', 'etherium', 'ripple' ],
 			contractQuantity: '',
 			DCA: '',
 			maxContractSize: '',
@@ -43,13 +44,13 @@ class StrategySettingsForm extends Component {
 		}
 
 		this.displayOptions = {
-			basic: this.basicSettingsFields
+			basic: this.basicSettingsFields()
 		}
 	}
 
 	componentDidMount() {
 		console.log('Populating state based on current strategy settings!')
-		console.log('Rendering different option fields based on selected strategy!')
+		console.log('Rendering different option fields based on selected strategy name (or id)!')
 	}
 
 	numInputRegEx = (value) => value.replace(/[^0-9]/, '')
@@ -70,7 +71,7 @@ class StrategySettingsForm extends Component {
 		console.log('GOT EM: ' + coins)
 	}
 
-	basicSettingsFields = (
+	basicSettingsFields = () => (
 		<div>
 			<Row>
 				<Col span={12}>
@@ -88,7 +89,7 @@ class StrategySettingsForm extends Component {
 				</Col>
 				<Col span={12}>
 					<Form.Item>
-						<CoinSelection sendSelectionToParent={this.sendSelectionToParent.bind(this)} />
+						<CoinSelection acceptedCoins={this.state.acceptedCoins} sendSelectionToParent={this.sendSelectionToParent.bind(this)} />
 					</Form.Item>
 					<Form.Item {...tailLayout}>
 						<Button type="primary" htmlType="submit">

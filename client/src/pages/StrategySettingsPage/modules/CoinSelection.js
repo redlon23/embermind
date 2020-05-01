@@ -2,27 +2,32 @@ import React, { Component } from 'react'
 
 import { Transfer } from 'antd'
 
-const mockData = []
-for (let i = 0; i < 20; i++) {
-	mockData.push({
-		key: i.toString(),
-		title: `content${i + 1}`,
-		description: `description of content${i + 1}`,
-		disabled: i % 3 < 1
-	})
-}
-
-const oriTargetKeys = mockData.filter((item) => +item.key % 3 > 1).map((item) => item.key)
-
 class CoinSelection extends Component {
-	state = {
-		targetKeys: oriTargetKeys,
-		selectedKeys: [],
-		childProps: 'blah blah'
+	constructor(props) {
+		super(props)
+
+		const coins = []
+		for (let i = 0; i < this.props.acceptedCoins.length; i++) {
+			coins.push({
+				key: i.toString(),
+				title: this.props.acceptedCoins[i]
+			})
+			console.log('mock: ' + JSON.stringify(coins))
+		}
+		const oriTargetKeys = coins.filter((item) => +item.key % 3 > 1).map((item) => item.key)
+
+		this.state = {
+			sourceCoins: coins,
+			selectedCoins: [],
+			selectedKeys: oriTargetKeys,
+			childProps: 'blah blah'
+		}
 	}
 
 	componentDidMount() {
 		this.props.sendSelectionToParent(this.state.childProps)
+		console.log(this.props.acceptedCoins)
+		// console.log('mock: ' + JSON.stringify(this.coins))
 	}
 
 	handleChange = (nextTargetKeys, direction, moveKeys) => {
@@ -50,7 +55,7 @@ class CoinSelection extends Component {
 		return (
 			<div>
 				<Transfer
-					dataSource={mockData}
+					dataSource={this.state.sourceCoins}
 					titles={[ 'Source', 'Target' ]}
 					targetKeys={targetKeys}
 					selectedKeys={selectedKeys}
