@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CoinSelection from './CoinSelection'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
 
@@ -65,10 +66,14 @@ class StrategySettingsForm extends Component {
 		console.log('Submitting User Settings!')
 	}
 
+	sendSelectionToParent = (coins) => {
+		console.log('GOT EM: ' + coins)
+	}
+
 	basicSettingsFields = (
 		<div>
 			<Row>
-				<Col span={16}>
+				<Col span={12}>
 					<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
 						<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
 							<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
@@ -79,12 +84,17 @@ class StrategySettingsForm extends Component {
 						<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
 							<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
 						</Form.Item>
-						<Form.Item {...tailLayout}>
-							<Button type="primary" htmlType="submit">
-								Submit
-							</Button>
-						</Form.Item>
 					</Form>
+				</Col>
+				<Col span={12}>
+					<Form.Item>
+						<CoinSelection sendSelectionToParent={this.sendSelectionToParent.bind(this)} />
+					</Form.Item>
+					<Form.Item {...tailLayout}>
+						<Button type="primary" htmlType="submit">
+							Submit
+						</Button>
+					</Form.Item>
 				</Col>
 			</Row>
 		</div>
