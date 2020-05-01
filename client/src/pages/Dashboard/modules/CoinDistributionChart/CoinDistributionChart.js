@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Chart from 'chart.js'
 import classes from './CoinDistributionChart.module.css'
+import { Card } from 'antd'
 
 export default class CoinDistributionChart extends Component{
     chartRef = React.createRef();
@@ -35,9 +36,11 @@ export default class CoinDistributionChart extends Component{
     }
     render(){
         return (
+            <Card title='Coin Distribution'>
                 <canvas
                     ref={this.chartRef}
                 />
+            </Card>
         )
     }
 }
