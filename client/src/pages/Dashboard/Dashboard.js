@@ -9,7 +9,7 @@ import { Row, Col, Layout } from 'antd'
 //Dashboard Content Components
 import AccountBalancesBar from './modules/AccountBalancesBar/AccountBalancesBar'
 import OpenPositionsTable from './modules/OpenPositionsTable/OpenPositionsTable'
-
+import CoinDistributionChart from './modules/CoinDistributionChart/CoinDistributionChart'
 const { Content } = Layout
 
 const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
@@ -44,7 +44,7 @@ class Dashboard extends Component {
 									<div style={{ ...contentStyle, height: '20rem' }}>Content 1</div>
 								</Col>
 								<Col span={9}>
-									<div style={{ ...contentStyle, height: '20rem' }}>Content 2</div>
+									<div style={{ ...contentStyle, height: '20rem', backgroundColor: '#1A1C25' }}><CoinDistributionChart/></div>
 								</Col>
 							</Row>
 							<Row gutter={contentGutter}>
