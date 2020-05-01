@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Layout, Menu, Form, Input, Button } from 'antd'
+import { Layout, Menu, Form, Input, Button, InputNumber } from 'antd'
 
 const { Content, Sider } = Layout
 class StrategySettingsForm extends Component {
@@ -27,21 +27,29 @@ class StrategySettingsForm extends Component {
 		}
 	}
 
+	numInputRegEx = (value) => value.replace(/[^0-9]/, '')
+	numDecInputRegEx = (value) => value.replace(/[^0-9.]/g, '') // doesn't prevent multiple decimals
+
 	handleSaveInputToState = (event) => {
-		this.setState({ [event.target.id]: event.target.value })
+		// Ensures only numbers and decimals are saved to state
+		console.log(event.target.value)
+		if (!isNaN(event.target.value[event.target.value.length - 1]) || event.target.value[event.target.value.length - 1] == '.') {
+			this.setState({ [event.target.id]: event.target.value })
+			console.log({ [event.target.id]: event.target.value })
+		}
 	}
 
 	basicSettingsFields = (
 		<div>
 			<Form className="form-section">
 				<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-					<Input />
+					<InputNumber parser={this.numInputRegEx} />
 				</Form.Item>
-				<Form.Item className="form-group" name="takeProfit" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-					<Input />
+				<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
+					<InputNumber parser={this.numDecInputRegEx} />
 				</Form.Item>
 				<Form.Item className="form-group" name="quantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-					<Input />
+					<InputNumber parser={this.numDecInputRegEx} />
 				</Form.Item>
 
 				<Form.Item>

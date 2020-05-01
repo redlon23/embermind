@@ -28,3 +28,8 @@ It's currently imported in Dashboard.js
 .site-layout-background {
 	background-color: #1d222c;
 }
+
+/* Removes the step arrows on InputNumber components*/
+.ant-input-number-handler-wrap {
+	visibility: hidden;
+}
