@@ -6,63 +6,55 @@ class CoinSelection extends Component {
 	constructor(props) {
 		super(props)
 
-		const coins = []
-		for (let i = 0; i < this.props.acceptedCoins.length; i++) {
-			coins.push({
+		const availableCoins = []
+		for (let i = 0; i < this.props.availableCoins.length; i++) {
+			availableCoins.push({
 				key: i.toString(),
-				title: this.props.acceptedCoins[i]
+				title: this.props.availableCoins[i]
 			})
-			console.log('mock: ' + JSON.stringify(coins))
 		}
-		const oriTargetKeys = coins.filter((item) => +item.key % 3 > 1).map((item) => item.key)
+
+		let selectedCoinKeys = availableCoins.map((availCoin) => {
+			for (let selectCoin of this.props.selectedCoins) {
+				if (selectCoin === availCoin.title) {
+					return availCoin.key
+				}
+			}
+		})
 
 		this.state = {
-			sourceCoins: coins,
-			selectedCoins: [],
-			selectedKeys: oriTargetKeys,
+			availableCoins: availableCoins,
+			selectedCoinKeys: selectedCoinKeys,
+			selectedKeys: [],
 			childProps: 'blah blah'
 		}
 	}
 
 	componentDidMount() {
 		this.props.sendSelectionToParent(this.state.childProps)
-		console.log(this.props.acceptedCoins)
-		// console.log('mock: ' + JSON.stringify(this.coins))
 	}
 
-	handleChange = (nextTargetKeys, direction, moveKeys) => {
-		this.setState({ targetKeys: nextTargetKeys })
-
-		console.log('targetKeys: ', nextTargetKeys)
-		console.log('direction: ', direction)
-		console.log('moveKeys: ', moveKeys)
+	handleChange = (nextselectedCoinKeys) => {
+		this.setState({ selectedCoinKeys: nextselectedCoinKeys })
 	}
 
 	handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
 		this.setState({ selectedKeys: [ ...sourceSelectedKeys, ...targetSelectedKeys ] })
-
-		console.log('sourceSelectedKeys: ', sourceSelectedKeys)
-		console.log('targetSelectedKeys: ', targetSelectedKeys)
-	}
-
-	handleScroll = (direction, e) => {
-		console.log('direction:', direction)
-		console.log('target:', e.target)
 	}
 
 	render() {
-		const { targetKeys, selectedKeys } = this.state
+		const { selectedCoinKeys, selectedKeys } = this.state
 		return (
 			<div>
+				{console.log(this.state)}
 				<Transfer
-					dataSource={this.state.sourceCoins}
-					titles={[ 'Source', 'Target' ]}
-					targetKeys={targetKeys}
+					dataSource={this.state.availableCoins}
+					titles={[ 'Available', 'Selected' ]}
+					targetKeys={selectedCoinKeys}
 					selectedKeys={selectedKeys}
 					onChange={this.handleChange}
 					onSelectChange={this.handleSelectChange}
-					onScroll={this.handleScroll}
-					render={(item) => item.title}
+					render={(coin) => coin.title}
 				/>
 			</div>
 		)

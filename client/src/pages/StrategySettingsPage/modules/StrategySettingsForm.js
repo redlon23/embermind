@@ -25,10 +25,11 @@ class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			strategyId: '',
+			strategyId: '1',
 			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
-			acceptedCoins: [ 'bitcoin', 'etherium', 'ripple' ],
+			availableCoins: [ 'Bitcoin', 'Etherium', 'Ripple', 'EOS' ],
+			selectedCoins: [ 'Bitcoin', 'Etherium', 'Ripple' ],
 			contractQuantity: '',
 			DCA: '',
 			maxContractSize: '',
@@ -89,7 +90,11 @@ class StrategySettingsForm extends Component {
 				</Col>
 				<Col span={12}>
 					<Form.Item>
-						<CoinSelection acceptedCoins={this.state.acceptedCoins} sendSelectionToParent={this.sendSelectionToParent.bind(this)} />
+						<CoinSelection
+							selectedCoins={this.state.selectedCoins}
+							availableCoins={this.state.availableCoins}
+							sendSelectionToParent={this.sendSelectionToParent.bind(this)}
+						/>
 					</Form.Item>
 					<Form.Item {...tailLayout}>
 						<Button type="primary" htmlType="submit">
