@@ -24,3 +24,12 @@ It's currently imported in Dashboard.js
 .ant-tabs-top-bar .ant-tabs-card-bar {
 	margin-bottom: 0;
 }
+
+.site-layout-background {
+	background-color: #1d222c;
+}
+
+/* Removes the step arrows on InputNumber components*/
+.ant-input-number-handler-wrap {
+	visibility: hidden;
+}

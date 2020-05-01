@@ -11,7 +11,7 @@ const componentStyle = {
 
 const featureText = {
 	color: '#3FB2FF',
-	fontSize: '14pt',
+	fontSize: '15pt',
 	textAlign: 'right',
 	marginTop: '0.6rem'
 }

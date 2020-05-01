@@ -3,14 +3,13 @@ import validateSessionStatus from '../../sessionValidator'
 import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
+import StrategySettingsForm from './modules/StrategySettingsForm'
 
 import { Row, Col, Layout, Tabs } from 'antd'
 
 const { Content } = Layout
 const { TabPane } = Tabs
 
-const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
-const contentGutter = [ 28, { xs: 10, sm: 18, md: 26, lg: 34 } ]
 const paneStyle = {
 	background: '#1A1C25',
 	minHeight: '33rem',
@@ -38,17 +37,26 @@ class StrategySettingsPage extends Component {
 									<PageTitleHeader header="Strategy Settings" />
 								</Col>
 							</Row>
-							<Row>
+							<Row style={{ height: '10rem' }}>
 								<Col span={24}>
 									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" defaultActiveKey="1" animated={false}>
 										<TabPane tab="Global" key="Global">
-											<div style={paneStyle}>Global Strategy Settings</div>
+											<div style={paneStyle}>
+												Global Strategy Settings
+												<StrategySettingsForm strategyName={'Global'} />
+											</div>
 										</TabPane>
 										<TabPane tab="Gnome Strat" key="Gnome Strat">
-											<div style={paneStyle}>Gnome Strat Settings</div>
+											<div style={paneStyle}>
+												Gnome Strat Settings
+												<StrategySettingsForm strategyName={'GnomeStrat'} />
+											</div>
 										</TabPane>
 										<TabPane tab="Crypto Bob" key="Crypto Bob">
-											<div style={paneStyle}>Crypo Bob Settings</div>
+											<div style={paneStyle}>
+												Crypo Bob Settings
+												<StrategySettingsForm strategyName={'GnomeStrat'} />
+											</div>
 										</TabPane>
 									</Tabs>
 								</Col>
