@@ -15,3 +15,11 @@ exports.updateStrategySetting = async (req, res) => {
 	}
 	res.status(200).send({ status: 200, message: 'Strategy Setting Updated' });
 }
+
+exports.getTradeLogs = async (req, res) => {
+	const setting = await userTradingModel.getTradeLogs({ userId: req.session.userId });
+	if (!setting) {
+		res.send('settings not saved');
+	}
+	res.status(200).send({ status: 200, message: 'Strategy Setting Updated' });
+}

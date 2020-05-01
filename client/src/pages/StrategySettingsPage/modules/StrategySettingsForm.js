@@ -132,4 +132,4 @@ class StrategySettingsForm extends Component {
 	}
 }
 
-export default StrategySettingsForm
+export default withRouter(StrategySettingsForm)

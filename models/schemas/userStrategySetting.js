@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserStrategySetting = new Schema ({
     strategyId: {type: Schema.Types.ObjectId, required: true, ref: 'strategies', unique: false },
+    strategyName: {type: String, required: true, ref: 'strategies', unique: false },
     userId: { type: Schema.Types.ObjectId, required: true, ref: 'users', unique: false },
     contractQuantity: { type: Number, required: true },
     takeProfit: { type: Number },
