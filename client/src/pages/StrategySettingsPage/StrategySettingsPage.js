@@ -43,14 +43,20 @@ class StrategySettingsPage extends Component {
 										<TabPane tab="Global" key="Global">
 											<div style={paneStyle}>
 												Global Strategy Settings
-												<StrategySettingsForm strategyName={'global'} />
+												<StrategySettingsForm strategyName={'Global'} />
 											</div>
 										</TabPane>
 										<TabPane tab="Gnome Strat" key="Gnome Strat">
-											<div style={paneStyle}>Gnome Strat Settings</div>
+											<div style={paneStyle}>
+												Gnome Strat Settings
+												<StrategySettingsForm strategyName={'GnomeStrat'} />
+											</div>
 										</TabPane>
 										<TabPane tab="Crypto Bob" key="Crypto Bob">
-											<div style={paneStyle}>Crypo Bob Settings</div>
+											<div style={paneStyle}>
+												Crypo Bob Settings
+												<StrategySettingsForm strategyName={'GnomeStrat'} />
+											</div>
 										</TabPane>
 									</Tabs>
 								</Col>
