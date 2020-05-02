@@ -33,3 +33,13 @@ It's currently imported in Dashboard.js
 .ant-input-number-handler-wrap {
 	visibility: hidden;
 }
+
+/* Styles for the CoinSelector Module */
+.ant-transfer-list {
+	background-color: #1a1c25;
+	color: #fcfcfc;
+}
+
+.ant-transfer-list-content-item:hover {
+	color: #020202;
+}
