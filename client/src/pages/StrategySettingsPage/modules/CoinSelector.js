@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Transfer } from 'antd'
 
-class CoinSelection extends Component {
+class CoinSelector extends Component {
 	constructor(props) {
 		super(props)
 
@@ -25,13 +25,24 @@ class CoinSelection extends Component {
 		this.state = {
 			availableCoins: availableCoins,
 			selectedCoinKeys: selectedCoinKeys,
-			selectedKeys: [],
-			childProps: 'blah blah'
+			selectedKeys: []
 		}
 	}
 
-	componentDidMount() {
-		this.props.sendSelectionToParent(this.state.childProps)
+	componentDidUpdate() {
+		this.sendUpdatedCoinsToParent()
+	}
+
+	sendUpdatedCoinsToParent = () => {
+		let updatedSelectedCoins = this.state.availableCoins.map((availCoin) => {
+			for (let key of this.state.selectedCoinKeys) {
+				if (key === availCoin.key) {
+					return availCoin.title
+				}
+			}
+		})
+		updatedSelectedCoins = updatedSelectedCoins.filter((coin) => coin) //removes null values
+		this.props.updateSelectedCoins(updatedSelectedCoins)
 	}
 
 	handleChange = (nextselectedCoinKeys) => {
@@ -61,4 +72,4 @@ class CoinSelection extends Component {
 	}
 }
 
-export default CoinSelection
+export default CoinSelector

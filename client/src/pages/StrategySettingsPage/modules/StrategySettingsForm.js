@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CoinSelection from './CoinSelection'
+import CoinSelector from './CoinSelector'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
 
@@ -28,8 +28,8 @@ class StrategySettingsForm extends Component {
 			strategyId: '1',
 			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
-			availableCoins: [ 'Bitcoin', 'Etherium', 'Ripple', 'EOS' ],
-			selectedCoins: [ 'Bitcoin', 'Etherium', 'Ripple' ],
+			availableCoins: [ 'Bitcoin', 'EOS', 'Etherium', 'Ripple' ],
+			selectedCoins: [ 'Etherium' ],
 			contractQuantity: '',
 			DCA: '',
 			maxContractSize: '',
@@ -68,8 +68,8 @@ class StrategySettingsForm extends Component {
 		console.log('Submitting User Settings!')
 	}
 
-	sendSelectionToParent = (coins) => {
-		console.log('GOT EM: ' + coins)
+	updateSelectedCoins = (newCoins) => {
+		this.setState({ selectedCoins: newCoins })
 	}
 
 	basicSettingsFields = () => (
@@ -90,10 +90,10 @@ class StrategySettingsForm extends Component {
 				</Col>
 				<Col span={12}>
 					<Form.Item>
-						<CoinSelection
+						<CoinSelector
 							selectedCoins={this.state.selectedCoins}
 							availableCoins={this.state.availableCoins}
-							sendSelectionToParent={this.sendSelectionToParent.bind(this)}
+							updateSelectedCoins={this.updateSelectedCoins.bind(this)}
 						/>
 					</Form.Item>
 					<Form.Item {...tailLayout}>
