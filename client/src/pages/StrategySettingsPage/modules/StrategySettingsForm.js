@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CoinSelector from './CoinSelector'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
 
@@ -6,7 +7,7 @@ const { Content, Sider } = Layout
 
 const layout = {
 	labelCol: {
-		span: 6
+		span: 8
 	},
 	wrapperCol: {
 		span: 16
@@ -24,9 +25,11 @@ class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			strategyId: '',
 			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
-			acceptedCoins: [],
+			availableCoins: [ 'Bitcoin', 'EOS', 'Etherium', 'Ripple' ],
+			selectedCoins: [ 'Etherium' ],
 			contractQuantity: '',
 			DCA: '',
 			maxContractSize: '',
@@ -42,13 +45,16 @@ class StrategySettingsForm extends Component {
 		}
 
 		this.displayOptions = {
-			basic: this.basicSettingsFields
+			basic: this.basicSettingsFields()
 		}
 	}
 
 	componentDidMount() {
-		console.log('Populating state based on current strategy settings!')
-		console.log('Rendering different option fields based on selected strategy!')
+		console.log('Loading users strategy settings to the state!')
+	}
+
+	componentDidUpdate() {
+		console.log('Selected Coins: ' + this.state.selectedCoins)
 	}
 
 	numInputRegEx = (value) => value.replace(/[^0-9]/, '')
@@ -65,29 +71,40 @@ class StrategySettingsForm extends Component {
 		console.log('Submitting User Settings!')
 	}
 
-	basicSettingsFields = (
-		<div>
-			<Row>
-				<Col span={16}>
-					<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
-						<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-							<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
-						</Form.Item>
-						<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
-							<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
-						</Form.Item>
-						<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
-							<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
-						</Form.Item>
-						<Form.Item {...tailLayout}>
-							<Button type="primary" htmlType="submit">
-								Submit
-							</Button>
-						</Form.Item>
-					</Form>
-				</Col>
-			</Row>
-		</div>
+	updateSelectedCoins = (newCoins) => {
+		this.setState({ selectedCoins: newCoins })
+	}
+
+	basicSettingsFields = () => (
+		<Row>
+			<Col span={12}>
+				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
+					<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
+						<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
+					</Form.Item>
+					<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
+						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
+					</Form.Item>
+					<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
+						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
+					</Form.Item>
+				</Form>
+			</Col>
+			<Col span={12}>
+				<Form.Item>
+					<CoinSelector
+						selectedCoins={this.state.selectedCoins}
+						availableCoins={this.state.availableCoins}
+						updateSelectedCoins={this.updateSelectedCoins.bind(this)}
+					/>
+				</Form.Item>
+				<Form.Item {...tailLayout}>
+					<Button type="primary" htmlType="submit">
+						Submit
+					</Button>
+				</Form.Item>
+			</Col>
+		</Row>
 	)
 
 	render() {

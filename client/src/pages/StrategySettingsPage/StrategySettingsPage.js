@@ -20,9 +20,26 @@ const paneStyle = {
 }
 
 class StrategySettingsPage extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			strategies: [ 'EpicTradesX', 'Gnome Strat', 'Crypo Bob' ]
+		}
+	}
+
 	async componentDidMount() {
 		await validateSessionStatus()
+		console.log('Saving users strategies to state!')
 	}
+
+	strategyTabPane = (strategyName) => (
+		<TabPane tab={strategyName} key={strategyName}>
+			<div style={paneStyle}>
+				{`${strategyName} Settings`}
+				<StrategySettingsForm strategyName={strategyName} />
+			</div>
+		</TabPane>
+	)
 
 	render() {
 		return (
@@ -39,25 +56,8 @@ class StrategySettingsPage extends Component {
 							</Row>
 							<Row style={{ height: '10rem' }}>
 								<Col span={24}>
-									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" defaultActiveKey="1" animated={false}>
-										<TabPane tab="Global" key="Global">
-											<div style={paneStyle}>
-												Global Strategy Settings
-												<StrategySettingsForm strategyName={'Global'} />
-											</div>
-										</TabPane>
-										<TabPane tab="Gnome Strat" key="Gnome Strat">
-											<div style={paneStyle}>
-												Gnome Strat Settings
-												<StrategySettingsForm strategyName={'GnomeStrat'} />
-											</div>
-										</TabPane>
-										<TabPane tab="Crypto Bob" key="Crypto Bob">
-											<div style={paneStyle}>
-												Crypo Bob Settings
-												<StrategySettingsForm strategyName={'GnomeStrat'} />
-											</div>
-										</TabPane>
+									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
+										{this.state.strategies.map((strategyName) => this.strategyTabPane(strategyName))}
 									</Tabs>
 								</Col>
 							</Row>
