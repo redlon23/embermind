@@ -23,18 +23,19 @@ class StrategySettingsPage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			strategies: [ 'EpicTradesX Settings', 'Gnome Strat Settings', 'Crypo Bob Settings' ]
+			strategies: [ 'EpicTradesX', 'Gnome Strat', 'Crypo Bob' ]
 		}
 	}
 
 	async componentDidMount() {
 		await validateSessionStatus()
+		console.log('Saving users strategies to state!')
 	}
 
 	strategyTabPane = (strategyName) => (
 		<TabPane tab={strategyName} key={strategyName}>
 			<div style={paneStyle}>
-				{strategyName}
+				{`${strategyName} Settings`}
 				<StrategySettingsForm strategyName={strategyName} />
 			</div>
 		</TabPane>
