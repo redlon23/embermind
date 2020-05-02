@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 
 import { Transfer } from 'antd'
 
+const headerStyle = {
+	fontSize: '15pt',
+	color: '#EBEBEB'
+}
+
 class CoinSelector extends Component {
 	constructor(props) {
 		super(props)
@@ -56,8 +61,8 @@ class CoinSelector extends Component {
 	render() {
 		const { selectedCoinKeys, selectedKeys } = this.state
 		return (
-			<div>
-				{console.log(this.state)}
+			<div className="CoinSelector" style={headerStyle}>
+				Coin Selection
 				<Transfer
 					dataSource={this.state.availableCoins}
 					titles={[ 'Available', 'Selected' ]}

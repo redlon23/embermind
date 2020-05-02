@@ -7,7 +7,7 @@ const { Content, Sider } = Layout
 
 const layout = {
 	labelCol: {
-		span: 6
+		span: 8
 	},
 	wrapperCol: {
 		span: 16
@@ -25,7 +25,7 @@ class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			strategyId: '1',
+			strategyId: '',
 			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
 			availableCoins: [ 'Bitcoin', 'EOS', 'Etherium', 'Ripple' ],
@@ -51,7 +51,6 @@ class StrategySettingsForm extends Component {
 
 	componentDidMount() {
 		console.log('Populating state based on current strategy settings!')
-		console.log('Rendering different option fields based on selected strategy name (or id)!')
 	}
 
 	numInputRegEx = (value) => value.replace(/[^0-9]/, '')
