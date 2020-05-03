@@ -3,7 +3,7 @@ import validateSessionStatus from '../../sessionValidator'
 import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
-import BrowseStrategiesCard from './modules/BrowseStrategiesCard'
+import StrategyCard from './modules/StrategyCard'
 
 import { Row, Col, Layout } from 'antd'
 
@@ -11,7 +11,7 @@ const { Content } = Layout
 
 const contentStyle = {
 	background: '#1A1C25',
-	minHeight: '34.5rem',
+	minHeight: '36rem',
 	fontSize: '16pt',
 	padding: '1rem',
 	color: '#EBEBEB'
@@ -34,7 +34,7 @@ class BrowseStrategiesPage extends Component {
 				{
 					title: 'Shrek Strat',
 					description: 'Somebody once told me the world was gonna roll me',
-					avgProfitPerTrade: 0.06,
+					avgProfitPerTrade: -0.06,
 					subscriberCount: 300,
 					ratingCount: 124,
 					avgRating: 4.5,
@@ -61,11 +61,11 @@ class BrowseStrategiesPage extends Component {
 	cardRow = (strategy, index) => (
 		<Row gutter={[ 28, 16 ]}>
 			<Col span={12}>
-				<BrowseStrategiesCard {...strategy} />
+				<StrategyCard {...strategy} />
 			</Col>
 			{this.state.strategies[index + 1] ? (
 				<Col span={12}>
-					<BrowseStrategiesCard {...this.state.strategies[index + 1]} />
+					<StrategyCard {...this.state.strategies[index + 1]} />
 				</Col>
 			) : null}
 		</Row>

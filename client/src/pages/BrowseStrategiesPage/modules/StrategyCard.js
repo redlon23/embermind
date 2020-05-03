@@ -5,7 +5,13 @@ import { Card, Rate, Row, Col, Button } from 'antd'
 
 const { Meta } = Card
 
-class BrowseStrategiesCard extends Component {
+class StrategyCard extends Component {
+	avgProfitPerTrade = this.props.avgProfitPerTrade * 100
+
+	posAvg = () => <div style={{ fontSize: '12pt', marginRight: '2rem', color: '#0DDD22' }}>+{this.avgProfitPerTrade}% Avg</div>
+
+	negAvg = () => <div style={{ fontSize: '12pt', marginRight: '2rem', color: '#B40500' }}>{this.avgProfitPerTrade}% Avg</div>
+
 	render() {
 		return (
 			<div
@@ -28,9 +34,14 @@ class BrowseStrategiesCard extends Component {
 						<Col span={12} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
 							<Meta description={`${this.props.subscriberCount} Subscribers`} style={{ marginBottom: '0.1rem' }} />
 							<Meta description={`${this.props.ratingCount} Ratings`} style={{ marginBottom: '0.1rem' }} />
-							<Button type="primary" size="small" style={{ marginTop: '0.4rem' }}>
-								Equip
-							</Button>
+							<Row>
+								<Col span={24} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+									{this.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
+									<Button type="primary" size="small" style={{ marginTop: '0.4rem' }}>
+										Equip
+									</Button>
+								</Col>
+							</Row>
 						</Col>
 					</Row>
 				</Card>
@@ -39,4 +50,4 @@ class BrowseStrategiesCard extends Component {
 	}
 }
 
-export default withRouter(BrowseStrategiesCard)
+export default withRouter(StrategyCard)
