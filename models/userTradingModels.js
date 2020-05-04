@@ -14,27 +14,26 @@ exports.insertStrategySetting = async (req) => {
 	}
 };
 
-exports.updateStrategySetting = async (userId, req) => {
+exports.updateStrategySetting = async (userId, request) => {
 	try{
-		console.log("here")
-		console.log(req)
-        var result = await UserStrategySetting.update({ userId: userId},//, strategyId: req.strategyId }, 
-            { $set:{ 
-				//contractQuantity: req.contractQuantity,
-				userId: userId,
-                takeProfit: req.takeProfit,
-                //tradeInterval: req.tradeInterval,
-                //maxContractSize: req.maxContractSize,
-                //DCA: req.DCA,
-                //numOrders: req.numOrders,
-                //spread: req.spread,
-                //orderSpread: req.orderSpread,
-                //trailingSafety: req.trailingSafety,
-                //trailingStop: req.trailingStop,
-                //noTradingZoneSize: req.noTradingZoneSize,
-                //noTradingZoneRange: req.noTradingZoneRange
-				}}, { upsert: true }).exec();
-				console.log(result)
+		let query = {};
+		if (request.strategyId) query["strategyId"] = request.strategyId;
+		if (request.strategyName) query["strategyName"] = request.strategyName;
+		if (userId) query["userId"] = userId;
+		if (request.contractQuantity) query["contractQuantity"] = request.contractQuantity;
+		if (request.takeProfit) query["takeProfit"] = request.takeProfit;
+		if (request.tradeInterval) query["tradeInterval"] = request.tradeInterval;
+		if (request.maxContractSize) query["maxContractSize"] = request.maxContractSize;
+		if (request.DCA) query["DCA"] = request.DCA;
+		if (request.numOrders) query["numOrders"] = request.numOrders;
+		if (request.spread) query["spread"] = request.spread;
+		if (request.orderSpread) query["orderSpread"] = request.orderSpread;
+		if (request.trailingSafety) query["trailingSafety"] = request.trailingSafety;
+		if (request.trailingStop) query["trailingStop"] = request.trailingStop;
+		if (request.noTradingZoneSize) query["noTradingZoneSize"] = request.noTradingZoneSize;
+		if (request.noTradingZoneRange) query["noTradingZoneRange"] = request.noTradingZoneRange;
+
+        var result = UserStrategySetting.update({ userId: request.userId, strategyId: request.strategyId }, query, { upsert: true } ).exec();
 	} catch(err) {
 		console.log(err);
 		result = null;

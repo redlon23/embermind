@@ -71,7 +71,20 @@ class StrategySettingsForm extends Component {
 	handleSubmitStrategySettings = async () => {
 		try {
 			const settingRequest = {
-				takeProfit: this.state.takeProfit
+				takeProfit: this.state.takeProfit,
+				strategyName: this.state.strategyName,
+				contractQuantity: this.state.contractQuantity,
+				DCA: this.state.DCA,
+				maxContractSize: this.state.maxContractSize,
+				noTradingZoneSize: this.state.noTradingZoneSize,
+				noTradingZoneRange: this.state.noTradingZoneRange,
+				numOrders: this.state.numOrders,
+				orderSpread: this.state.orderSpread,
+				spread: this.state.spread,
+				takeProfit: this.state.takeProfit,
+				tradeInterval: this.state.tradeInterval,
+				trailingSafety: this.state.trailingSafety,
+				trailingStop: this.state.trailingStop
 			}
 			const response = await fetch('/api/updateStrategySetting', {
 				method: 'POST',
@@ -99,7 +112,7 @@ class StrategySettingsForm extends Component {
 	basicSettingsFields = () => (
 		<Row>
 			<Col span={12}>
-				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
+				<Form className="form-section" {...layout} >
 					<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
 						<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
 					</Form.Item>
@@ -120,7 +133,7 @@ class StrategySettingsForm extends Component {
 					/>
 				</Form.Item>
 				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit">
+					<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
 						Submit
 					</Button>
 				</Form.Item>
