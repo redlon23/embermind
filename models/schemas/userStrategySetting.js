@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserStrategySetting = new Schema ({
-    strategyId: {type: Schema.Types.ObjectId, required: true, ref: 'strategies', unique: false },
-    strategyName: {type: String, required: true, ref: 'strategies', unique: false },
+    //strategyId: {type: Schema.Types.ObjectId, required: true, ref: 'strategies', unique: false },
+    //strategyName: {type: String, required: true, ref: 'strategies', unique: false },
     userId: { type: Schema.Types.ObjectId, required: true, ref: 'users', unique: false },
-    contractQuantity: { type: Number, required: true },
+    contractQuantity: { type: Number},//, required: true },
     takeProfit: { type: Number },
     tradeInterval: { type: Number },
     maxContractSize: { type: Number },
@@ -19,7 +19,7 @@ const UserStrategySetting = new Schema ({
     noTradingZoneRange: { type: Number }
 });
 
-UserStrategySetting.index({ userId: 1, strategyId: 1 }, { unique: true })
+//UserStrategySetting.index({ userId: 1, strategyId: 1 }, { unique: true })
 
 
 module.exports = mongoose.model('UserStrategySetting', UserStrategySetting, 'userStrategySettings')

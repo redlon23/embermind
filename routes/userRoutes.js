@@ -10,6 +10,6 @@ router.get('/logout', userController.logout)
 router.post('/setAPIKeys', userController.setAPIKeys)
 router.post('/updateAccount', userController.updateAccount)
 router.get('/getUserInfo', userController.getUserInfo)
-router.post('/updateStrategySetting', userController.updateStrategySetting)
+router.post('/updateStrategySetting', userTradingController.updateStrategySetting)
 
 module.exports = router

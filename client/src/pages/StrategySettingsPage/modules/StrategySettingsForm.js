@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+<<<<<<< HEAD
 import CoinSelector from './CoinSelector'
 
+=======
+import { withRouter } from 'react-router-dom'
+>>>>>>> in progress
 import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
 
 const { Content, Sider } = Layout
@@ -67,8 +71,28 @@ class StrategySettingsForm extends Component {
 		}
 	}
 
-	handleSubmitUserSettings = async () => {
-		console.log('Submitting User Settings!')
+	handleSubmitStrategySettings = async () => {
+		try {
+			const settingRequest = {
+				takeProfit: this.state.takeProfit
+			}
+			const response = await fetch('/api/updateStrategySetting', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(settingRequest)
+			})
+			const data = await response.json()
+			if (data.status === 200) {
+				console.log(JSON.stringify(data.message))
+				window.location.reload()
+			} else {
+				//TODO: Prompt for correct input
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	updateSelectedCoins = (newCoins) => {

@@ -9,7 +9,9 @@ exports.newStrategySetting = async (req, res) => {
 }
 
 exports.updateStrategySetting = async (req, res) => {
-	const setting = await userTradingModel.updateStrategySetting(req.body);
+	console.log("HELLOOO")
+	console.log(req.body)
+	const setting = await userTradingModel.updateStrategySetting({userId: req.session.userId, req: req.body});
 	if (!setting) {
 		res.send('settings not saved');
 	}

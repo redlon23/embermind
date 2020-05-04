@@ -14,23 +14,27 @@ exports.insertStrategySetting = async (req) => {
 	}
 };
 
-exports.updateStrategySetting = async (req) => {
+exports.updateStrategySetting = async (userId, req) => {
 	try{
-        var result = UserStrategySetting.update({ userId: req.userId, strategyId: req.strategyId }, 
+		console.log("here")
+		console.log(req)
+        var result = await UserStrategySetting.update({ userId: userId},//, strategyId: req.strategyId }, 
             { $set:{ 
-                contractQuantity: req.contractQuantity,
+				//contractQuantity: req.contractQuantity,
+				userId: userId,
                 takeProfit: req.takeProfit,
-                tradeInterval: req.tradeInterval,
-                maxContractSize: req.maxContractSize,
-                DCA: req.DCA,
-                numOrders: req.numOrders,
-                spread: req.spread,
-                orderSpread: req.orderSpread,
-                trailingSafety: req.trailingSafety,
-                trailingStop: req.trailingStop,
-                noTradingZoneSize: req.noTradingZoneSize,
-                noTradingZoneRange: req.noTradingZoneRange
-                }}).exec();
+                //tradeInterval: req.tradeInterval,
+                //maxContractSize: req.maxContractSize,
+                //DCA: req.DCA,
+                //numOrders: req.numOrders,
+                //spread: req.spread,
+                //orderSpread: req.orderSpread,
+                //trailingSafety: req.trailingSafety,
+                //trailingStop: req.trailingStop,
+                //noTradingZoneSize: req.noTradingZoneSize,
+                //noTradingZoneRange: req.noTradingZoneRange
+				}}, { upsert: true }).exec();
+				console.log(result)
 	} catch(err) {
 		console.log(err);
 		result = null;
