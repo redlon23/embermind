@@ -112,7 +112,7 @@ class StrategySettingsForm extends Component {
 	basicSettingsFields = () => (
 		<Row>
 			<Col span={12}>
-				<Form className="form-section" {...layout} >
+				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
 					<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
 						<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
 					</Form.Item>
@@ -122,9 +122,14 @@ class StrategySettingsForm extends Component {
 					<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
 						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
 					</Form.Item>
+				<Form.Item {...tailLayout}>
+					<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
+						Submit
+					</Button>
+				</Form.Item>
 				</Form>
 			</Col>
-			<Col span={12}>
+			{/*<Col span={12}>
 				<Form.Item>
 					<CoinSelector
 						selectedCoins={this.state.selectedCoins}
@@ -132,12 +137,7 @@ class StrategySettingsForm extends Component {
 						updateSelectedCoins={this.updateSelectedCoins.bind(this)}
 					/>
 				</Form.Item>
-				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
-						Submit
-					</Button>
-				</Form.Item>
-			</Col>
+			</Col> */}
 		</Row>
 	)
 
