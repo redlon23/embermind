@@ -28,7 +28,7 @@ class BrowseStrategiesPage extends Component {
 					avgProfitPerTrade: 0.025,
 					subscriberCount: 44,
 					ratingCount: 14,
-					avgRating: 4,
+					avgRating: 3.6,
 					imgPath: 'https://cdn.wallpapersafari.com/47/75/i8cgUE.jpg'
 				},
 				{
@@ -37,16 +37,17 @@ class BrowseStrategiesPage extends Component {
 					avgProfitPerTrade: -0.06,
 					subscriberCount: 300,
 					ratingCount: 124,
-					avgRating: 4.5,
+					avgRating: 1.4,
 					imgPath: 'https://uploads.scratch.mit.edu/users/avatars/34083956.png'
 				},
 				{
 					title: 'Crypto Bob',
-					description: 'Obviously the best strat!',
+					description:
+						'This is the description for a really really really really really really really really really really really long strat!',
 					avgProfitPerTrade: 0.1,
 					subscriberCount: 2500,
 					ratingCount: 1101,
-					avgRating: 5,
+					avgRating: 4.8,
 					imgPath: 'https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199879943/Ramen-Panda_800x800_SEPS-500x500.jpg'
 				}
 			]
@@ -59,7 +60,7 @@ class BrowseStrategiesPage extends Component {
 	}
 
 	cardRow = (strategy, index) => (
-		<Row gutter={[ 28, 16 ]}>
+		<Row gutter={[ 28, 16 ]} key={index}>
 			<Col span={12}>
 				<StrategyCard {...strategy} />
 			</Col>
