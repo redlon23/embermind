@@ -44,7 +44,7 @@ class Dashboard extends Component {
 									<div style={{ ...contentStyle, height: '20rem' }}>Content 1</div>
 								</Col>
 								<Col span={9}>
-									<div style={{ ...contentStyle, height: '20rem', backgroundColor: '#1A1C25' }}><CoinDistributionChart/></div>
+									<div style={{ ...contentStyle, height: '20rem' }}><CoinDistributionChart/></div>
 								</Col>
 							</Row>
 							<Row gutter={contentGutter}>

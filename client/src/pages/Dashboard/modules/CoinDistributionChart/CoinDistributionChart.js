@@ -22,7 +22,10 @@ export default class CoinDistributionChart extends Component{
                 ]
             },
             options: {
-                animation: true,
+                animation: {
+                    animateRotate: true,
+                    animateScale: false
+                },
                 legend: {
                     position: 'bottom',
                     labels: {
