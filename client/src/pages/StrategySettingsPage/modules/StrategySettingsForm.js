@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
 import CoinSelector from './CoinSelector'
-
-=======
 import { withRouter } from 'react-router-dom'
->>>>>>> in progress
+
 import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
 
 const { Content, Sider } = Layout
