@@ -11,7 +11,7 @@ class SideNavBar extends Component {
 	render() {
 		return (
 			<div className="SideNavBar">
-				<Sider style={{ backgroundColor: '#001529', height: '100vh' }}>
+				<Sider style={{ backgroundColor: '#001529', minHeight: '100vh' }}>
 					<div className="logo-container">
 						<img
 							className="logo"
