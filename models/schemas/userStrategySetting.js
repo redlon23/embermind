@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 const UserStrategySetting = new Schema ({
     strategyId: {type: Schema.Types.ObjectId, required: true, ref: 'strategies', unique: false },
+    strategyName: {type: String, required: true, ref: 'strategies' },
     userId: { type: Schema.Types.ObjectId, required: true, ref: 'users', unique: false },
-    contractQuantity: { type: Number, required: true },
+    contractQuantity: { type: Number},//, required: true },
     takeProfit: { type: Number },
     tradeInterval: { type: Number },
     maxContractSize: { type: Number },
