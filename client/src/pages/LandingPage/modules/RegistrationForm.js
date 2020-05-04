@@ -44,13 +44,11 @@ class RegistrationForm extends Component {
 
 	handleRegistration = async (event) => {
 		try {
-			event.preventDefault()
-
 			const registrationCreds = {
-				name: event.target.name.value ? event.target.name.value : null,
-				email: event.target.email.value ? event.target.email.value : null,
-				password: event.target.password.value ? event.target.password.value : null,
-				confirmPassword: event.target.confirmPassword.value ? event.target.confirmPassword.value : null
+				name: event.name ? event.name : null,
+				email: event.email ? event.email : null,
+				password: event.password ? event.password : null,
+				confirmPassword: event.confirmPassword ? event.confirmPassword : null
 			}
 
 			const response = await fetch('/api/registerNewUser', {
