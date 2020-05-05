@@ -27,7 +27,6 @@ class LandingPage extends Component {
 						okText="Sign Up"
 						footer={null}
 						onOk={this.handleOk}
-						confirmLoading={this.confirmLoading}
 						onCancel={() => this.setState({ showRegForm: false })}
 						bodyStyle={{ padding: 0 }}
 						width="30rem"

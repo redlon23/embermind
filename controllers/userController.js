@@ -25,7 +25,7 @@ exports.registerNewUser = async (req, res) => {
 
 	const user = await userModel.registerNewUser({ name, email, password })
 	if (!user) {
-		res.send('Provided email is in use!')
+		res.status(409).send({ message: 'Email already in use' })
 	}
 
 	req.session.userId = user._id // Added by cookie-session

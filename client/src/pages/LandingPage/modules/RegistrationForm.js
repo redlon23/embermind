@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 
 const contentStyle = {
 	background: '#1A1C25',
@@ -41,30 +41,26 @@ class RegistrationForm extends Component {
 	}
 
 	handleRegistration = async (event) => {
-		try {
-			const registrationCreds = {
-				name: event.name ? event.name : null,
-				email: event.email ? event.email : null,
-				password: event.password ? event.password : null,
-				confirmPassword: event.confirmPassword ? event.confirmPassword : null
-			}
+		const registrationCreds = {
+			name: event.name ? event.name : null,
+			email: event.email ? event.email : null,
+			password: event.password ? event.password : null,
+			confirmPassword: event.confirmPassword ? event.confirmPassword : null
+		}
 
-			const response = await fetch('/api/registerNewUser', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(registrationCreds)
-			})
-			const data = await response.json()
-			if (data.status === 200) {
-				console.log(JSON.stringify(data.message))
-				window.location.reload()
-			} else {
-				//TODO: Prompt for correct input
-			}
-		} catch (err) {
-			console.log(err)
+		const response = await fetch('/api/registerNewUser', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(registrationCreds)
+		})
+		const data = await response.json()
+		if (response.status === 200) {
+			console.log(JSON.stringify(data.message))
+			window.location.reload()
+		} else {
+			message.error(data.message)
 		}
 	}
 
