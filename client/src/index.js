@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 
+const antComponentConfigs = require('./antComponentConfigs')
+
 ReactDOM.render(
 	<BrowserRouter>
 		<App />

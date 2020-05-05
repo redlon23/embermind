@@ -6,30 +6,22 @@ exports.loginUser = async (req, res) => {
 	const user = await userModel.loginUser({ email, password })
 
 	if (!user) {
-		res.send('Invalid Credentials')
+		res.status(401).send({ message: 'Invalid Credentials' })
 	}
 
-	const validPassword = await userModel.comparePasswords(user.password, password)
-
-	if (validPassword) {
-		req.session.userId = user._id
-		res.status(200).send({ status: 200, ...user })
-	}
+	req.session.userId = user._id
+	res.status(200).send({ message: 'Logging in...' })
 }
 
 exports.registerNewUser = async (req, res) => {
-	const { name, email, password, confirmPassword } = req.body
-	if (password !== confirmPassword) {
-		res.send("Password and Confirm Password didn't match")
-	}
-
+	const { name, email, password } = req.body
 	const user = await userModel.registerNewUser({ name, email, password })
 	if (!user) {
-		res.send('Provided email is in use!')
+		res.status(409).send({ message: 'Email already in use' })
 	}
 
 	req.session.userId = user._id // Added by cookie-session
-	res.status(200).send({ status: 200, message: 'Account Created' })
+	res.status(200).send({ message: 'Account Created' })
 }
 
 exports.setAPIKeys = async (req, res) => {

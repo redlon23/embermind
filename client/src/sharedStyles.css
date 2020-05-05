@@ -8,23 +8,28 @@ It's currently imported in Dashboard.js
 
 */
 
+/* Removes button click animation */
 .ant-btn-primary:after {
 	animation: none !important;
 }
 
+/* Removes notification badge animation */
 .ant-badge-zoom-appear {
 	animation: none !important;
 }
 
+/* Form label style */
 .form-section .form-group label {
 	font-size: 15px;
 	color: #ebebeb;
 }
 
+/* The tabs in StrategySettingsPage */
 .ant-tabs-top-bar .ant-tabs-card-bar {
 	margin-bottom: 0;
 }
 
+/* The content section of Layouts  */
 .site-layout-background {
 	background-color: #1d222c;
 }
@@ -42,4 +47,18 @@ It's currently imported in Dashboard.js
 
 .ant-transfer-list-content-item:hover {
 	color: #020202;
+}
+
+/* Removes the visibility toggle on password fields */
+.ant-input-password-icon {
+	display: none;
+}
+
+.ant-modal-header {
+	background-color: #1a1c25;
+}
+
+.ant-modal-title {
+	font-size: 16pt;
+	color: #ebebeb;
 }
