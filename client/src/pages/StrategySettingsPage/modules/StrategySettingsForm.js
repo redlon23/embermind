@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CoinSelector from './CoinSelector'
+import { withRouter } from 'react-router-dom'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
 
@@ -67,8 +68,41 @@ class StrategySettingsForm extends Component {
 		}
 	}
 
-	handleSubmitUserSettings = async () => {
-		console.log('Submitting User Settings!')
+	handleSubmitStrategySettings = async () => {
+		try {
+			const settingRequest = {
+				takeProfit: this.state.takeProfit,
+				strategyName: this.state.strategyName,
+				contractQuantity: this.state.contractQuantity,
+				DCA: this.state.DCA,
+				maxContractSize: this.state.maxContractSize,
+				noTradingZoneSize: this.state.noTradingZoneSize,
+				noTradingZoneRange: this.state.noTradingZoneRange,
+				numOrders: this.state.numOrders,
+				orderSpread: this.state.orderSpread,
+				spread: this.state.spread,
+				takeProfit: this.state.takeProfit,
+				tradeInterval: this.state.tradeInterval,
+				trailingSafety: this.state.trailingSafety,
+				trailingStop: this.state.trailingStop
+			}
+			const response = await fetch('/api/updateStrategySetting', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(settingRequest)
+			})
+			const data = await response.json()
+			if (data.status === 200) {
+				console.log(JSON.stringify(data.message))
+				window.location.reload()
+			} else {
+				//TODO: Prompt for correct input
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	updateSelectedCoins = (newCoins) => {
@@ -88,9 +122,14 @@ class StrategySettingsForm extends Component {
 					<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
 						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
 					</Form.Item>
+				<Form.Item {...tailLayout}>
+					<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
+						Submit
+					</Button>
+				</Form.Item>
 				</Form>
 			</Col>
-			<Col span={12}>
+			{/*<Col span={12}>
 				<Form.Item>
 					<CoinSelector
 						selectedCoins={this.state.selectedCoins}
@@ -98,12 +137,7 @@ class StrategySettingsForm extends Component {
 						updateSelectedCoins={this.updateSelectedCoins.bind(this)}
 					/>
 				</Form.Item>
-				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit">
-						Submit
-					</Button>
-				</Form.Item>
-			</Col>
+			</Col> */}
 		</Row>
 	)
 
@@ -132,4 +166,4 @@ class StrategySettingsForm extends Component {
 	}
 }
 
-export default StrategySettingsForm
+export default withRouter(StrategySettingsForm)

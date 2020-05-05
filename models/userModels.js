@@ -30,19 +30,17 @@ exports.loginUser = async (loginCreds) => {
 
 exports.updateAPIKeys = async (req) => {
 	try{
-		var hashedPublic = encrypt(req.publicAPI);
-		var hashedSecret = encrypt(req.secretAPI);
 		let query = {};
 		if(req.publicAPI != null && req.publicAPI != undefined){
-			query["publicAPI"] = await saltyHash(req.publicAPI);
+			query["publicAPI"] = encrypt(req.publicAPI);
 		}
 		if(req.secretAPI != null && req.secretAPI != undefined){
-			query["secretAPI"] = await saltyHash(req.secretAPI);
+			query["secretAPI"] = encrypt(req.secretAPI);
 		}
 		if(req.exchange != null && req.exchange != ''){
 			query["exchange"] = req.exchange;
 		}
-		var result = User.update({_id: req.userId}, { $set:{ publicAPI: hashedPublic, secretAPI: hashedSecret, exchange: req.exchange }}).exec();
+		var result = User.update({_id: req.userId},  query ).exec();
 	} catch(err) {
 		console.log(err);
 		result = null;
@@ -109,7 +107,6 @@ var config = {
   }
   
   function encrypt (text) {
-	console.log(config.cryptkey)
 	var cipher = crypto.createCipheriv('aes-256-cbc', config.cryptkey, config.iv)
 	return Buffer.concat([
 	  cipher.update(text),
@@ -118,7 +115,6 @@ var config = {
   }
   
   function decrypt (text) {
-	console.log(config.cryptkey)
 	if (text === null || typeof text === 'undefined' || text === '') {
 	  return text
 	}
