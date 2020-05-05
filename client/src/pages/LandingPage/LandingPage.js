@@ -3,7 +3,11 @@ import LandingPageHeader from './modules/LandingPageHeader.js'
 import RegistrationForm from './modules/RegistrationForm.js'
 import './LandingPage.css'
 
-import { Modal } from 'antd'
+import { Modal, message } from 'antd'
+
+message.config({
+	duration: 2
+})
 
 class LandingPage extends Component {
 	constructor(props) {
