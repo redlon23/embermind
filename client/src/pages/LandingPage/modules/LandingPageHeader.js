@@ -37,10 +37,10 @@ class LandingPageHeader extends Component {
 				<Layout>
 					<Header className="landingPageHeader">
 						<Form name="horizontal_login" layout="inline" size="small" onFinish={this.handleLogin}>
-							<Form.Item name="email" rules={[ { required: true, message: 'Please input your email!' } ]}>
+							<Form.Item name="email">
 								<Input placeholder="Email" />
 							</Form.Item>
-							<Form.Item name="password" rules={[ { required: true, message: 'Please input your password!' } ]}>
+							<Form.Item name="password">
 								<Input type="password" placeholder="Password" />
 							</Form.Item>
 							<Form.Item shouldUpdate={true}>
