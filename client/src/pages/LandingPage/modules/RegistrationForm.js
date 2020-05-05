@@ -6,10 +6,8 @@ import { Form, Input, Button } from 'antd'
 const contentStyle = {
 	background: '#1A1C25',
 	width: '30rem',
-	height: '20rem',
-	fontSize: '16pt',
-	padding: '1rem',
-	color: '#EBEBEB'
+	height: '17.5rem',
+	paddingTop: '1rem'
 }
 
 const formLayout = {
@@ -73,7 +71,6 @@ class RegistrationForm extends Component {
 	render() {
 		return (
 			<div className="registrationForm" style={{ ...contentStyle }}>
-				Create a New Account!
 				<Form className="form-section" {...formLayout} size={'small'} onFinish={this.handleRegistration}>
 					<Form.Item
 						className="form-group"

@@ -53,3 +53,12 @@ It's currently imported in Dashboard.js
 .ant-input-password-icon {
 	display: none;
 }
+
+.ant-modal-header {
+	background-color: #1a1c25;
+}
+
+.ant-modal-title {
+	font-size: 16pt;
+	color: #ebebeb;
+}
