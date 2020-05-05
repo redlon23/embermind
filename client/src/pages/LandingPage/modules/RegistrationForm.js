@@ -5,7 +5,7 @@ import { Form, Input, Button } from 'antd'
 
 const contentStyle = {
 	background: '#1A1C25',
-	width: '26rem',
+	width: '30rem',
 	height: '20rem',
 	fontSize: '16pt',
 	padding: '1rem',
@@ -17,13 +17,13 @@ const formLayout = {
 		span: 8
 	},
 	wrapperCol: {
-		span: 16
+		span: 14
 	},
 	style: { paddingTop: '1rem' }
 }
 
 const formTailLayout = {
-	wrapperCol: { offset: 19, span: 5 }
+	wrapperCol: { offset: 18, span: 6 }
 }
 
 class RegistrationForm extends Component {
@@ -75,19 +75,69 @@ class RegistrationForm extends Component {
 			<div className="registrationForm" style={{ ...contentStyle }}>
 				Create a New Account!
 				<Form className="form-section" {...formLayout} size={'small'} onFinish={this.handleRegistration}>
-					<Form.Item className="form-group" label="Name" name="name" onChange={this.handleSaveInputToState}>
+					<Form.Item
+						className="form-group"
+						label="Name"
+						name="name"
+						onChange={this.handleSaveInputToState}
+						rules={[ { required: true, message: 'Name is required' } ]}
+					>
 						<Input />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Email" name="email" onChange={this.handleSaveInputToState}>
+					<Form.Item
+						className="form-group"
+						label="Email"
+						name="email"
+						onChange={this.handleSaveInputToState}
+						rules={[ { type: 'email', message: 'Not a valid e-mail' }, { required: true, message: 'Email is required' } ]}
+					>
 						<Input />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Password" name="password" onChange={this.handleSaveInputToState}>
+					<Form.Item
+						className="form-group"
+						label="Password"
+						name="password"
+						onChange={this.handleSaveInputToState}
+						hasFeedback
+						rules={[
+							{ required: true, message: 'Password is required' },
+							() => ({
+								validator(rule, value) {
+									if (value.length >= 8) {
+										return Promise.resolve()
+									}
+									return Promise.reject('Your password must be at least 8 chars')
+								}
+							})
+						]}
+					>
 						<Input.Password />
 					</Form.Item>
 
-					<Form.Item className="form-group" label="Confirm Password" name="confirmPassword" onChange={this.handleSaveInputToState}>
+					<Form.Item
+						className="form-group"
+						label="Confirm Password"
+						name="confirmPassword"
+						onChange={this.handleSaveInputToState}
+						dependencies={[ 'password' ]}
+						hasFeedback
+						rules={[
+							{
+								required: true,
+								message: 'Please confirm your password'
+							},
+							({ getFieldValue }) => ({
+								validator(rule, value) {
+									if (!value || getFieldValue('password') === value) {
+										return Promise.resolve()
+									}
+									return Promise.reject('Your passwords must match')
+								}
+							})
+						]}
+					>
 						<Input.Password />
 					</Form.Item>
 
@@ -98,22 +148,6 @@ class RegistrationForm extends Component {
 					</Form.Item>
 				</Form>
 			</div>
-			// <div className="regForm">
-			// 	<form className="signupModule" onSubmit={this.handleRegistration}>
-			// 		<h2 id="slogan">
-			// 			<strong>Sign Up!</strong>
-			// 		</h2>
-			// 		<input className="inp_name" name="name" type="text" maxLength="40" placeholder="name" />
-			// 		<br />
-			// 		<input className="inp_email" name="email" type="text" maxLength="99" placeholder="email" />
-			// 		<br />
-			// 		<input className="inp_password" name="password" type="password" maxLength="40" placeholder="password" />
-			// 		<br />
-			// 		<input className="inp_confirmPassword" name="confirmPassword" type="password" maxLength="40" placeholder="confirm password" />
-			// 		<br />
-			// 		<input className="btn_signup" name="signup" type="submit" value="Sign Up" />
-			// 	</form>
-			// </div>
 		)
 	}
 }
