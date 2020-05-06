@@ -12,6 +12,6 @@ router.get('/getUserInfo', isApiAuth, userController.getUserInfo)
 router.get('/purchaseSubscription', isApiAuth, userController.purchaseSubscription)
 router.get('/getSubscriptionInfo', isApiAuth, userController.getSubscriptionInfo)
 router.get('/toggleAutoRenew', isApiAuth, userController.toggleAutoRenew)
-router.get('/devImmediateUnsubscribe', isApiAuth, userController.devImmediateUnsubscribe)
+router.get('/endSubscription', isApiAuth, userController.endSubscription)
 
 module.exports = router

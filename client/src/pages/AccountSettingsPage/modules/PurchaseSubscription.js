@@ -19,7 +19,7 @@ const featureText = {
 
 class PurchaseSubscription extends Component {
 	devImmediateUnsubscribe = async () => {
-		const response = await fetch('/api/devImmediateUnsubscribe')
+		const response = await fetch('/api/endSubscription')
 		const data = await response.json()
 		if (response.status === 200) {
 			console.log(JSON.stringify(data.message))

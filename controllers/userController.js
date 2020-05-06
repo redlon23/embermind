@@ -10,7 +10,35 @@ exports.loginUser = async (req, res) => {
 	}
 
 	req.session.userId = user._id
+	const result = await validateSubscriptionExpiry(req)
+	console.log(result)
+	if (!result) {
+		res.status(500).send({ message: 'Subscription Data Error' })
+	}
 	res.status(200).send({ message: 'Logging in...' })
+}
+
+const validateSubscriptionExpiry = async (req) => {
+	try {
+		const result = await userModel.getSubscriptionDetails({ userId: req.session.userId })
+		const { subscribed, nextPayment, isRecurring } = result
+		const expBillDate = new Date(nextPayment).getTime()
+		const currentDate = new Date().getTime()
+		console.log('DATES: ' + expBillDate + ' ' + currentDate)
+
+		if (currentDate > expBillDate) {
+			if (subscribed && isRecurring) {
+				await userModel.purchaseSubscription({ userId: req.session.userId })
+			} else if (subscribed && !isRecurring) {
+				await userModel.endSubscription({ userId: req.session.userId })
+			}
+		}
+
+		return 'Subscription Validation Successful'
+	} catch (err) {
+		console.error(`Subscription Validation Failed: ${err}`)
+		return null
+	}
 }
 
 exports.registerNewUser = async (req, res) => {
@@ -89,9 +117,9 @@ exports.toggleAutoRenew = async (req, res) => {
 	}
 }
 
-exports.devImmediateUnsubscribe = async (req, res) => {
+exports.endSubscription = async (req, res) => {
 	try {
-		await userModel.devImmediateUnsubscribe({ userId: req.session.userId })
+		await userModel.endSubscription({ userId: req.session.userId })
 		res.status(200).send({ message: 'DEV UNSUBSCRIBED' })
 	} catch (err) {
 		console.error(err)

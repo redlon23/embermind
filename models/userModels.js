@@ -127,7 +127,7 @@ exports.purchaseSubscription = async (req) => {
 	}
 }
 
-exports.devImmediateUnsubscribe = async (req) => {
+exports.endSubscription = async (req) => {
 	try {
 		const result = await User.findByIdAndUpdate(
 			req.userId,
