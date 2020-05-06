@@ -17,26 +17,6 @@ const featureText = {
 	marginTop: '0.6rem'
 }
 
-const purchaseSubscription = async () => {
-	const response = await fetch('/api/purchaseSubscription')
-	const data = await response.json()
-	if (response.status === 200) {
-		console.log(JSON.stringify(data.message))
-	} else {
-		console.log(JSON.stringify(data.message))
-	}
-}
-
-const toggleAutoRenew = async () => {
-	const response = await fetch('/api/toggleAutoRenew')
-	const data = await response.json()
-	if (response.status === 200) {
-		console.log(JSON.stringify(data.message))
-	} else {
-		console.log(JSON.stringify(data.message))
-	}
-}
-
 class PurchaseSubscription extends Component {
 	devImmediateUnsubscribe = async () => {
 		const response = await fetch('/api/devImmediateUnsubscribe')
@@ -50,9 +30,33 @@ class PurchaseSubscription extends Component {
 		}
 	}
 
+	purchaseSubscription = async () => {
+		const response = await fetch('/api/purchaseSubscription')
+		const data = await response.json()
+		if (response.status === 200) {
+			console.log(JSON.stringify(data.message))
+			this.props.history.push('/')
+			this.props.history.push('/account-settings')
+		} else {
+			console.log(JSON.stringify(data.message))
+		}
+	}
+
+	toggleAutoRenew = async () => {
+		const response = await fetch('/api/toggleAutoRenew')
+		const data = await response.json()
+		if (response.status === 200) {
+			console.log(JSON.stringify(data.message))
+			this.props.history.push('/')
+			this.props.history.push('/account-settings')
+		} else {
+			console.log(JSON.stringify(data.message))
+		}
+	}
+
 	buttonsActiveSub = () => (
 		<Space>
-			<Button type="dashed" ghost size="medium" onClick={toggleAutoRenew}>
+			<Button type="dashed" ghost size="medium" onClick={this.toggleAutoRenew}>
 				{this.props.isRecurring ? 'Auto-Renew Off' : 'Auto-Renew On'}
 			</Button>
 			<Button type="primary" size="medium" onClick={this.devImmediateUnsubscribe}>
@@ -63,7 +67,7 @@ class PurchaseSubscription extends Component {
 
 	buttonsInactiveSub = () => (
 		<Space>
-			<Button type="primary" size="medium" onClick={purchaseSubscription}>
+			<Button type="primary" size="medium" onClick={this.purchaseSubscription}>
 				Subscribe
 			</Button>
 		</Space>

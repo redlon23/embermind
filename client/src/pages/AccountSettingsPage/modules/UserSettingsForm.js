@@ -72,7 +72,8 @@ class UserSettingsForm extends Component {
 			const data = await response.json()
 			if (data.status === 200) {
 				console.log(JSON.stringify(data.message))
-				window.location.reload()
+				this.props.history.push('/')
+				this.props.history.push('/account-settings')
 			} else {
 				//TODO: Prompt for correct input
 			}

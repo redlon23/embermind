@@ -80,7 +80,8 @@ class APISettingsForm extends Component {
 			const data = await response.json()
 			if (data.status === 200) {
 				console.log(JSON.stringify(data.message))
-				window.location.reload()
+				this.props.history.push('/')
+				this.props.history.push('/account-settings')
 			} else {
 				//TODO: Prompt for correct input
 			}
@@ -113,7 +114,7 @@ class APISettingsForm extends Component {
 						</Form.Item>
 
 						<Form.Item {...tailLayout}>
-						  <Button type="primary" size="medium" htmlType="submit">
+							<Button type="primary" size="medium" htmlType="submit">
 								Update
 							</Button>
 						</Form.Item>

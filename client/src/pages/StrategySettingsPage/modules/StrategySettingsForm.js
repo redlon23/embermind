@@ -96,7 +96,8 @@ class StrategySettingsForm extends Component {
 			const data = await response.json()
 			if (data.status === 200) {
 				console.log(JSON.stringify(data.message))
-				window.location.reload()
+				this.props.history.push('/')
+				this.props.history.push('/strategy-settings')
 			} else {
 				//TODO: Prompt for correct input
 			}
@@ -122,11 +123,11 @@ class StrategySettingsForm extends Component {
 					<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
 						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
 					</Form.Item>
-				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
-						Submit
-					</Button>
-				</Form.Item>
+					<Form.Item {...tailLayout}>
+						<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
+							Submit
+						</Button>
+					</Form.Item>
 				</Form>
 			</Col>
 			{/*<Col span={12}>

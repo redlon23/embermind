@@ -23,7 +23,6 @@ const valueStyle = {
 class SubscriptionDetails extends Component {
 	constructor(props) {
 		super(props)
-		console.log('PROPS: ' + JSON.stringify(props))
 
 		let isRecurringText = 'N/A'
 		if (this.props.subscribed) {
