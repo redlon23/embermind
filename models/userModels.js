@@ -92,8 +92,7 @@ exports.getSubscriptionDetails = async (req) => {
 		var result = await User.findById(req.userId, 'subscription')
 		return result.subscription
 	} catch (err) {
-		console.log(err)
-		return null
+		console.error(err)
 	}
 }
 
@@ -124,11 +123,9 @@ exports.purchaseSubscription = async (req) => {
 				runValidators: true
 			}
 		)
-		console.log('HERE: ' + result)
 		return result
 	} catch (err) {
-		console.error('My err' + err)
-		return null
+		console.error(err)
 	}
 }
 

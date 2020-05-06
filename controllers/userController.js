@@ -59,9 +59,14 @@ exports.logout = async (req, res) => {
 }
 
 exports.purchaseSubscription = async (req, res) => {
-	const result = await userModel.purchaseSubscription({ userId: req.session.userId })
-	if (!result) {
-		res.status(500).send({ message: 'DB Error' })
+	try {
+		const result = await userModel.purchaseSubscription({ userId: req.session.userId })
+		console.log('Result: ' + result)
+		if (!result) {
+			res.status(500).send({ message: 'DB Error' })
+		}
+		res.status(200).send({ message: 'New subscription purchased!' })
+	} catch (err) {
+		console.error(err)
 	}
-	res.status(200).send({ message: 'New subscription purchased!' })
 }

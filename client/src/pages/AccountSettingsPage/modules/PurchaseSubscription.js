@@ -22,7 +22,6 @@ const handleNewSubscription = async () => {
 	const data = await response.json()
 	if (response.status === 200) {
 		console.log(JSON.stringify(data.message))
-		console.log('Subscription Purchased!')
 	} else {
 		console.log(JSON.stringify(data.message))
 	}
