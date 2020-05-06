@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { Row, Col, Button, Space } from 'antd'
 
 const componentStyle = {
@@ -16,8 +17,14 @@ const featureText = {
 	marginTop: '0.6rem'
 }
 
-const handleNewSubscription = () => {
-	console.log('handling new subscription!')
+const handleNewSubscription = async () => {
+	const response = await fetch('/api/purchaseSubscription')
+	const data = await response.json()
+	if (response.status === 200) {
+		console.log(JSON.stringify(data.message))
+	} else {
+		console.log(JSON.stringify(data.message))
+	}
 }
 
 const toggleAutoRenew = () => {
@@ -25,7 +32,7 @@ const toggleAutoRenew = () => {
 }
 
 class PurchaseSubscription extends Component {
-	buttonsActiveSub = (
+	buttonsActiveSub = () => (
 		<Space>
 			<Button type="dashed" ghost size="medium" onClick={toggleAutoRenew}>
 				{this.props.isRecurring ? 'Auto-Renew Off' : 'Auto-Renew On'}
@@ -36,7 +43,7 @@ class PurchaseSubscription extends Component {
 		</Space>
 	)
 
-	buttonsInactiveSub = (
+	buttonsInactiveSub = () => (
 		<Space>
 			<Button type="primary" size="medium" onClick={handleNewSubscription}>
 				Subscribe
@@ -57,19 +64,13 @@ class PurchaseSubscription extends Component {
 						</Row>
 					</Col>
 					<Col span={12} style={{ padding: 0 }}>
-						<img
-							className="logo"
-							src={process.env.PUBLIC_URL + 'logo.png'}
-							alt="EmberMind"
-							onClick={() => this.props.history.push('/dashboard')}
-							style={{ maxWidth: '13rem' }}
-						/>
+						<img className="logoNoClick" src={process.env.PUBLIC_URL + 'logo.png'} alt="EmberMind" style={{ maxWidth: '13rem' }} />
 					</Col>
 				</Row>
-				<Row justify="end">{this.props.subStatus === 'Active' ? this.buttonsActiveSub : this.buttonsInactiveSub}</Row>
+				<Row justify="end">{this.props.subStatus === 'Active' ? this.buttonsActiveSub() : this.buttonsInactiveSub()}</Row>
 			</div>
 		)
 	}
 }
 
-export default PurchaseSubscription
+export default withRouter(PurchaseSubscription)
