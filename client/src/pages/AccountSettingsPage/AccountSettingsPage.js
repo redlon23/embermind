@@ -7,6 +7,7 @@ import UserSettingsForm from './modules/UserSettingsForm'
 import APISettingsForm from './modules/APISettingsForm'
 import SubscriptionDetails from './modules/SubscriptionDetails'
 import PurchaseSubscription from './modules/PurchaseSubscription'
+import moment from 'moment'
 
 import { Row, Col, Layout } from 'antd'
 
@@ -16,11 +17,23 @@ class AccountSettingsPage extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = { subStatus: 'Active', expBillDate: '20/12/01', isRecurring: true }
+		this.state = { subscribed: null, expBillDate: '', isRecurring: '' }
 	}
 
 	async componentDidMount() {
 		await validateSessionStatus()
+
+		const response = await fetch('/api/getSubscriptionInfo')
+		const data = await response.json()
+		console.log(JSON.stringify(data))
+		if (data) {
+			this.setState(
+				{ subscriptionType: data.subscriptionType, expBillDate: moment(data.nextPayment).format('MMMM/DD/YYYY'), isRecurring: true },
+				() => {
+					console.log(this.state)
+				}
+			)
+		}
 	}
 
 	render() {

@@ -92,7 +92,7 @@ exports.getSubscriptionDetails = async (req) => {
 		var result = await User.findById(req.userId, 'subscription')
 		return result.subscription
 	} catch (err) {
-		console.error(err)
+		throw err
 	}
 }
 
@@ -114,18 +114,18 @@ exports.purchaseSubscription = async (req) => {
 				subscription: {
 					lastPayment: currentDate,
 					nextPayment: thirtyDaysFromNow,
-					subscriptionType: 'basic',
+					subscriptionType: 'Standard',
 					subscribed: true
 				}
 			},
 			{
-				new: true,
-				runValidators: true
+				new: true
 			}
 		)
+
 		return result
 	} catch (err) {
-		console.error(err)
+		throw err
 	}
 }
 

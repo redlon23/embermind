@@ -30,7 +30,7 @@ class SubscriptionDetails extends Component {
 							Subscription Status:
 						</Col>
 						<Col span={12} style={valueStyle}>
-							{this.props.subStatus}
+							{this.props.subscriptionType}
 						</Col>
 					</Row>
 					<Row gutter={[ 10, 12 ]}>

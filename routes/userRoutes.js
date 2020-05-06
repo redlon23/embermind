@@ -10,5 +10,6 @@ router.post('/setAPIKeys', isApiAuth, userController.setAPIKeys)
 router.post('/updateAccount', isApiAuth, userController.updateAccount)
 router.get('/getUserInfo', isApiAuth, userController.getUserInfo)
 router.get('/purchaseSubscription', isApiAuth, userController.purchaseSubscription)
+router.get('/getSubscriptionInfo', isApiAuth, userController.getSubscriptionInfo)
 
 module.exports = router
