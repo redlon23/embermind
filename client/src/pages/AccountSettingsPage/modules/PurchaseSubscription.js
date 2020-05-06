@@ -26,7 +26,7 @@ class PurchaseSubscription extends Component {
 			this.props.history.push('/')
 			this.props.history.push('/account-settings')
 		} else {
-			console.log(JSON.stringify(data.message))
+			console.error(JSON.stringify(data.message))
 		}
 	}
 
@@ -38,7 +38,7 @@ class PurchaseSubscription extends Component {
 			this.props.history.push('/')
 			this.props.history.push('/account-settings')
 		} else {
-			console.log(JSON.stringify(data.message))
+			console.error(JSON.stringify(data.message))
 		}
 	}
 
@@ -50,14 +50,14 @@ class PurchaseSubscription extends Component {
 			this.props.history.push('/')
 			this.props.history.push('/account-settings')
 		} else {
-			console.log(JSON.stringify(data.message))
+			console.error(JSON.stringify(data.message))
 		}
 	}
 
 	buttonsActiveSub = () => (
 		<Space>
 			<Button type="dashed" ghost size="medium" onClick={this.toggleAutoRenew}>
-				{this.props.isRecurring ? 'Auto-Renew Off' : 'Auto-Renew On'}
+				{this.props.isRecurring ? 'Disable Auto-Renew' : 'Enable Auto-Renew'}
 			</Button>
 			<Button type="primary" size="medium" onClick={this.devImmediateUnsubscribe}>
 				Dev Immediate Unsubscribe

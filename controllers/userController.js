@@ -82,8 +82,7 @@ exports.getSubscriptionInfo = async (req, res) => {
 exports.toggleAutoRenew = async (req, res) => {
 	try {
 		const result = await userModel.toggleAutoRenew({ userId: req.session.userId })
-		console.log(result)
-		res.status(200).send({ message: 'New subscription purchased!' })
+		res.status(200).send({ message: `Auto-renew: ${result.subscription.isRecurring ? 'enabled' : 'disabled'}` })
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'DB Error' })

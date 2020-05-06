@@ -141,7 +141,18 @@ exports.devImmediateUnsubscribe = async (req) => {
 			},
 			{ new: true }
 		)
-		console.log(result)
+		return result
+	} catch (err) {
+		throw err
+	}
+}
+
+exports.toggleAutoRenew = async (req) => {
+	try {
+		const currentRenewalStatus = await User.findById(req.userId)
+		const newRenewalStatus = !currentRenewalStatus.subscription.isRecurring
+
+		const result = await User.findByIdAndUpdate(req.userId, { 'subscription.isRecurring': newRenewalStatus }, { new: true })
 		return result
 	} catch (err) {
 		throw err
