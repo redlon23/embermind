@@ -115,19 +115,40 @@ exports.purchaseSubscription = async (req) => {
 					lastPayment: currentDate,
 					nextPayment: thirtyDaysFromNow,
 					subscriptionType: 'Standard',
-					subscribed: true
+					subscribed: true,
+					isRecurring: true
 				}
 			},
-			{
-				new: true
-			}
+			{ new: true }
 		)
-
 		return result
 	} catch (err) {
 		throw err
 	}
 }
+
+exports.devImmediateUnsubscribe = async (req) => {
+	try {
+		const result = await User.findByIdAndUpdate(
+			req.userId,
+			{
+				subscription: {
+					nextPayment: null,
+					subscriptionType: 'None',
+					subscribed: false,
+					isRecurring: false
+				}
+			},
+			{ new: true }
+		)
+		console.log(result)
+		return result
+	} catch (err) {
+		throw err
+	}
+}
+
+////////////////// HASHING AND ENCRYPTION //////////////////
 
 async function saltyHash(password) {
 	const salt = crypto.randomBytes(8).toString('hex')

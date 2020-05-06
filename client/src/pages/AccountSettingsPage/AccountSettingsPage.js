@@ -7,7 +7,6 @@ import UserSettingsForm from './modules/UserSettingsForm'
 import APISettingsForm from './modules/APISettingsForm'
 import SubscriptionDetails from './modules/SubscriptionDetails'
 import PurchaseSubscription from './modules/PurchaseSubscription'
-import moment from 'moment'
 
 import { Row, Col, Layout } from 'antd'
 
@@ -17,7 +16,7 @@ class AccountSettingsPage extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = { subscribed: null, expBillDate: '', isRecurring: '' }
+		this.state = { subscribed: null, subscriptionType: null, expBillDate: '', isRecurring: null, dataLoaded: false }
 	}
 
 	async componentDidMount() {
@@ -28,7 +27,13 @@ class AccountSettingsPage extends Component {
 		console.log(JSON.stringify(data))
 		if (data) {
 			this.setState(
-				{ subscriptionType: data.subscriptionType, expBillDate: moment(data.nextPayment).format('MMMM/DD/YYYY'), isRecurring: true },
+				{
+					subscribed: data.subscribed,
+					subscriptionType: data.subscriptionType,
+					expBillDate: data.nextPayment,
+					isRecurring: data.isRecurring,
+					dataLoaded: true
+				},
 				() => {
 					console.log(this.state)
 				}
@@ -59,12 +64,8 @@ class AccountSettingsPage extends Component {
 									</Col>
 								</Row>
 								<Row gutter={[ 0, 0 ]}>
-									<Col span={12}>
-										<SubscriptionDetails {...this.state} />
-									</Col>
-									<Col span={12}>
-										<PurchaseSubscription {...this.state} />
-									</Col>
+									<Col span={12}>{this.state.dataLoaded ? <SubscriptionDetails {...this.state} /> : null}</Col>
+									<Col span={12}>{this.state.dataLoaded ? <PurchaseSubscription {...this.state} /> : null}</Col>
 								</Row>
 							</Content>
 						</Layout>

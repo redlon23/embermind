@@ -17,7 +17,7 @@ const featureText = {
 	marginTop: '0.6rem'
 }
 
-const handleNewSubscription = async () => {
+const purchaseSubscription = async () => {
 	const response = await fetch('/api/purchaseSubscription')
 	const data = await response.json()
 	if (response.status === 200) {
@@ -27,25 +27,43 @@ const handleNewSubscription = async () => {
 	}
 }
 
-const toggleAutoRenew = () => {
-	console.log('toggling auto-reneew')
+const toggleAutoRenew = async () => {
+	const response = await fetch('/api/toggleAutoRenew')
+	const data = await response.json()
+	if (response.status === 200) {
+		console.log(JSON.stringify(data.message))
+	} else {
+		console.log(JSON.stringify(data.message))
+	}
 }
 
 class PurchaseSubscription extends Component {
+	devImmediateUnsubscribe = async () => {
+		const response = await fetch('/api/devImmediateUnsubscribe')
+		const data = await response.json()
+		if (response.status === 200) {
+			console.log(JSON.stringify(data.message))
+			this.props.history.push('/')
+			this.props.history.push('/account-settings')
+		} else {
+			console.log(JSON.stringify(data.message))
+		}
+	}
+
 	buttonsActiveSub = () => (
 		<Space>
 			<Button type="dashed" ghost size="medium" onClick={toggleAutoRenew}>
 				{this.props.isRecurring ? 'Auto-Renew Off' : 'Auto-Renew On'}
 			</Button>
-			<Button type="primary" size="medium" onClick={handleNewSubscription}>
-				Unsubscribe
+			<Button type="primary" size="medium" onClick={this.devImmediateUnsubscribe}>
+				Dev Immediate Unsubscribe
 			</Button>
 		</Space>
 	)
 
 	buttonsInactiveSub = () => (
 		<Space>
-			<Button type="primary" size="medium" onClick={handleNewSubscription}>
+			<Button type="primary" size="medium" onClick={purchaseSubscription}>
 				Subscribe
 			</Button>
 		</Space>
@@ -67,7 +85,7 @@ class PurchaseSubscription extends Component {
 						<img className="logoNoClick" src={process.env.PUBLIC_URL + 'logo.png'} alt="EmberMind" style={{ maxWidth: '13rem' }} />
 					</Col>
 				</Row>
-				<Row justify="end">{this.props.subStatus === 'Active' ? this.buttonsActiveSub() : this.buttonsInactiveSub()}</Row>
+				<Row justify="end">{this.props.subscribed === true ? this.buttonsActiveSub() : this.buttonsInactiveSub()}</Row>
 			</div>
 		)
 	}

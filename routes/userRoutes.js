@@ -11,5 +11,7 @@ router.post('/updateAccount', isApiAuth, userController.updateAccount)
 router.get('/getUserInfo', isApiAuth, userController.getUserInfo)
 router.get('/purchaseSubscription', isApiAuth, userController.purchaseSubscription)
 router.get('/getSubscriptionInfo', isApiAuth, userController.getSubscriptionInfo)
+router.get('/toggleAutoRenew', isApiAuth, userController.toggleAutoRenew)
+router.get('/devImmediateUnsubscribe', isApiAuth, userController.devImmediateUnsubscribe)
 
 module.exports = router

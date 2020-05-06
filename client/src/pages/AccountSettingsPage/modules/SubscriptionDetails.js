@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import { Row, Col } from 'antd'
 
 const contentStyle = {
@@ -20,6 +21,20 @@ const valueStyle = {
 }
 
 class SubscriptionDetails extends Component {
+	constructor(props) {
+		super(props)
+		console.log('PROPS: ' + JSON.stringify(props))
+
+		let isRecurringText = 'N/A'
+		if (this.props.subscribed) {
+			isRecurringText = this.props.isRecurring ? 'Yes' : 'No'
+		}
+
+		this.state = {
+			isRecurringText: isRecurringText,
+			expBillDateText: this.props.expBillDate ? moment(this.props.expBillDate).format('MMMM / DD / YYYY') : 'N/A'
+		}
+	}
 	render() {
 		return (
 			<div className="SubscriptionModule" style={contentStyle}>
@@ -27,7 +42,7 @@ class SubscriptionDetails extends Component {
 				<div style={{ padding: '2rem' }}>
 					<Row gutter={[ 10, 18 ]}>
 						<Col span={12} style={categoryStyle}>
-							Subscription Status:
+							Subscription Type:
 						</Col>
 						<Col span={12} style={valueStyle}>
 							{this.props.subscriptionType}
@@ -35,10 +50,10 @@ class SubscriptionDetails extends Component {
 					</Row>
 					<Row gutter={[ 10, 12 ]}>
 						<Col span={12} style={categoryStyle}>
-							Expiry/Billing Date:
+							Expires:
 						</Col>
 						<Col span={12} style={valueStyle}>
-							{this.props.expBillDate}
+							{this.state.expBillDateText}
 						</Col>
 					</Row>
 					<Row gutter={[ 10, 6 ]}>
@@ -46,7 +61,7 @@ class SubscriptionDetails extends Component {
 							Recurring Monthly:
 						</Col>
 						<Col span={12} style={valueStyle}>
-							{this.props.isRecurring ? 'Yes' : 'No'}
+							{this.state.isRecurringText}
 						</Col>
 					</Row>
 				</div>

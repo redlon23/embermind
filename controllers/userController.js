@@ -78,3 +78,24 @@ exports.getSubscriptionInfo = async (req, res) => {
 		res.status(500).send({ message: 'DB error' })
 	}
 }
+
+exports.toggleAutoRenew = async (req, res) => {
+	try {
+		const result = await userModel.toggleAutoRenew({ userId: req.session.userId })
+		console.log(result)
+		res.status(200).send({ message: 'New subscription purchased!' })
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'DB Error' })
+	}
+}
+
+exports.devImmediateUnsubscribe = async (req, res) => {
+	try {
+		await userModel.devImmediateUnsubscribe({ userId: req.session.userId })
+		res.status(200).send({ message: 'DEV UNSUBSCRIBED' })
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'DEV DB Error' })
+	}
+}

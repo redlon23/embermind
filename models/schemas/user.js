@@ -14,7 +14,7 @@ const User = new Schema({
 		nextPayment: { type: Date, required: false, default: new Date(new Date().setDate(new Date().getDate() + 7)).toISOString() },
 		subscriptionType: { type: String, required: false, default: 'trial' },
 		subscribed: { type: Boolean, required: true, default: false },
-		isRecurring: { type: Boolean, required: true, default: true }
+		isRecurring: { type: Boolean, required: true, default: false }
 	}
 })
 
