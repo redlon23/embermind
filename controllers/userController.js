@@ -57,3 +57,11 @@ exports.logout = async (req, res) => {
 	req.session = null
 	res.status(200).send()
 }
+
+exports.purchaseSubscription = async (req, res) => {
+	const result = await userModel.purchaseSubscription({ userId: req.session.userId })
+	if (!result) {
+		res.status(500).send({ message: 'DB Error' })
+	}
+	res.status(200).send({ message: 'New subscription purchased!' })
+}

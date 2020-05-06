@@ -39,6 +39,7 @@ class UserSettingsForm extends Component {
 	}
 
 	async componentDidMount() {
+		console.log('from user settings: ' + JSON.stringify(this.props))
 		const response = await fetch('/api/getUserInfo')
 		const json = await response.json()
 		if (json) {
