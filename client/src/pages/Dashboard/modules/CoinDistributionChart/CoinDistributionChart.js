@@ -33,7 +33,7 @@ export default class CoinDistributionChart extends Component{
                         usePointStyle: true
                     }
                 },
-                cutoutPercentage: 90
+                cutoutPercentage: 50
             }
         })
     }

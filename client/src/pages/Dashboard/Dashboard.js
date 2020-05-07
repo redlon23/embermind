@@ -10,6 +10,7 @@ import { Row, Col, Layout } from 'antd'
 import AccountBalancesBar from './modules/AccountBalancesBar/AccountBalancesBar'
 import OpenPositionsTable from './modules/OpenPositionsTable/OpenPositionsTable'
 import CoinDistributionChart from './modules/CoinDistributionChart/CoinDistributionChart'
+import ProfitLossChart from './modules/ProfitLossChart/ProfitLossChart'
 const { Content } = Layout
 
 const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
@@ -41,20 +42,20 @@ class Dashboard extends Component {
 							</Row>
 							<Row gutter={contentGutter}>
 								<Col span={15}>
-									<div style={{ ...contentStyle, height: '20rem' }}>Content 1</div>
+									<div style={{ ...contentStyle, height: '20rem' }}><ProfitLossChart/></div>
 								</Col>
 								<Col span={9}>
 									<div style={{ ...contentStyle, height: '20rem' }}><CoinDistributionChart/></div>
 								</Col>
 							</Row>
-							<Row gutter={contentGutter}>
+							{/* <Row gutter={contentGutter}>
 								<Col span={15}>
 									<div style={{ ...contentStyle, height: '13rem' }}><OpenPositionsTable/></div>
 								</Col>
 								<Col span={9}>
 									<div style={{ ...contentStyle, height: '13rem' }}>Content 4</div>
 								</Col>
-							</Row>
+							</Row> */}
 						</Content>
 					</Layout>
 				</Layout>
