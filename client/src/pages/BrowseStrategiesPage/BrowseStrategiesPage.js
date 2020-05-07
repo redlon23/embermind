@@ -21,42 +21,22 @@ class BrowseStrategiesPage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			strategies: [
-				{
-					title: 'Epic Trades X',
-					description: 'A good strat!',
-					avgProfitPerTrade: 0.025,
-					subscriberCount: 44,
-					ratingCount: 14,
-					avgRating: 3.6,
-					imgPath: 'https://cdn.wallpapersafari.com/47/75/i8cgUE.jpg'
-				},
-				{
-					title: 'Shrek Strat',
-					description: 'Somebody once told me the world was gonna roll me',
-					avgProfitPerTrade: -0.06,
-					subscriberCount: 300,
-					ratingCount: 124,
-					avgRating: 1.4,
-					imgPath: 'https://uploads.scratch.mit.edu/users/avatars/34083956.png'
-				},
-				{
-					title: 'Crypto Bob',
-					description:
-						'This is the description for a really really really really really really really really really really really long strat!',
-					avgProfitPerTrade: 0.1,
-					subscriberCount: 2500,
-					ratingCount: 1101,
-					avgRating: 4.8,
-					imgPath: 'https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199879943/Ramen-Panda_800x800_SEPS-500x500.jpg'
-				}
-			]
+			strategies: []
 		}
 	}
 
 	async componentDidMount() {
-		await validateSessionStatus()
-		console.log('Saving users strategies to state!')
+		try {
+			await validateSessionStatus()
+
+			const response = await fetch('/api/getAllStrategiesInfo')
+			const data = await response.json()
+			console.log('DATA 1: ' + JSON.stringify(data))
+			this.setState({ strategies: data })
+			console.log('DATA 2: ' + JSON.stringify(this.state))
+		} catch (err) {
+			console.error(err)
+		}
 	}
 
 	cardRow = (strategy, index) => (
@@ -85,6 +65,7 @@ class BrowseStrategiesPage extends Component {
 									<PageTitleHeader header="Browse Strategies" />
 								</Col>
 							</Row>
+
 							<div style={contentStyle}>
 								{this.state.strategies.map((strategy, index) => (index % 2 === 0 ? this.cardRow(strategy, index) : null))}
 							</div>
