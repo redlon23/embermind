@@ -24,7 +24,6 @@ const validateSubscriptionExpiry = async (req) => {
 		const { subscribed, nextPayment, isRecurring } = result
 		const expBillDate = new Date(nextPayment).getTime()
 		const currentDate = new Date().getTime()
-		console.log('DATES: ' + expBillDate + ' ' + currentDate)
 
 		if (currentDate > expBillDate) {
 			if (subscribed && isRecurring) {
@@ -78,7 +77,8 @@ exports.getUserInfo = async (req, res) => {
 		res.send('Account not found')
 	}
 	let { name, email, publicAPI, secretAPI, exchange } = result
-	res.status(200).send({ name, email, publicAPI, secretAPI, exchange })
+
+	res.status(200).send({ name, email, publicAPI, exchange, hasSecretAPI: secretAPI ? true : false })
 }
 
 exports.logout = async (req, res) => {
@@ -99,7 +99,6 @@ exports.purchaseSubscription = async (req, res) => {
 exports.getSubscriptionInfo = async (req, res) => {
 	try {
 		const result = await userModel.getSubscriptionDetails({ userId: req.session.userId })
-		console.log('Result2: ' + result)
 		res.status(200).send(result)
 	} catch (err) {
 		console.error(err)

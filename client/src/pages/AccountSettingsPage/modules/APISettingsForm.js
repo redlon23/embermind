@@ -32,7 +32,7 @@ const tailLayout = {
 class APISettingsForm extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { publicApi: '', secretApi: '', exchange: '', ready2: false }
+		this.state = { publicApi: '', secretApi: '', hasSecretAPI: null, exchange: '', ready: false }
 
 		this.handleSaveInputToState = this.handleSaveInputToState.bind(this)
 		this.handleExchangeSelect = this.handleExchangeSelect.bind(this)
@@ -51,7 +51,7 @@ class APISettingsForm extends Component {
 		const response = await fetch('/api/getUserInfo')
 		const json = await response.json()
 		if (json) {
-			this.setState({ exchange: json.exchange, publicApi: json.publicAPI, secretApi: json.secretAPI, ready2: true })
+			this.setState({ exchange: json.exchange, publicApi: json.publicAPI, hasSecretAPI: json.hasSecretAPI, ready: true })
 		}
 	}
 
@@ -91,7 +91,7 @@ class APISettingsForm extends Component {
 	}
 
 	render() {
-		if (this.state.ready2) {
+		if (this.state.ready) {
 			return (
 				<div style={{ ...contentStyle }}>
 					API Settings
@@ -101,7 +101,7 @@ class APISettingsForm extends Component {
 						</Form.Item>
 
 						<Form.Item className="form-group" label="Secret API" name="secretApi" onChange={this.handleSaveInputToState}>
-							<Input.Password placeholder={this.state.secretApi} />
+							<Input.Password placeholder={this.state.hasSecretAPI ? '*******************' : ''} />
 						</Form.Item>
 
 						<Form.Item className="form-group" label="Exchange" name="exchange" onChange={this.handleSaveInputToState}>
