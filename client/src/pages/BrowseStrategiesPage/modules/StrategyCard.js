@@ -14,9 +14,6 @@ class StrategyCard extends Component {
 	negAvg = () => <div style={{ fontSize: '12pt', marginRight: '2rem', color: '#B40500' }}>{this.avgProfitPerTrade}% Avg</div>
 
 	render() {
-		{
-			console.log('COOL PROPS: ' + JSON.stringify(this.props))
-		}
 		return (
 			<div className="BrowseStategiesCard" style={{ display: 'flex', flexDirection: 'row' }}>
 				<img src={this.props.imgPath} style={{ width: '130px', height: '130px' }} />

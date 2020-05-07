@@ -31,9 +31,7 @@ class BrowseStrategiesPage extends Component {
 
 			const response = await fetch('/api/getAllStrategiesInfo')
 			const data = await response.json()
-			console.log('DATA 1: ' + JSON.stringify(data))
 			this.setState({ strategies: data })
-			console.log('DATA 2: ' + JSON.stringify(this.state))
 		} catch (err) {
 			console.error(err)
 		}
