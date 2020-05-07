@@ -32,7 +32,7 @@ class Dashboard extends Component {
 					<SideNavBar />
 					<Layout>
 						<HeaderNavBar />
-						<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
+						<Content style={{ padding: '1rem 1rem 0rem 1rem' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
 									<div style={{ ...contentStyle, height: '2.6rem' }}>
@@ -42,20 +42,17 @@ class Dashboard extends Component {
 							</Row>
 							<Row gutter={contentGutter}>
 								<Col span={15}>
-									<div style={{ ...contentStyle, height: '20rem' }}><ProfitLossChart/></div>
+									<div style={{ ...contentStyle, height: '30rem' }}><ProfitLossChart/></div>
 								</Col>
 								<Col span={9}>
-									<div style={{ ...contentStyle, height: '20rem' }}><CoinDistributionChart/></div>
+									<div style={{ ...contentStyle, height: '30rem' }}><CoinDistributionChart/></div>
 								</Col>
 							</Row>
-							{/* <Row gutter={contentGutter}>
-								<Col span={15}>
+							<Row gutter={contentGutter}>
+								<Col span={24}>
 									<div style={{ ...contentStyle, height: '13rem' }}><OpenPositionsTable/></div>
 								</Col>
-								<Col span={9}>
-									<div style={{ ...contentStyle, height: '13rem' }}>Content 4</div>
-								</Col>
-							</Row> */}
+							</Row>
 						</Content>
 					</Layout>
 				</Layout>
