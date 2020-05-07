@@ -101,7 +101,7 @@ function VirtualTable(props) {
     {
       title: 'Symbol',
       dataIndex: 'symbol',
-      width: 150,
+      width: 150
     },
     {
       title: 'Contracts',
@@ -114,7 +114,7 @@ function VirtualTable(props) {
     {
       title: 'Net Change (%)',
       dataIndex: 'netChange',
-    },
+    }
   ];
   const dataStuff = [
     {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
@@ -159,10 +159,9 @@ class OpenPositionsTable extends Component {
             <Card title="Open Positions">
                 <VirtualTable
                     columns={columns}
-                    bordered
                     dataSource={dataStuff}
                     scroll={{
-                        y:300,
+                        y: 150,
                         x: '100vw'
                     }}
                 />

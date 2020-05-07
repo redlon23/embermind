@@ -19,18 +19,19 @@ export default class ProfitLossChart extends Component {
                     barPercentage: 0.2,
                     categoryPercentage: 0.5,
                     data: [19, 15, 24, 8, 11, 10, 18, 19, 12, 17, 24, 13],
-                    backgroundColor: "rgba(0, 255, 0 , 1)"
+                    backgroundColor: "rgba(0, 255, 0 , 1)",
                 },
                 {
                     label: "Loss",
-
                     barPercentage: 0.2,
                     categoryPercentage: 0.5,
                     data: [12, 13, 20, 5, 9, 7, 15, 14, 8, 15, 19, 10],
-                    backgroundColor: "rgba(255, 0, 0 , 1)"
+                    backgroundColor: "rgba(255, 0, 0 , 1)",
                 }]
             },
             options: {
+                maintainAspectRatio:false,
+                aspectRatio: 0.812,
                 legend: {
                     labels: {
                         boxWidth: 5,

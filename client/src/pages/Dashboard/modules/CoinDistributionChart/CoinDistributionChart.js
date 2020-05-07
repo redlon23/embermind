@@ -16,15 +16,20 @@ export default class CoinDistributionChart extends Component{
                 datasets: [
                     {
                     data: [20, 20, 15, 7],
-                    backgroundColor: ['red', 'green', 'blue', 'yellow'],
-                    borderWidth: 0,
+                    backgroundColor: ['rgba(225,20,20,1)', 'rgba(0,225,0,1)', 'rgba(0,0,225,1)', 'rgba(225,225,0,1)'],
+                    borderWidth: 0.5,
+                    hoverBorderWidth: 2,
+                    hoverBackgroundColor: ['rgba(255,0,0,1)', 'rgba(0,255,0,1)', 'rgba(0,0,255,1)', 'rgba(255,255,0,1)']
                     }
                 ]
             },
             options: {
+                aspectRatio: 1.52,
                 animation: {
-                    animateRotate: true,
-                    animateScale: false
+                    animation: {
+                        animateRotate: true,
+                        animateScale: false
+                    }
                 },
                 legend: {
                     position: 'bottom',
@@ -33,7 +38,7 @@ export default class CoinDistributionChart extends Component{
                         usePointStyle: true
                     }
                 },
-                cutoutPercentage: 50
+                cutoutPercentage: 70
             }
         })
     }
