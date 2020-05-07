@@ -16,7 +16,7 @@ class AccountSettingsPage extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = { subscribed: null, subscriptionType: null, expBillDate: '', isRecurring: null, dataLoaded: false }
+		this.state = { subscribed: null, subscriptionType: null, expBillDate: '', isRecurring: null, renderDataLoaded: false }
 	}
 
 	async componentDidMount() {
@@ -24,20 +24,14 @@ class AccountSettingsPage extends Component {
 
 		const response = await fetch('/api/getSubscriptionInfo')
 		const data = await response.json()
-		console.log(JSON.stringify(data))
 		if (data) {
-			this.setState(
-				{
-					subscribed: data.subscribed,
-					subscriptionType: data.subscriptionType,
-					expBillDate: data.nextPayment,
-					isRecurring: data.isRecurring,
-					dataLoaded: true
-				},
-				() => {
-					console.log(this.state)
-				}
-			)
+			this.setState({
+				subscribed: data.subscribed,
+				subscriptionType: data.subscriptionType,
+				expBillDate: data.nextPayment,
+				isRecurring: data.isRecurring,
+				renderDataLoaded: true
+			})
 		}
 	}
 
@@ -64,8 +58,8 @@ class AccountSettingsPage extends Component {
 									</Col>
 								</Row>
 								<Row gutter={[ 0, 0 ]}>
-									<Col span={12}>{this.state.dataLoaded ? <SubscriptionDetails {...this.state} /> : null}</Col>
-									<Col span={12}>{this.state.dataLoaded ? <PurchaseSubscription {...this.state} /> : null}</Col>
+									<Col span={12}>{this.state.renderDataLoaded ? <SubscriptionDetails {...this.state} /> : null}</Col>
+									<Col span={12}>{this.state.renderDataLoaded ? <PurchaseSubscription {...this.state} /> : null}</Col>
 								</Row>
 							</Content>
 						</Layout>

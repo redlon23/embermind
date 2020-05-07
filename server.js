@@ -19,6 +19,12 @@ app.use(
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
 
+const userTradingRoutes = require('./routes/userTradingRoutes')
+app.use('/api', userTradingRoutes)
+
+const strategyRoutes = require('./routes/strategyRoutes')
+app.use('/api', strategyRoutes)
+
 const utilRoutes = require('./routes/utilRoutes')
 app.use('/api', utilRoutes)
 
