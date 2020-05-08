@@ -2,7 +2,7 @@ const userTradingModel = require('../models/userTradingModels')
 
 exports.equipStrategy = async (req, res) => {
 	try {
-		await userTradingModel.equipStrategy({ userId: req.session.userId, strategyName: req.body.strategyName })
+		await userTradingModel.equipStrategy({ userId: req.session.userId, strategyName: req.query.strategyName })
 		res.status(200).send({ message: 'Strategy Equipped ' })
 	} catch (err) {
 		console.error(err)

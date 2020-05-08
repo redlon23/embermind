@@ -23,14 +23,13 @@ class StrategyCard extends Component {
 	}
 
 	equipStrategy = async () => {
-		const response = await fetch(this.state.isEquipped ? './api/unequipStrategy' : './api/equipStrategy', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ strategyName: this.props.strategyName })
-		})
+		const response = await fetch(
+			this.state.isEquipped
+				? `./api/unequipStrategy?strategyName=${this.props.strategyName}`
+				: `./api/equipStrategy?strategyName=${this.props.strategyName}`
+		)
 		const data = await response.json()
+
 		if (response.status === 200) {
 			message.success(data.message)
 			this.setState({ isEquipped: !this.state.isEquipped })
