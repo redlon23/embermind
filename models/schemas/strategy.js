@@ -8,6 +8,7 @@ const Strategy = new Schema({
 		avgProfitPerTrade: { type: Number, required: false },
 		subscriberCount: { type: Number, required: false, default: 0 },
 		avgDailySignals: { type: Number, required: false },
+		ratingCount: { type: Number, required: true, default: 0 },
 		avgRating: { type: Number, required: false }
 	},
 	reviews: [
