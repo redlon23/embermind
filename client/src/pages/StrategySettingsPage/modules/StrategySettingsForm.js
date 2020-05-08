@@ -31,9 +31,11 @@ class StrategySettingsForm extends Component {
 			selectedCoins: []
 		}
 
+		this.basicSettings = [ 'contractQuantity', 'takeProfit', 'stopLoss' ]
+
 		this.displayOptions = {
 			basic: this.basicSettingsFields(),
-			advanced: this.advancedSettingsFields()
+			advanced: this.advancedSettingsFields(this.basicSettings)
 		}
 	}
 
@@ -132,12 +134,14 @@ class StrategySettingsForm extends Component {
 		</Row>
 	)
 
-	advancedSettingsFields = () => (
+	advancedSettingsFields = (basicSettings) => (
 		<Row>
 			<Col span={24}>
 				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
 					{Object.keys(this.props.strategySettings).map((settingName) => {
-						return this.settingField(settingName)
+						if (!basicSettings.includes(settingName)) {
+							return this.settingField(settingName)
+						}
 					})}
 					<Form.Item {...tailLayout}>
 						<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
@@ -150,7 +154,13 @@ class StrategySettingsForm extends Component {
 	)
 
 	settingField = (settingName) => (
-		<Form.Item className="form-group" name={settingName} label={this.camelToTitle(settingName)} onChange={this.handleSaveInputToState}>
+		<Form.Item
+			className="form-group"
+			name={settingName}
+			label={this.camelToTitle(settingName)}
+			key={settingName}
+			onChange={this.handleSaveInputToState}
+		>
 			<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
 		</Form.Item>
 	)
