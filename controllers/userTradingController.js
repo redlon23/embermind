@@ -36,6 +36,7 @@ exports.getStrategyEquippedStatus = async (req, res) => {
 exports.getAllEquippedStrategySettings = async (req, res) => {
 	try {
 		const equippedStrategySettings = await userTradingModel.getAllEquippedStrategySettings({ userId: req.session.userId })
+		console.log(equippedStrategySettings)
 		res.status(200).send({ equippedStrategySettings })
 	} catch (err) {
 		console.error(err)

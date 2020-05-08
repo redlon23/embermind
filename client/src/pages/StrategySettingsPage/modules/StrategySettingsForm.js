@@ -26,40 +26,31 @@ class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			strategyId: '',
-			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
-			supportedCoins: [ 'Bitcoin', 'EOS', 'Etherium', 'Ripple' ],
-			selectedCoins: [ 'Etherium' ],
-			contractQuantity: '',
-			DCA: '',
-			maxContractSize: '',
-			noTradingZoneSize: '',
-			noTradingZoneRange: '',
-			numOrders: '',
-			orderSpread: '',
-			spread: '',
-			takeProfit: '',
-			tradeInterval: '',
-			trailingSafety: '',
-			trailingStop: ''
+			supportedCoins: [],
+			selectedCoins: []
 		}
 
 		this.displayOptions = {
-			basic: this.basicSettingsFields()
+			basic: this.basicSettingsFields(),
+			advanced: this.advancedSettingsFields()
 		}
 	}
 
 	componentDidMount() {
-		console.log('Loading users strategy settings to the state!')
+		console.log('HERE1: ' + JSON.stringify(this.props.strategySettings))
+		this.setState({ ...this.props.strategySettings }, () => {
+			console.log(JSON.stringify(this.state))
+		})
 	}
 
-	componentDidUpdate() {
-		console.log('Selected Coins: ' + this.state.selectedCoins)
-	}
+	// componentDidUpdate() {
+	// 	console.log('Selected Coins: ' + this.state.selectedCoins)
+	// }
 
 	numInputRegEx = (value) => value.replace(/[^0-9]/, '')
 	numDecInputRegEx = (value) => value.replace(/[^0-9.]/g, '') // doesn't prevent multiple decimals
+	camelToTitle = (camelCase) => camelCase.replace(/([A-Z])/g, (match) => ` ${match}`).replace(/^./, (match) => match.toUpperCase())
 
 	handleSaveInputToState = (event) => {
 		// Ensures only numbers and decimals are saved to state
@@ -139,6 +130,29 @@ class StrategySettingsForm extends Component {
 				</Form.Item>
 			</Col> */}
 		</Row>
+	)
+
+	advancedSettingsFields = () => (
+		<Row>
+			<Col span={24}>
+				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
+					{Object.keys(this.props.strategySettings).map((settingName) => {
+						return this.settingField(settingName)
+					})}
+					<Form.Item {...tailLayout}>
+						<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
+							Submit
+						</Button>
+					</Form.Item>
+				</Form>
+			</Col>
+		</Row>
+	)
+
+	settingField = (settingName) => (
+		<Form.Item className="form-group" name={settingName} label={this.camelToTitle(settingName)} onChange={this.handleSaveInputToState}>
+			<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
+		</Form.Item>
 	)
 
 	render() {

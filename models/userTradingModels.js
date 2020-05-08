@@ -1,4 +1,5 @@
 const UserStrategySetting = require('./schemas/userStrategySetting')
+const Strategy = require('./schemas/strategy')
 const TradeLog = require('./schemas/tradeLog')
 
 // All possible settings initialized in UserStrategySetting doc creation. Strategy doc dictates which are actually used. Add more settings here as list grows.
@@ -24,7 +25,13 @@ exports.equipStrategy = async ({ userId, strategyName }) => {
 		if (hasPreviouslyUsed) {
 			await UserStrategySetting.update({ userId, strategyName }, { strategyIsEquipped: true })
 		} else {
-			await new UserStrategySetting({ userId, strategyName, ...allSettingsDefault }).save()
+			const supportedSettings = await Strategy.find({ strategyName }, 'supportedSettings')
+			await new UserStrategySetting({
+				userId,
+				strategyName,
+				supportedSettings: supportedSettings[0].supportedSettings,
+				...allSettingsDefault
+			}).save()
 		}
 	} catch (err) {
 		throw err
@@ -54,7 +61,7 @@ exports.getStrategyEquippedStatus = async ({ userId, strategyName }) => {
 
 exports.getAllEquippedStrategySettings = async ({ userId }) => {
 	try {
-		const equippedStrategySettings = await UserStrategySetting.find({ userId, strategyIsEquipped: true }, '-_id')
+		const equippedStrategySettings = await UserStrategySetting.find({ userId, strategyIsEquipped: true }, '-_id -userId')
 		return equippedStrategySettings
 	} catch (err) {
 		throw err

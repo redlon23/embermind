@@ -6,6 +6,7 @@ const UserStrategySetting = new Schema(
 		userId: { type: Schema.Types.ObjectId, required: true, ref: 'users', unique: false },
 		strategyName: { type: String, required: true, ref: 'strategies' },
 		strategyIsEquipped: { type: Boolean, required: true, default: true },
+		supportedSettings: { type: Array, required: true, default: [ 'contractQuantity', 'takeProfit', 'stopLoss' ] },
 		contractQuantity: { type: Number },
 		takeProfit: { type: Number },
 		stopLoss: { type: Number },

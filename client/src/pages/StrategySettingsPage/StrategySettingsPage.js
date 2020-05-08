@@ -40,11 +40,11 @@ class StrategySettingsPage extends Component {
 		}
 	}
 
-	strategyTabPane = (strategyName) => (
-		<TabPane tab={strategyName} key={strategyName}>
+	strategyTabPane = (strategy) => (
+		<TabPane tab={strategy.strategyName} key={strategy.strategyName}>
 			<div style={paneStyle}>
-				{`${strategyName} Settings`}
-				<StrategySettingsForm strategyName={strategyName} />
+				{`${strategy.strategyName} Settings`}
+				<StrategySettingsForm strategySettings={strategy} />
 			</div>
 		</TabPane>
 	)
@@ -66,7 +66,7 @@ class StrategySettingsPage extends Component {
 								<Col span={24}>
 									{this.state.renderDataLoaded ? (
 										<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
-											{this.state.equippedStrategySettings.map((strategy) => this.strategyTabPane(strategy.strategyName))}
+											{this.state.equippedStrategySettings.map((strategy) => this.strategyTabPane(strategy))}
 										</Tabs>
 									) : null}
 								</Col>
