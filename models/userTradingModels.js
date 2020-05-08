@@ -3,7 +3,7 @@ const TradeLog = require('./schemas/tradeLog')
 
 // All possible settings initialized in UserStrategySetting doc creation. Strategy doc dictates which are actually used. Add more settings here as list grows.
 const allSettingsDefault = {
-	contractQuantity: null, //, required: true },
+	contractQuantity: null,
 	takeProfit: null,
 	stopLoss: null,
 	tradeInterval: null,
@@ -23,6 +23,15 @@ exports.equipStrategy = async ({ userId, strategyName }) => {
 		await new UserStrategySetting({ userId, strategyName, ...allSettingsDefault }).save()
 	} catch (err) {
 		throw err
+	}
+}
+
+exports.getStrategyEquippedStatus = async ({ userId, strategyName }) => {
+	try {
+		const strategyIsEquipped = await UserStrategySetting.find({ userId, strategyName }, 'strategyIsEquipped')
+		return strategyIsEquipped[0].strategyIsEquipped
+	} catch (err) {
+		return false
 	}
 }
 

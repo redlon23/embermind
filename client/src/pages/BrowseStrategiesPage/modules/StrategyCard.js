@@ -6,8 +6,24 @@ import { Card, Rate, Row, Col, Button, Tooltip, message } from 'antd'
 const { Meta } = Card
 
 class StrategyCard extends Component {
+	constructor(props) {
+		super(props)
+		this.state = { isEquipped: null }
+	}
+
+	componentDidMount = async () => {
+		const response = await fetch(`./api/getStrategyEquippedStatus?strategyName=${this.props.strategyName}`)
+		const data = await response.json()
+
+		if (response.status === 200) {
+			this.setState({ isEquipped: data.strategyIsEquipped })
+		} else {
+			message.error(data.message)
+		}
+	}
+
 	equipStrategy = async () => {
-		const response = await fetch('./api/equipStrategy', {
+		const response = await fetch(this.state.isEquipped ? './api/unequipStrategy' : './api/equipStrategy', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -15,11 +31,9 @@ class StrategyCard extends Component {
 			body: JSON.stringify({ strategyName: this.props.strategyName })
 		})
 		const data = await response.json()
-		console.log('RES: ' + JSON.stringify(data))
 		if (response.status === 200) {
 			message.success(data.message)
-			// this.props.history.push('/')
-			// this.props.history.push('/account-settings')
+			this.setState({ isEquipped: !this.state.isEquipped })
 		} else {
 			message.error(data.message)
 		}
@@ -58,7 +72,7 @@ class StrategyCard extends Component {
 									>
 										{this.props.details.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
 										<Button type="primary" size="small" onClick={this.equipStrategy} style={{ marginTop: '0.3rem' }}>
-											Equip
+											{this.state.isEquipped ? 'Unequip' : 'Equip'}
 										</Button>
 									</Col>
 								</Row>

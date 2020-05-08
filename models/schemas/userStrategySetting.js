@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const UserStrategySetting = new Schema({
 	userId: { type: Schema.Types.ObjectId, required: true, ref: 'users', unique: false },
 	strategyName: { type: String, required: true, ref: 'strategies' },
+	strategyIsEquipped: { type: Boolean, required: true, default: true },
 	contractQuantity: { type: Number },
 	takeProfit: { type: Number },
 	stopLoss: { type: Number },

@@ -10,6 +10,19 @@ exports.equipStrategy = async (req, res) => {
 	}
 }
 
+exports.getStrategyEquippedStatus = async (req, res) => {
+	try {
+		const strategyIsEquipped = await userTradingModel.getStrategyEquippedStatus({
+			userId: req.session.userId,
+			strategyName: req.query.strategyName
+		})
+		res.status(200).send({ strategyIsEquipped: strategyIsEquipped })
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Error fetching strategy status' })
+	}
+}
+
 //TODO: Test when front end finished!
 exports.newStrategySetting = async (req, res) => {
 	const newSetting = await userTradingModel.insertStrategySetting(req.body)
