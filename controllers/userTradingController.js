@@ -26,10 +26,20 @@ exports.getStrategyEquippedStatus = async (req, res) => {
 			userId: req.session.userId,
 			strategyName: req.query.strategyName
 		})
-		res.status(200).send({ strategyIsEquipped: strategyIsEquipped })
+		res.status(200).send({ strategyIsEquipped })
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'Error fetching strategy status' })
+	}
+}
+
+exports.getAllEquippedStrategySettings = async (req, res) => {
+	try {
+		const equippedStrategySettings = await userTradingModel.getAllEquippedStrategySettings({ userId: req.session.userId })
+		res.status(200).send({ equippedStrategySettings })
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Error fetching equipped strategies' })
 	}
 }
 

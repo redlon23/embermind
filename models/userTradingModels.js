@@ -52,6 +52,17 @@ exports.getStrategyEquippedStatus = async ({ userId, strategyName }) => {
 	}
 }
 
+exports.getAllEquippedStrategySettings = async ({ userId }) => {
+	try {
+		const equippedStrategySettings = await UserStrategySetting.find({ userId, strategyIsEquipped: true }, '-_id')
+		return equippedStrategySettings
+	} catch (err) {
+		throw err
+	}
+}
+
+////////////////////////////////////////////////////////
+
 exports.insertStrategySetting = async (req) => {
 	var stratSetting = new UserStrategySetting(req)
 	try {

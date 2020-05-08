@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import CoinSelector from './CoinSelector'
 import { withRouter } from 'react-router-dom'
+// import CoinSelector from './CoinSelector'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
 
@@ -29,7 +29,7 @@ class StrategySettingsForm extends Component {
 			strategyId: '',
 			strategyName: this.props.strategyName,
 			displayCategory: 'basic',
-			availableCoins: [ 'Bitcoin', 'EOS', 'Etherium', 'Ripple' ],
+			supportedCoins: [ 'Bitcoin', 'EOS', 'Etherium', 'Ripple' ],
 			selectedCoins: [ 'Etherium' ],
 			contractQuantity: '',
 			DCA: '',
@@ -133,7 +133,7 @@ class StrategySettingsForm extends Component {
 				<Form.Item>
 					<CoinSelector
 						selectedCoins={this.state.selectedCoins}
-						availableCoins={this.state.availableCoins}
+						supportedCoins={this.state.supportedCoins}
 						updateSelectedCoins={this.updateSelectedCoins.bind(this)}
 					/>
 				</Form.Item>
