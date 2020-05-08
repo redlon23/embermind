@@ -8,10 +8,10 @@ const { Content, Sider } = Layout
 
 const layout = {
 	labelCol: {
-		span: 8
+		span: 9
 	},
 	wrapperCol: {
-		span: 16
+		span: 15
 	},
 	style: { paddingTop: '1rem', paddingLeft: 0 }
 }
@@ -31,26 +31,29 @@ class StrategySettingsForm extends Component {
 			selectedCoins: []
 		}
 
+		this.omitFromSettings = [ 'strategyIsEquipped', 'supportedSettings', 'strategyName' ]
 		this.basicSettings = [ 'contractQuantity', 'takeProfit', 'stopLoss' ]
+		this.advancedSettings = Object.keys(this.props.strategySettings)
+			.filter((setting) => {
+				return !this.omitFromSettings.includes(setting) && !this.basicSettings.includes(setting)
+			})
+			.sort()
 
 		this.displayOptions = {
 			basic: this.basicSettingsFields(),
-			advanced: this.advancedSettingsFields(this.basicSettings)
+			advanced: this.advancedSettingsFields(this.advancedSettings)
 		}
 	}
 
 	componentDidMount() {
-		console.log('HERE1: ' + JSON.stringify(this.props.strategySettings))
-		this.setState({ ...this.props.strategySettings }, () => {
-			console.log(JSON.stringify(this.state))
-		})
+		this.setState({ ...this.props.strategySettings }, () => {})
 	}
 
 	// componentDidUpdate() {
 	// 	console.log('Selected Coins: ' + this.state.selectedCoins)
 	// }
 
-	numInputRegEx = (value) => value.replace(/[^0-9]/, '')
+	numIntInputRegEx = (value) => value.replace(/[^0-9]/, '')
 	numDecInputRegEx = (value) => value.replace(/[^0-9.]/g, '') // doesn't prevent multiple decimals
 	camelToTitle = (camelCase) => camelCase.replace(/([A-Z])/g, (match) => ` ${match}`).replace(/^./, (match) => match.toUpperCase())
 
@@ -98,16 +101,16 @@ class StrategySettingsForm extends Component {
 		}
 	}
 
-	updateSelectedCoins = (newCoins) => {
-		this.setState({ selectedCoins: newCoins })
-	}
+	// updateSelectedCoins = (newCoins) => {
+	// 	this.setState({ selectedCoins: newCoins })
+	// }
 
 	basicSettingsFields = () => (
 		<Row>
 			<Col span={12}>
 				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
 					<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-						<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
+						<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
 					</Form.Item>
 					<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
 						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
@@ -134,35 +137,47 @@ class StrategySettingsForm extends Component {
 		</Row>
 	)
 
-	advancedSettingsFields = (basicSettings) => (
-		<Row>
-			<Col span={24}>
-				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
-					{Object.keys(this.props.strategySettings).map((settingName) => {
-						if (!basicSettings.includes(settingName)) {
-							return this.settingField(settingName)
-						}
-					})}
-					<Form.Item {...tailLayout}>
-						<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
-							Submit
-						</Button>
-					</Form.Item>
-				</Form>
-			</Col>
-		</Row>
+	advancedSettingsFields = (advancedSettings) => (
+		<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
+			{advancedSettings.map(
+				(settingName, index) =>
+					index % 2 === 0 ? this.settingRow(settingName, advancedSettings[index + 1] ? advancedSettings[index + 1] : null, index) : null
+			)}
+			<Form.Item {...tailLayout}>
+				<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
+					Submit
+				</Button>
+			</Form.Item>
+		</Form>
 	)
 
-	settingField = (settingName) => (
-		<Form.Item
-			className="form-group"
-			name={settingName}
-			label={this.camelToTitle(settingName)}
-			key={settingName}
-			onChange={this.handleSaveInputToState}
-		>
-			<InputNumber parser={this.numInputRegEx} style={fieldStyle} />
-		</Form.Item>
+	settingRow = (settingName1, settingName2, index) => (
+		<Row key={index}>
+			<Col span={12}>
+				<Form.Item
+					className="form-group"
+					name={settingName1}
+					label={this.camelToTitle(settingName1)}
+					key={settingName1}
+					onChange={this.handleSaveInputToState}
+				>
+					<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
+				</Form.Item>
+			</Col>
+			<Col span={10}>
+				{settingName2 ? (
+					<Form.Item
+						className="form-group"
+						name={settingName2}
+						label={this.camelToTitle(settingName2)}
+						key={settingName2}
+						onChange={this.handleSaveInputToState}
+					>
+						<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
+					</Form.Item>
+				) : null}
+			</Col>
+		</Row>
 	)
 
 	render() {
