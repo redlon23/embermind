@@ -5,6 +5,7 @@ exports.getAllStrategiesInfo = async (req, res) => {
 		const result = await strategyModel.getAllStrategiesInfo()
 		res.status(200).send(result)
 	} catch (err) {
-		res.status(500).send({ message: err })
+		console.error(err)
+		res.status(500).send()
 	}
 }

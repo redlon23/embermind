@@ -17,7 +17,8 @@ const Strategy = new Schema({
 			starRating: { type: Number },
 			description: { type: String }
 		}
-	]
+	],
+	supportedSettings: { type: Object, required: true }
 })
 
 module.exports = mongoose.model('Strategy', Strategy, 'strategies')

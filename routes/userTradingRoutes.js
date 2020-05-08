@@ -3,6 +3,7 @@ const userTradingController = require('../controllers/userTradingController')
 const isApiAuth = require('../util/isApiAuth')
 const router = express.Router()
 
+router.post('/equipStrategy', isApiAuth, userTradingController.equipStrategy)
 router.post('/updateStrategySetting', isApiAuth, userTradingController.updateStrategySetting)
 
 module.exports = router

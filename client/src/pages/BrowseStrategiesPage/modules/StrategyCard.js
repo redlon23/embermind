@@ -1,11 +1,30 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
-import { Card, Rate, Row, Col, Button, Tooltip } from 'antd'
+import { Card, Rate, Row, Col, Button, Tooltip, message } from 'antd'
 
 const { Meta } = Card
 
 class StrategyCard extends Component {
+	equipStrategy = async () => {
+		const response = await fetch('./api/equipStrategy', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ strategyName: this.props.strategyName })
+		})
+		const data = await response.json()
+		console.log('RES: ' + JSON.stringify(data))
+		if (response.status === 200) {
+			message.success(data.message)
+			// this.props.history.push('/')
+			// this.props.history.push('/account-settings')
+		} else {
+			message.error(data.message)
+		}
+	}
+
 	avgProfitPerTrade = this.props.details.avgProfitPerTrade * 100
 	nearestHalfStar = parseFloat((Math.round(this.props.details.avgRating * 2) / 2).toFixed(1))
 
@@ -16,8 +35,8 @@ class StrategyCard extends Component {
 	render() {
 		return (
 			<div className="BrowseStategiesCard" style={{ display: 'flex', flexDirection: 'row' }}>
-				<img src={this.props.imgPath} style={{ width: '130px', height: '130px' }} />
-				<Tooltip placement="topRight" title={`Average Rating: ${this.props.avgRating}/5`}>
+				<img src={this.props.imgPath} alt="Strategy Img" style={{ width: '130px', height: '130px' }} />
+				<Tooltip placement="topRight" title={`Average Rating: ${this.props.details.avgRating}/5`}>
 					<Card
 						title={this.props.strategyName}
 						extra={<Rate disabled allowHalf defaultValue={this.nearestHalfStar} />}
@@ -38,12 +57,7 @@ class StrategyCard extends Component {
 										style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'flex-end' }}
 									>
 										{this.props.details.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
-										<Button
-											type="primary"
-											size="small"
-											onClick={console.log('Clicked: ' + this.props.title)}
-											style={{ marginTop: '0.3rem' }}
-										>
+										<Button type="primary" size="small" onClick={this.equipStrategy} style={{ marginTop: '0.3rem' }}>
 											Equip
 										</Button>
 									</Col>

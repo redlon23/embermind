@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 
+// eslint-disable-next-line
 const antComponentConfigs = require('./antComponentConfigs')
 
 ReactDOM.render(
