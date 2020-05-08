@@ -10,6 +10,16 @@ exports.equipStrategy = async (req, res) => {
 	}
 }
 
+exports.unequipStrategy = async (req, res) => {
+	try {
+		await userTradingModel.unequipStrategy({ userId: req.session.userId, strategyName: req.query.strategyName })
+		res.status(200).send({ message: 'Strategy Unequipped' })
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Error unequipping strategy' })
+	}
+}
+
 exports.getStrategyEquippedStatus = async (req, res) => {
 	try {
 		const strategyIsEquipped = await userTradingModel.getStrategyEquippedStatus({

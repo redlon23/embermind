@@ -29,7 +29,6 @@ class StrategyCard extends Component {
 				: `./api/equipStrategy?strategyName=${this.props.strategyName}`
 		)
 		const data = await response.json()
-
 		if (response.status === 200) {
 			message.success(data.message)
 			this.setState({ isEquipped: !this.state.isEquipped })

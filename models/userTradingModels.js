@@ -20,7 +20,20 @@ const allSettingsDefault = {
 
 exports.equipStrategy = async ({ userId, strategyName }) => {
 	try {
-		await new UserStrategySetting({ userId, strategyName, ...allSettingsDefault }).save()
+		const hasPreviouslyUsed = await UserStrategySetting.exists({ userId, strategyName })
+		if (hasPreviouslyUsed) {
+			await UserStrategySetting.update({ userId, strategyName }, { strategyIsEquipped: true })
+		} else {
+			await new UserStrategySetting({ userId, strategyName, ...allSettingsDefault }).save()
+		}
+	} catch (err) {
+		throw err
+	}
+}
+
+exports.unequipStrategy = async ({ userId, strategyName }) => {
+	try {
+		await await UserStrategySetting.update({ userId, strategyName }, { strategyIsEquipped: false })
 	} catch (err) {
 		throw err
 	}
@@ -28,10 +41,14 @@ exports.equipStrategy = async ({ userId, strategyName }) => {
 
 exports.getStrategyEquippedStatus = async ({ userId, strategyName }) => {
 	try {
-		const strategyIsEquipped = await UserStrategySetting.find({ userId, strategyName }, 'strategyIsEquipped')
-		return strategyIsEquipped[0].strategyIsEquipped
-	} catch (err) {
+		const hasPreviouslyUsed = await UserStrategySetting.exists({ userId, strategyName })
+		if (hasPreviouslyUsed) {
+			const strategyIsEquipped = await UserStrategySetting.find({ userId, strategyName }, 'strategyIsEquipped')
+			return strategyIsEquipped[0].strategyIsEquipped
+		}
 		return false
+	} catch (err) {
+		throw err
 	}
 }
 
