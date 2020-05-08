@@ -8,6 +8,7 @@ const Strategy = new Schema({
 		avgProfitPerTrade: { type: Number, required: false },
 		subscriberCount: { type: Number, required: false, default: 0 },
 		avgDailySignals: { type: Number, required: false },
+		ratingCount: { type: Number, required: true, default: 0 },
 		avgRating: { type: Number, required: false }
 	},
 	reviews: [
@@ -17,7 +18,8 @@ const Strategy = new Schema({
 			starRating: { type: Number },
 			description: { type: String }
 		}
-	]
+	],
+	supportedSettings: { type: Object, required: true }
 })
 
 module.exports = mongoose.model('Strategy', Strategy, 'strategies')

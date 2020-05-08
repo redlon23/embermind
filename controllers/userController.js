@@ -1,21 +1,27 @@
 const userModel = require('../models/userModels')
 
 exports.loginUser = async (req, res) => {
-	const { email, password } = req.body
+	try {
+		const { email, password } = req.body
 
-	const user = await userModel.loginUser({ email, password })
-
-	if (!user) {
+		const user = await userModel.loginUser({ email, password })
+		const validPassword = await userModel.comparePasswords(user.password, password)
+		if (!validPassword) {
+			throw new Error()
+		}
+		req.session.userId = user._id
+	} catch (err) {
+		console.error(err)
 		res.status(401).send({ message: 'Invalid Credentials' })
 	}
 
-	req.session.userId = user._id
-	const result = await validateSubscriptionExpiry(req)
-	console.log(result)
-	if (!result) {
-		res.status(500).send({ message: 'Subscription Data Error' })
+	try {
+		await validateSubscriptionExpiry(req)
+		res.status(200).send()
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Subscription Validation Error' })
 	}
-	res.status(200).send({ message: 'Logging in...' })
 }
 
 const validateSubscriptionExpiry = async (req) => {

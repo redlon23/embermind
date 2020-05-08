@@ -6,28 +6,23 @@ const { Header } = Layout
 
 class LandingPageHeader extends Component {
 	handleLogin = async (event) => {
-		try {
-			const loginCreds = {
-				email: event.email ? event.email : null,
-				password: event.password ? event.password : null
-			}
+		const loginCreds = {
+			email: event.email ? event.email : null,
+			password: event.password ? event.password : null
+		}
 
-			const response = await fetch('./api/loginUser', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(loginCreds)
-			})
+		const response = await fetch('./api/loginUser', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(loginCreds)
+		})
+		if (response.status === 200) {
+			window.location.reload()
+		} else {
 			const data = await response.json()
-			if (response.status === 200) {
-				console.log(JSON.stringify(data.message))
-				window.location.reload()
-			} else {
-				message.error(data.message)
-			}
-		} catch (err) {
-			console.log(err)
+			message.error(data.message)
 		}
 	}
 

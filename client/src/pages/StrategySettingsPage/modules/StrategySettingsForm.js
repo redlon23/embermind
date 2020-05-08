@@ -63,7 +63,7 @@ class StrategySettingsForm extends Component {
 
 	handleSaveInputToState = (event) => {
 		// Ensures only numbers and decimals are saved to state
-		if (!isNaN(event.target.value[event.target.value.length - 1]) || event.target.value[event.target.value.length - 1] == '.') {
+		if (!isNaN(event.target.value[event.target.value.length - 1]) || event.target.value[event.target.value.length - 1] === '.') {
 			this.setState({ [event.target.id]: event.target.value })
 		}
 	}
@@ -81,7 +81,6 @@ class StrategySettingsForm extends Component {
 				numOrders: this.state.numOrders,
 				orderSpread: this.state.orderSpread,
 				spread: this.state.spread,
-				takeProfit: this.state.takeProfit,
 				tradeInterval: this.state.tradeInterval,
 				trailingSafety: this.state.trailingSafety,
 				trailingStop: this.state.trailingStop

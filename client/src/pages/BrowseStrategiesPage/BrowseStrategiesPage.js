@@ -26,14 +26,12 @@ class BrowseStrategiesPage extends Component {
 	}
 
 	async componentDidMount() {
-		try {
-			await validateSessionStatus()
+		await validateSessionStatus()
 
-			const response = await fetch('/api/getAllStrategiesInfo')
+		const response = await fetch('/api/getAllStrategiesInfo')
+		if (response.status === 200) {
 			const data = await response.json()
 			this.setState({ strategies: data })
-		} catch (err) {
-			console.error(err)
 		}
 	}
 
