@@ -33,9 +33,9 @@ class StrategySettingsForm extends Component {
 
 		this.omitFromSettings = [ 'strategyIsEquipped', 'supportedSettings', 'strategyName' ]
 		this.basicSettings = [ 'contractQuantity', 'takeProfit', 'stopLoss' ]
-		this.advancedSettings = Object.keys(this.props.strategySettings)
+		this.advancedSettings = this.props.strategySettings.supportedSettings
 			.filter((setting) => {
-				return !this.omitFromSettings.includes(setting) && !this.basicSettings.includes(setting)
+				return !this.basicSettings.includes(setting)
 			})
 			.sort()
 
@@ -46,7 +46,9 @@ class StrategySettingsForm extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({ ...this.props.strategySettings }, () => {})
+		this.setState({ ...this.props.strategySettings }, () => {
+			console.log(this.state)
+		})
 	}
 
 	// componentDidUpdate() {
@@ -106,25 +108,27 @@ class StrategySettingsForm extends Component {
 	// }
 
 	basicSettingsFields = () => (
-		<Row>
-			<Col span={12}>
-				<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
-					<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-						<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
-					</Form.Item>
-					<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
-						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
-					</Form.Item>
-					<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
-						<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
-					</Form.Item>
-					<Form.Item {...tailLayout}>
-						<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
-							Submit
-						</Button>
-					</Form.Item>
-				</Form>
-			</Col>
+		<div>
+			<Row>
+				<Col span={12}>
+					<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
+						<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
+							<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
+						</Form.Item>
+						<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
+							<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
+						</Form.Item>
+						<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
+							<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
+						</Form.Item>
+					</Form>
+				</Col>
+			</Row>
+			<Row justify="end">
+				<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings} style={{ marginRight: '6.2rem' }}>
+					Submit
+				</Button>
+			</Row>
 			{/*<Col span={12}>
 				<Form.Item>
 					<CoinSelector
@@ -134,7 +138,7 @@ class StrategySettingsForm extends Component {
 					/>
 				</Form.Item>
 			</Col> */}
-		</Row>
+		</div>
 	)
 
 	advancedSettingsFields = (advancedSettings) => (
@@ -143,11 +147,13 @@ class StrategySettingsForm extends Component {
 				(settingName, index) =>
 					index % 2 === 0 ? this.settingRow(settingName, advancedSettings[index + 1] ? advancedSettings[index + 1] : null, index) : null
 			)}
-			<Form.Item {...tailLayout}>
-				<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
-					Submit
-				</Button>
-			</Form.Item>
+			{advancedSettings.length > 0 ? (
+				<Form.Item {...tailLayout}>
+					<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
+						Submit
+					</Button>
+				</Form.Item>
+			) : null}
 		</Form>
 	)
 
