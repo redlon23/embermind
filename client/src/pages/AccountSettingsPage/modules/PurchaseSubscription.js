@@ -34,6 +34,16 @@ class PurchaseSubscription extends Component {
 		const response = await fetch('/api/purchaseSubscription')
 		const data = await response.json()
 		if (response.status === 200) {
+			window.location.href = data.paypalRedirectUrl
+		} else {
+			console.error(JSON.stringify(data.message))
+		}
+	}
+
+	addPurchasedSubscriptionToDB = async () => {
+		const response = await fetch('/api/addPurchasedSubscriptionToDB')
+		const data = await response.json()
+		if (response.status === 200) {
 			console.log(JSON.stringify(data.message))
 			this.props.history.push('/')
 			this.props.history.push('/account-settings')

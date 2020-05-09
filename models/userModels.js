@@ -96,7 +96,7 @@ exports.getSubscriptionDetails = async (req) => {
 	}
 }
 
-exports.purchaseSubscription = async (req) => {
+exports.addPurchasedSubscriptionToDB = async (req) => {
 	try {
 		const currentSubDetails = await this.getSubscriptionDetails(req)
 		console.log('currentSubDetails: ' + currentSubDetails)

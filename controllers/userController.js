@@ -1,4 +1,5 @@
 const userModel = require('../models/userModels')
+const paypal = require('paypal-rest-sdk')
 
 exports.loginUser = async (req, res) => {
 	try {
@@ -92,15 +93,71 @@ exports.logout = async (req, res) => {
 	res.status(200).send()
 }
 
-exports.purchaseSubscription = async (req, res) => {
+////////////////////////////////////
+
+exports.purchaseSubscription = (req, res) => {
+	handlePaypalPayment(req, res)
+}
+
+const handlePaypalPayment = async (req, res) => {
+	const create_payment_json = {
+		intent: 'sale',
+		payer: {
+			payment_method: 'paypal'
+		},
+		redirect_urls: {
+			return_url: 'http://localhost:3000/account-settings',
+			cancel_url: 'http://localhost:3000/purchase-cancelled'
+		},
+		transactions: [
+			{
+				item_list: {
+					items: [
+						{
+							name: 'EmberMind Monthly Subscription',
+							sku: '001',
+							price: '30.00',
+							currency: 'USD',
+							quantity: 1
+						}
+					]
+				},
+				amount: {
+					currency: 'USD',
+					total: '30.00'
+				},
+				description: 'One month subscription to EmberMind.'
+			}
+		]
+	}
+
+	paypal.payment.create(create_payment_json, function(error, payment) {
+		if (error) {
+			throw error
+		} else {
+			for (let i = 0; i < payment.links.length; i++) {
+				if (payment.links[i].rel === 'approval_url') {
+					res.status(200).send({ paypalRedirectUrl: payment.links[i].href })
+				}
+			}
+			// res.redirect('https://google.com')
+			console.log('Create Payment Response')
+			console.log(payment)
+		}
+	})
+}
+
+exports.addPurchasedSubscriptionToDB = async (req, res) => {
 	try {
-		await userModel.purchaseSubscription({ userId: req.session.userId })
+		await userModel.addPurchasedSubscriptionToDB({ userId: req.session.userId })
 		res.status(200).send({ message: 'New subscription purchased!' })
 	} catch (err) {
 		console.error(err)
-		res.status(500).send({ message: 'DB Error' })
+		res.status(500).send({ message: 'Error Purchasing Subscription' })
 	}
 }
+
+//////////////////////////////////////
 
 exports.getSubscriptionInfo = async (req, res) => {
 	try {
