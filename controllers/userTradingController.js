@@ -36,7 +36,7 @@ exports.getStrategyEquippedStatus = async (req, res) => {
 exports.getAllEquippedStrategySettings = async (req, res) => {
 	try {
 		const equippedStrategySettings = await userTradingModel.getAllEquippedStrategySettings({ userId: req.session.userId })
-		console.log(equippedStrategySettings)
+		console.log('HERE: ' + JSON.stringify(equippedStrategySettings))
 		res.status(200).send({ equippedStrategySettings })
 	} catch (err) {
 		console.error(err)
@@ -44,21 +44,21 @@ exports.getAllEquippedStrategySettings = async (req, res) => {
 	}
 }
 
-//TODO: Test when front end finished!
-exports.newStrategySetting = async (req, res) => {
-	const newSetting = await userTradingModel.insertStrategySetting(req.body)
-	if (!newSetting) {
-		res.send('settings not saved')
-	}
-	res.status(200).send({ status: 200, message: 'Strategy Setting Saved' })
-}
+// exports.newStrategySetting = async (req, res) => {
+// 	const newSetting = await userTradingModel.insertStrategySetting(req.body)
+// 	if (!newSetting) {
+// 		res.send('settings not saved')
+// 	}
+// 	res.status(200).send({ status: 200, message: 'Strategy Setting Saved' })
+// }
 
-exports.updateStrategySetting = async (req, res) => {
-	const setting = await userTradingModel.updateStrategySetting(req.session.userId, req.body)
-	if (!setting) {
-		res.send('settings not saved')
+exports.updateStrategySettings = async (req, res) => {
+	try {
+		await userTradingModel.updateStrategySettings({ userId: req.session.userId, updatedSettings: req.body })
+		res.status(200).send({ message: 'Strategy Settings Updated' })
+	} catch (err) {
+		res.status(500).send({ message: 'Error Saving Settings' })
 	}
-	res.status(200).send({ status: 200, message: 'Strategy Setting Updated' })
 }
 
 exports.getTradeLogs = async (req, res) => {

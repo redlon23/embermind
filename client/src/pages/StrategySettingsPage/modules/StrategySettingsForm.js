@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 // import CoinSelector from './CoinSelector'
 
-import { Layout, Menu, Form, Button, InputNumber, Row, Col } from 'antd'
+import { Layout, Menu, Form, Button, InputNumber, Row, Col, message } from 'antd'
 
 const { Content, Sider } = Layout
 
@@ -31,7 +31,6 @@ class StrategySettingsForm extends Component {
 			selectedCoins: []
 		}
 
-		this.omitFromSettings = [ 'strategyIsEquipped', 'supportedSettings', 'strategyName' ]
 		this.basicSettings = [ 'contractQuantity', 'takeProfit', 'stopLoss' ]
 		this.advancedSettings = this.props.strategySettings.supportedSettings
 			.filter((setting) => {
@@ -66,40 +65,35 @@ class StrategySettingsForm extends Component {
 		}
 	}
 
-	handleSubmitStrategySettings = async () => {
-		try {
-			const settingRequest = {
-				takeProfit: this.state.takeProfit,
-				strategyName: this.state.strategyName,
-				contractQuantity: this.state.contractQuantity,
-				DCA: this.state.DCA,
-				maxContractSize: this.state.maxContractSize,
-				noTradingZoneSize: this.state.noTradingZoneSize,
-				noTradingZoneRange: this.state.noTradingZoneRange,
-				numOrders: this.state.numOrders,
-				orderSpread: this.state.orderSpread,
-				spread: this.state.spread,
-				tradeInterval: this.state.tradeInterval,
-				trailingSafety: this.state.trailingSafety,
-				trailingStop: this.state.trailingStop
-			}
-			const response = await fetch('/api/updateStrategySetting', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(settingRequest)
-			})
-			const data = await response.json()
-			if (data.status === 200) {
-				console.log(JSON.stringify(data.message))
-				this.props.history.push('/')
-				this.props.history.push('/strategy-settings')
-			} else {
-				//TODO: Prompt for correct input
-			}
-		} catch (err) {
-			console.log(err)
+	updateStrategySettings = async () => {
+		const updatedSettings = {
+			strategyName: this.state.strategyName,
+			contractQuantity: this.state.contractQuantity,
+			DCA: this.state.DCA,
+			maxContractSize: this.state.maxContractSize,
+			noTradingZoneSize: this.state.noTradingZoneSize,
+			noTradingZoneRange: this.state.noTradingZoneRange,
+			numOrders: this.state.numOrders,
+			orderSpread: this.state.orderSpread,
+			spread: this.state.spread,
+			stopLoss: this.state.stopLoss,
+			takeProfit: this.state.takeProfit,
+			tradeInterval: this.state.tradeInterval,
+			trailingSafety: this.state.trailingSafety,
+			trailingStop: this.state.trailingStop
+		}
+		const response = await fetch('/api/updateStrategySettings', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(updatedSettings)
+		})
+		const data = await response.json()
+		if (response.status === 200) {
+			message.success(data.message)
+		} else {
+			message.error(data.message)
 		}
 	}
 
@@ -111,7 +105,7 @@ class StrategySettingsForm extends Component {
 		<div>
 			<Row>
 				<Col span={12}>
-					<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
+					<Form className="form-section" {...layout} onFinish={this.updateStrategySettings}>
 						<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
 							<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
 						</Form.Item>
@@ -125,7 +119,7 @@ class StrategySettingsForm extends Component {
 				</Col>
 			</Row>
 			<Row justify="end">
-				<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings} style={{ marginRight: '6.2rem' }}>
+				<Button type="primary" htmlType="submit" onClick={this.updateStrategySettings} style={{ marginRight: '6.2rem' }}>
 					Submit
 				</Button>
 			</Row>
@@ -142,14 +136,14 @@ class StrategySettingsForm extends Component {
 	)
 
 	advancedSettingsFields = (advancedSettings) => (
-		<Form className="form-section" {...layout} onFinish={this.handleSubmitStrategySettings}>
+		<Form className="form-section" {...layout} onFinish={this.updateStrategySettings}>
 			{advancedSettings.map(
 				(settingName, index) =>
 					index % 2 === 0 ? this.settingRow(settingName, advancedSettings[index + 1] ? advancedSettings[index + 1] : null, index) : null
 			)}
 			{advancedSettings.length > 0 ? (
 				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit" onClick={this.handleSubmitStrategySettings}>
+					<Button type="primary" htmlType="submit" onClick={this.updateStrategySettings}>
 						Submit
 					</Button>
 				</Form.Item>
