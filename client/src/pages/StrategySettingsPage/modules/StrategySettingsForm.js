@@ -45,9 +45,7 @@ class StrategySettingsForm extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({ ...this.props.strategySettings }, () => {
-			console.log(this.state)
-		})
+		this.setState({ ...this.props.strategySettings })
 	}
 
 	// componentDidUpdate() {
@@ -107,13 +105,17 @@ class StrategySettingsForm extends Component {
 				<Col span={12}>
 					<Form className="form-section" {...layout} onFinish={this.updateStrategySettings}>
 						<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-							<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
+							<InputNumber
+								placeholder={this.props.strategySettings.contractQuantity}
+								parser={this.numIntInputRegEx}
+								style={fieldStyle}
+							/>
 						</Form.Item>
 						<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
-							<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
+							<InputNumber placeholder={this.props.strategySettings.takeProfit} parser={this.numDecInputRegEx} style={fieldStyle} />
 						</Form.Item>
 						<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={this.handleSaveInputToState}>
-							<InputNumber parser={this.numDecInputRegEx} style={fieldStyle} />
+							<InputNumber placeholder={this.props.strategySettings.stopLoss} parser={this.numDecInputRegEx} style={fieldStyle} />
 						</Form.Item>
 					</Form>
 				</Col>
@@ -161,7 +163,7 @@ class StrategySettingsForm extends Component {
 					key={settingName1}
 					onChange={this.handleSaveInputToState}
 				>
-					<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
+					<InputNumber placeholder={this.props.strategySettings[settingName1]} parser={this.numIntInputRegEx} style={fieldStyle} />
 				</Form.Item>
 			</Col>
 			<Col span={10}>
@@ -173,7 +175,7 @@ class StrategySettingsForm extends Component {
 						key={settingName2}
 						onChange={this.handleSaveInputToState}
 					>
-						<InputNumber parser={this.numIntInputRegEx} style={fieldStyle} />
+						<InputNumber placeholder={this.props.strategySettings[settingName2]} parser={this.numIntInputRegEx} style={fieldStyle} />
 					</Form.Item>
 				) : null}
 			</Col>
