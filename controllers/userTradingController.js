@@ -26,29 +26,40 @@ exports.getStrategyEquippedStatus = async (req, res) => {
 			userId: req.session.userId,
 			strategyName: req.query.strategyName
 		})
-		res.status(200).send({ strategyIsEquipped: strategyIsEquipped })
+		res.status(200).send({ strategyIsEquipped })
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'Error fetching strategy status' })
 	}
 }
 
-//TODO: Test when front end finished!
-exports.newStrategySetting = async (req, res) => {
-	const newSetting = await userTradingModel.insertStrategySetting(req.body)
-	if (!newSetting) {
-		res.send('settings not saved')
+exports.getAllEquippedStrategySettings = async (req, res) => {
+	try {
+		const equippedStrategySettings = await userTradingModel.getAllEquippedStrategySettings({ userId: req.session.userId })
+		res.status(200).send({ equippedStrategySettings })
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Error fetching equipped strategies' })
 	}
-	res.status(200).send({ status: 200, message: 'Strategy Setting Saved' })
 }
 
-exports.updateStrategySetting = async (req, res) => {
-	const setting = await userTradingModel.updateStrategySetting(req.session.userId, req.body)
-	if (!setting) {
-		res.send('settings not saved')
+exports.updateStrategySettings = async (req, res) => {
+	try {
+		await userTradingModel.updateStrategySettings({ userId: req.session.userId, updatedSettings: req.body })
+		res.status(200).send({ message: 'Settings Updated' })
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Error Saving Settings' })
 	}
-	res.status(200).send({ status: 200, message: 'Strategy Setting Updated' })
 }
+
+// exports.newStrategySetting = async (req, res) => {
+// 	const newSetting = await userTradingModel.insertStrategySetting(req.body)
+// 	if (!newSetting) {
+// 		res.send('settings not saved')
+// 	}
+// 	res.status(200).send({ status: 200, message: 'Strategy Setting Saved' })
+// }
 
 exports.getTradeLogs = async (req, res) => {
 	const setting = await userTradingModel.getTradeLogs({ userId: req.session.userId })

@@ -5,7 +5,7 @@ import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
 import StrategySettingsForm from './modules/StrategySettingsForm'
 
-import { Row, Col, Layout, Tabs } from 'antd'
+import { Row, Col, Layout, Tabs, message } from 'antd'
 
 const { Content } = Layout
 const { TabPane } = Tabs
@@ -23,20 +23,28 @@ class StrategySettingsPage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			strategies: [ 'EpicTradesX', 'Gnome Strat', 'Crypo Bob' ]
+			equippedStrategySettings: [],
+			renderDataLoaded: false
 		}
 	}
 
 	async componentDidMount() {
 		await validateSessionStatus()
-		console.log('Saving users strategies to state!')
+
+		const response = await fetch('/api/getAllEquippedStrategySettings')
+		const data = await response.json()
+		if (response.status === 200) {
+			this.setState({ equippedStrategySettings: data.equippedStrategySettings, renderDataLoaded: true })
+		} else {
+			message.error(data.message)
+		}
 	}
 
-	strategyTabPane = (strategyName) => (
-		<TabPane tab={strategyName} key={strategyName}>
+	strategyTabPane = (strategy) => (
+		<TabPane tab={strategy.strategyName} key={strategy.strategyName}>
 			<div style={paneStyle}>
-				{`${strategyName} Settings`}
-				<StrategySettingsForm strategyName={strategyName} />
+				{`${strategy.strategyName} Settings`}
+				<StrategySettingsForm strategySettings={strategy} />
 			</div>
 		</TabPane>
 	)
@@ -56,9 +64,11 @@ class StrategySettingsPage extends Component {
 							</Row>
 							<Row style={{ height: '10rem' }}>
 								<Col span={24}>
-									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
-										{this.state.strategies.map((strategyName) => this.strategyTabPane(strategyName))}
-									</Tabs>
+									{this.state.renderDataLoaded ? (
+										<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
+											{this.state.equippedStrategySettings.map((strategy) => this.strategyTabPane(strategy))}
+										</Tabs>
+									) : null}
 								</Col>
 							</Row>
 						</Content>

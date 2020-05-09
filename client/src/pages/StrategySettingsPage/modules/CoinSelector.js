@@ -11,24 +11,24 @@ class CoinSelector extends Component {
 	constructor(props) {
 		super(props)
 
-		const availableCoins = []
-		for (let i = 0; i < this.props.availableCoins.length; i++) {
-			availableCoins.push({
+		const supportedCoins = []
+		for (let i = 0; i < this.props.supportedCoins.length; i++) {
+			supportedCoins.push({
 				key: i.toString(),
-				title: this.props.availableCoins[i]
+				title: this.props.supportedCoins[i]
 			})
 		}
 
-		let selectedCoinKeys = availableCoins.map((availCoin) => {
+		let selectedCoinKeys = supportedCoins.map((supCoin) => {
 			for (let selectCoin of this.props.selectedCoins) {
-				if (selectCoin === availCoin.title) {
-					return availCoin.key
+				if (selectCoin === supCoin.title) {
+					return supCoin.key
 				}
 			}
 		})
 
 		this.state = {
-			availableCoins: availableCoins,
+			supportedCoins: supportedCoins,
 			selectedCoinKeys: selectedCoinKeys,
 			selectedKeys: []
 		}
@@ -39,10 +39,10 @@ class CoinSelector extends Component {
 	}
 
 	sendUpdatedCoinsToParent = () => {
-		let updatedSelectedCoins = this.state.availableCoins.map((availCoin) => {
+		let updatedSelectedCoins = this.state.supportedCoins.map((supCoin) => {
 			for (let key of this.state.selectedCoinKeys) {
-				if (key === availCoin.key) {
-					return availCoin.title
+				if (key === supCoin.key) {
+					return supCoin.title
 				}
 			}
 		})
@@ -64,7 +64,7 @@ class CoinSelector extends Component {
 			<div className="CoinSelector" style={headerStyle}>
 				Coin Selection
 				<Transfer
-					dataSource={this.state.availableCoins}
+					dataSource={this.state.supportedCoins}
 					titles={[ 'Available', 'Selected' ]}
 					targetKeys={selectedCoinKeys}
 					selectedKeys={selectedKeys}

@@ -6,6 +6,7 @@ const router = express.Router()
 router.get('/equipStrategy', isApiAuth, userTradingController.equipStrategy)
 router.get('/unequipStrategy', isApiAuth, userTradingController.unequipStrategy)
 router.get('/getStrategyEquippedStatus', isApiAuth, userTradingController.getStrategyEquippedStatus)
-router.post('/updateStrategySetting', isApiAuth, userTradingController.updateStrategySetting)
+router.get('/getAllEquippedStrategySettings', isApiAuth, userTradingController.getAllEquippedStrategySettings)
+router.post('/updateStrategySettings', isApiAuth, userTradingController.updateStrategySettings)
 
 module.exports = router

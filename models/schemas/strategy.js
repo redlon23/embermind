@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const Strategy = new Schema({
 	strategyName: { type: String, required: true },
 	description: { type: String, required: true },
+	supportedCoins: { type: Array, required: true },
 	details: {
 		avgProfitPerTrade: { type: Number, required: false },
 		subscriberCount: { type: Number, required: false, default: 0 },
