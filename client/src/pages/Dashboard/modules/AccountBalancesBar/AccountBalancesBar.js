@@ -4,7 +4,18 @@ import { Descriptions, Statistic } from 'antd'
 import classes from './AccountBalancesBar.module.css'
 import './AccountBalancesBar.css'
 
+import validateSessionStatus from '../../sessionValidator'
+
 class AccountBalancesBar extends Component{
+    state = {
+        unrealizedPL: 0,
+        totalBTC: 0,
+        totalCAD: 0
+    }
+
+    async componentDidMount(){
+        await validateSessionStatus()
+    }
     render(){
         return (
             <div className={classes.AccountBalancesBar}>

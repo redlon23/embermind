@@ -136,7 +136,6 @@ function VirtualTable(props) {
   // }
 
 class OpenPositionsTable extends Component {
-
     
     render(){
         return (
