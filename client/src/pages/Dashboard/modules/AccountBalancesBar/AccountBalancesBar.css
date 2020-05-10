@@ -2,6 +2,7 @@
     color: #fcfcfc;
 }
 
-.ant-card{
-    border-color: #1A3554;
+.ant-descriptions-item{
+    text-align: center;
+    padding-right: 5%;
 }

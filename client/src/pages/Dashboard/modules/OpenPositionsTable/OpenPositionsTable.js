@@ -111,33 +111,17 @@ function VirtualTable(props) {
       title: 'Entry Price',
       dataIndex: 'entryPrice',
     },
-    {
-      title: 'Net Change (%)',
-      dataIndex: 'netChange',
-    }
   ];
   const dataStuff = [
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65, netChange: -3 },
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012, netChange: 16 },
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65, netChange: -3 },
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012, netChange: 16 },
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65, netChange: -3 },
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012, netChange: 16 },
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65, netChange: -3 },
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012, netChange: 16 },
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65, netChange: -3 },
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012, netChange: 16 },
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65, netChange: -3 },
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012, netChange: 16 },
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05, netChange: -20 },
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65, netChange: -3 },
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012, netChange: 16 },
+    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
+    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
+    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
+    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
+    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
+    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
+    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
+    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
+    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
   ];
   
   
