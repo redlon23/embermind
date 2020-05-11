@@ -2,7 +2,10 @@ const tradeRecordModels = require('../models/tradeRecordModels')
 
 exports.getUnrealizedPnL = async (req, res) => {
 	try {
-        let result = await tradeRecordModels.getMinuteRecord(req.userId);
+        let result = await tradeRecordModels.getMinuteRecord(req.session.userId);
+        if(result == undefined){
+            result = [];
+        }
         res.status(200).send(result);
 	} catch (err) {
 		console.error(err)
@@ -12,7 +15,10 @@ exports.getUnrealizedPnL = async (req, res) => {
 
 exports.getDailyPnL = async (req, res) => {
 	try {
-        let result = await tradeRecordModels.getDailyRecords(req.userId);
+        let result = await tradeRecordModels.getDailyRecords(req.session.userId);
+        if(result == undefined){
+            result = [];
+        }
         res.status(200).send(result);
 	} catch (err) {
 		console.error(err)
@@ -22,7 +28,10 @@ exports.getDailyPnL = async (req, res) => {
 
 exports.getWeeklyPnL = async (req, res) => {
 	try {
-        var result = await tradeRecordModels.getWeeklyRecords(req.userId);
+        var result = await tradeRecordModels.getWeeklyRecords(req.session.userId);
+        if(result == undefined){
+            result = [];
+        }
         res.status(200).send(result);
 	} catch (err) {
 		console.error(err)
@@ -32,7 +41,10 @@ exports.getWeeklyPnL = async (req, res) => {
 
 exports.getMonthlyPnL = async (req, res) => {
 	try {
-        var result = await tradeRecordModels.getMonthlyRecords(req.userId);
+        var result = await tradeRecordModels.getMonthlyRecords(req.session.userId);
+        if(result == undefined){
+            result = [];
+        }
         res.status(200).send(result);
 	} catch (err) {
 		console.error(err)
