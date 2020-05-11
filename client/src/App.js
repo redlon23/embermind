@@ -100,9 +100,8 @@ class App extends Component {
 					</this.PrivateRoute>
 
 					{/* PAYMENT ROUTES */}
-					<this.PaymentRoute exact path="/payment-processing" context={this}>
-						<Route exact path="/payment-processing" render={(routeProps) => <PaymentProcessingPage {...routeProps} />} />
-					</this.PaymentRoute>
+
+					<Route exact path="/payment-processing" render={(routeProps) => <PaymentProcessingPage {...routeProps} />} />
 
 					<this.PaymentRoute exact path="/payment-success" context={this}>
 						<Route exact path="/payment-success" render={(routeProps) => <PaymentSuccessPage {...routeProps} />} />

@@ -106,8 +106,8 @@ const handlePaypalPayment = async (req, res) => {
 			payment_method: 'paypal'
 		},
 		redirect_urls: {
-			return_url: 'http://localhost:3000/account-settings',
-			cancel_url: 'http://localhost:3000/purchase-cancelled'
+			return_url: 'http://localhost:3000/api/processPayment',
+			cancel_url: 'http://localhost:3000/payment-failure'
 		},
 		transactions: [
 			{
@@ -143,6 +143,39 @@ const handlePaypalPayment = async (req, res) => {
 			// res.redirect('https://google.com')
 			console.log('Create Payment Response')
 			console.log(payment)
+		}
+	})
+}
+
+exports.processPayment = async (req, res) => {
+	const payerId = req.query.PayerID
+	const paymentId = req.query.paymentId
+
+	console.log('PAYERID: ' + req.query.PayerID)
+	console.log('PAYERID: ' + req.query.paymentId)
+
+	const execute_payment_json = {
+		payer_id: payerId,
+		transactions: [
+			{
+				amount: {
+					currency: 'USD',
+					total: '30.00'
+				}
+			}
+		]
+	}
+
+	paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
+		if (error) {
+			console.error(error.response)
+			res.redirect(`/payment-processing?message=${error}`)
+			throw error
+		} else {
+			console.log('Get Payment Response')
+			console.log(JSON.stringify(payment))
+
+			res.redirect('/payment-processing?message="Payment Successful"')
 		}
 	})
 }

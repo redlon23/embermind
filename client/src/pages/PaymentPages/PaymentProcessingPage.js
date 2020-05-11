@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './PaymentPages.css'
 
 class PaymentProcessingPage extends Component {
+	async componentDidMount() {}
+
 	render() {
 		return (
 			<div className="PaymentProcessingPage">
