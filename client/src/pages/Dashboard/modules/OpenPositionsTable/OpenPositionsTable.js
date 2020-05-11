@@ -112,17 +112,6 @@ function VirtualTable(props) {
       dataIndex: 'entryPrice',
     },
   ];
-  const dataStuff = [
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
-  ];
   
   
   //-----USE THIS LATER------
@@ -136,13 +125,20 @@ function VirtualTable(props) {
   // }
 
 class OpenPositionsTable extends Component {
-    
+  state = {
+    openPositionData: [
+    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
+    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
+    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
+  ]
+}
+  
     render(){
         return (
             <Card title="Open Positions">
                 <VirtualTable
                     columns={columns}
-                    dataSource={dataStuff}
+                    dataSource={this.state.openPositionData}
                     scroll={{
                         y: 150,
                         x: '100vw'

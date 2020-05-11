@@ -8,12 +8,13 @@ import validateSessionStatus from '../../../../sessionValidator'
 
 class AccountBalancesBar extends Component{
     state = {
-        unrealizedPLValue: 0,
+        unrealizedPLValue: 12,
         totalBTCValue: 0,
         totalCADValue: 0,
     }
 
     dynamicValueColourRG(value){
+        console.log(value)
         if(value > 0){
             return { color: '#00ff00' }
         } else {
@@ -30,23 +31,23 @@ class AccountBalancesBar extends Component{
                     <Descriptions> 
                         <Descriptions.Item label='Unrealized P&L'>
                             <Statistic
-                            value={ this.unrealizedPLValue }
-                            precision={ 0 }
-                            valueStyle={ this.dynamicValueColourRG(this.unrealizedPLValue) }
-                            suffix='%'
+                            value = { this.state.unrealizedPLValue }
+                            precision = { 0 }
+                            valueStyle = { this.dynamicValueColourRG(this.state.unrealizedPLValue)}
+                            suffix ='%'
                             />
                         </Descriptions.Item>
                         <Descriptions.Item label='Total in BTC'>
                             <Statistic
-                            value={this.totalBTC}
-                            precision={5}
-                            valueStyle={{ color: '#ffff00' }}/>
+                            value = { this.state.totalBTC }
+                            precision = { 5 }
+                            valueStyle = {{ color: '#ffff00' }}/>
                             </Descriptions.Item>
                         <Descriptions.Item label='Total in CAD'>
                             <Statistic
-                            value={this.totalCAD}
-                            precision={2}
-                            valueStyle={{ color: '#00ff00' }}/>
+                            value = { this.state.totalCAD }
+                            precision = { 2 }
+                            valueStyle = {{ color: '#00ff00' }}/>
                             </Descriptions.Item>
                     </Descriptions>
             </div>
