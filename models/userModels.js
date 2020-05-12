@@ -98,8 +98,8 @@ exports.getSubscriptionDetails = async (req) => {
 
 exports.addPurchasedSubscriptionToDB = async (req) => {
 	try {
-		const currentSubDetails = await this.getSubscriptionDetails(req)
-		console.log('currentSubDetails: ' + currentSubDetails)
+		// const currentSubDetails = await this.getSubscriptionDetails(req)
+		// console.log('currentSubDetails: ' + currentSubDetails)
 
 		// if (currentSubDetails.subscribed) {
 		// 	return null
@@ -117,7 +117,8 @@ exports.addPurchasedSubscriptionToDB = async (req) => {
 					subscriptionType: 'Standard',
 					subscribed: true,
 					isRecurring: true
-				}
+				},
+				$push: { paymentRecord: { 'req.paymentRecord.id': 'req.paymentRecord' } }
 			},
 			{ new: true }
 		)

@@ -5,9 +5,9 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import AccountSettings from './pages/AccountSettingsPage/AccountSettingsPage'
 import BrowseStrategiesPage from './pages/BrowseStrategiesPage/BrowseStrategiesPage'
 import StrategySettingsPage from './pages/StrategySettingsPage/StrategySettingsPage'
-import PaymentProcessingPage from './pages/PaymentPages/PaymentProcessingPage'
-import PaymentSuccessPage from './pages/PaymentPages/PaymentSuccessPage'
-import PaymentFailurePage from './pages/PaymentPages/PaymentFailurePage'
+import PaymentResult from './pages/PaymentResultPage/PaymentResultPage'
+import PaymentSuccessPage from './pages/PaymentResultPage/PaymentSuccessPage'
+import PaymentFailurePage from './pages/PaymentResultPage/PaymentFailurePage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 class App extends Component {
@@ -100,11 +100,8 @@ class App extends Component {
 					</this.PrivateRoute>
 
 					{/* PAYMENT ROUTES */}
-
-					<Route exact path="/payment-processing" render={(routeProps) => <PaymentProcessingPage {...routeProps} />} />
-
-					<this.PaymentRoute exact path="/payment-success" context={this}>
-						<Route exact path="/payment-success" render={(routeProps) => <PaymentSuccessPage {...routeProps} />} />
+					<this.PaymentRoute exact path="/payment-result" context={this}>
+						<Route exact path="/payment-result" render={(routeProps) => <PaymentResult {...routeProps} />} />
 					</this.PaymentRoute>
 
 					<Route exact path="/payment-failure" render={(routeProps) => <PaymentFailurePage {...routeProps} />} />

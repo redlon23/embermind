@@ -13,7 +13,7 @@ router.get('/getSubscriptionInfo', isApiAuth, userController.getSubscriptionInfo
 
 router.get('/purchaseSubscription', isApiAuth, userController.purchaseSubscription)
 router.get('/processPayment', isApiAuth, userController.processPayment)
-router.get('/addPurchasedSubscriptionToDB', isApiAuth, userController.addPurchasedSubscriptionToDB)
+router.get('/paymentCancelled', isApiAuth, userController.paymentCancelled)
 router.get('/toggleAutoRenew', isApiAuth, userController.toggleAutoRenew)
 router.get('/endSubscription', isApiAuth, userController.endSubscription)
 

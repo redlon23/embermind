@@ -107,7 +107,7 @@ const handlePaypalPayment = async (req, res) => {
 		},
 		redirect_urls: {
 			return_url: 'http://localhost:3000/api/processPayment',
-			cancel_url: 'http://localhost:3000/payment-failure'
+			cancel_url: 'http://localhost:3000/api/paymentCancelled'
 		},
 		transactions: [
 			{
@@ -140,7 +140,6 @@ const handlePaypalPayment = async (req, res) => {
 					res.status(200).send({ paypalRedirectUrl: payment.links[i].href })
 				}
 			}
-			// res.redirect('https://google.com')
 			console.log('Create Payment Response')
 			console.log(payment)
 		}
@@ -166,28 +165,35 @@ exports.processPayment = async (req, res) => {
 		]
 	}
 
-	paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
+	paypal.payment.execute(paymentId, execute_payment_json, async function(error, payment) {
 		if (error) {
 			console.error(error.response)
-			res.redirect(`/payment-processing?message=${error}`)
+			res.status(500).redirect(`/payment-result?result=failed&message=Payment Failed&error-message=${error}`)
 			throw error
 		} else {
-			console.log('Get Payment Response')
-			console.log(JSON.stringify(payment))
-
-			res.redirect('/payment-processing?message="Payment Successful"')
+			try {
+				console.log(JSON.stringify(payment))
+				await addPurchasedSubscriptionToDB(req, payment)
+				res.status(200).redirect('/payment-result?result=success&message=Payment Successful')
+			} catch (err) {
+				console.error(err)
+				res.status(500).redirect(`/payment-result?result=failed&message=Payment Failed&error-message=${error}`)
+			}
 		}
 	})
 }
 
-exports.addPurchasedSubscriptionToDB = async (req, res) => {
+const addPurchasedSubscriptionToDB = async (req, payment) => {
 	try {
-		await userModel.addPurchasedSubscriptionToDB({ userId: req.session.userId })
-		res.status(200).send({ message: 'New subscription purchased!' })
+		await userModel.addPurchasedSubscriptionToDB({ userId: req.session.userId, paymentRecord: payment })
+		return
 	} catch (err) {
-		console.error(err)
-		res.status(500).send({ message: 'Error Purchasing Subscription' })
+		throw err
 	}
+}
+
+exports.paymentCancelled = (req, res) => {
+	res.status(409).redirect('/payment-result?result=cancelled&message=Purchase Cancelled')
 }
 
 //////////////////////////////////////
@@ -198,7 +204,7 @@ exports.getSubscriptionInfo = async (req, res) => {
 		res.status(200).send(result)
 	} catch (err) {
 		console.error(err)
-		res.status(500).send({ message: 'DB error' })
+		res.status(500).send({ message: 'Error Fetching Subscription Info' })
 	}
 }
 
@@ -208,7 +214,7 @@ exports.toggleAutoRenew = async (req, res) => {
 		res.status(200).send({ message: `Auto-renew: ${result.subscription.isRecurring ? 'enabled' : 'disabled'}` })
 	} catch (err) {
 		console.error(err)
-		res.status(500).send({ message: 'DB Error' })
+		res.status(500).send({ message: 'Error toggling auto-renew' })
 	}
 }
 
