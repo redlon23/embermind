@@ -6,8 +6,6 @@ import AccountSettings from './pages/AccountSettingsPage/AccountSettingsPage'
 import BrowseStrategiesPage from './pages/BrowseStrategiesPage/BrowseStrategiesPage'
 import StrategySettingsPage from './pages/StrategySettingsPage/StrategySettingsPage'
 import PaymentResult from './pages/PaymentResultPage/PaymentResultPage'
-import PaymentSuccessPage from './pages/PaymentResultPage/PaymentSuccessPage'
-import PaymentFailurePage from './pages/PaymentResultPage/PaymentFailurePage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 class App extends Component {
@@ -54,19 +52,18 @@ class App extends Component {
 			If false, user is redirected to landing page.
 	*/
 	PrivateRoute({ children, context }) {
-		console.log('SESSION: ' + context.state.hasSession)
 		return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
 	}
 
 	/*
-		Like RootRouteRedirect but sends to PaymentProcessingPage on success and PaymentFailurePage on failure.
+		Like RootRouteRedirect but sends to PaymentResultPage on success or LandingPage on failure.
 		Needed for re-authenticating userId in session upon return from paypal after a payment
 	*/
 	PaymentRoute({ children, context }) {
 		if (context.state.validating) {
 			context.validateInitialSessionStatus()
 		} else {
-			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/payment-failure' }} />)} />
+			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
 		}
 		return null
 	}
@@ -99,12 +96,9 @@ class App extends Component {
 						<Route exact path="/strategy-settings" render={(routeProps) => <StrategySettingsPage {...routeProps} />} />
 					</this.PrivateRoute>
 
-					{/* PAYMENT ROUTES */}
 					<this.PaymentRoute exact path="/payment-result" context={this}>
 						<Route exact path="/payment-result" render={(routeProps) => <PaymentResult {...routeProps} />} />
 					</this.PaymentRoute>
-
-					<Route exact path="/payment-failure" render={(routeProps) => <PaymentFailurePage {...routeProps} />} />
 
 					<Route render={(routeProps) => <NotFoundPage {...routeProps} />} />
 				</Switch>

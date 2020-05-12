@@ -20,10 +20,8 @@ class PaymentResultPage extends Component {
 				this.setState({ renderDataLoaded: true })
 
 				// Redirect after 3 seconds
-				console.log('RESULT: ' + this.state.result)
 				if (this.state.result === 'success' || this.state.result === 'cancelled') {
 					setTimeout(() => {
-						console.log('GOINNNNGG')
 						this.props.history.push('/account-settings')
 					}, 3000)
 				}
@@ -36,13 +34,12 @@ class PaymentResultPage extends Component {
 			<div className="PaymentResultPage">
 				{this.state.renderDataLoaded ? (
 					<div>
-						<h1>PaymentResultPage</h1>
 						<h2>{this.state.message}</h2>
 						{this.state.result === 'failed' ? (
 							<div>
-								<h3>Error: {this.state.errorMessage}</h3>{' '}
+								<h3>{this.state.errorMessage}</h3>{' '}
 								<button className="button" onClick={() => this.props.history.push('/dashboard')}>
-									Go Back
+									Return to Dashboard
 								</button>
 							</div>
 						) : null}
@@ -51,7 +48,6 @@ class PaymentResultPage extends Component {
 								<h1>Thanks!</h1>
 							</div>
 						) : null}
-						<h3>Redirecting...</h3>
 					</div>
 				) : null}
 			</div>

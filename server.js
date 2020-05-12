@@ -32,11 +32,11 @@ app.use('/api', userTradingRoutes)
 const strategyRoutes = require('./routes/strategyRoutes')
 app.use('/api', strategyRoutes)
 
+const paymentRoutes = require('./routes/paymentRoutes')
+app.use('/api', paymentRoutes)
+
 const utilRoutes = require('./routes/utilRoutes')
 app.use('/api', utilRoutes)
-
-// const paymentRoutes = require('./routes/paymentRoutes')
-// app.get('/api', paymentRoutes)
 
 // If hosted, node backend loads react frontend, which handles further routing
 if (process.env.NODE_ENV === 'production') {

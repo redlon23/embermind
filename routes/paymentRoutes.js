@@ -3,6 +3,8 @@ const paymentController = require('../controllers/paymentController')
 const isApiAuth = require('../util/isApiAuth')
 const router = express.Router()
 
-// router.get('/getAllStrategiesInfo', isApiAuth, paymentController.getAllStrategiesInfo)
+router.get('/initializePaypalPayment', isApiAuth, paymentController.initializePaypalPayment)
+router.get('/executePayment', isApiAuth, paymentController.executePayment)
+router.get('/paymentCancelled', isApiAuth, paymentController.paymentCancelled)
 
-// module.exports = router
+module.exports = router

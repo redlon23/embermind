@@ -9,11 +9,9 @@ router.get('/logout', userController.logout)
 router.post('/setAPIKeys', isApiAuth, userController.setAPIKeys)
 router.post('/updateAccount', isApiAuth, userController.updateAccount)
 router.get('/getUserInfo', isApiAuth, userController.getUserInfo)
-router.get('/getSubscriptionInfo', isApiAuth, userController.getSubscriptionInfo)
 
+router.get('/getSubscriptionInfo', isApiAuth, userController.getSubscriptionInfo)
 router.get('/purchaseSubscription', isApiAuth, userController.purchaseSubscription)
-router.get('/processPayment', isApiAuth, userController.processPayment)
-router.get('/paymentCancelled', isApiAuth, userController.paymentCancelled)
 router.get('/toggleAutoRenew', isApiAuth, userController.toggleAutoRenew)
 router.get('/endSubscription', isApiAuth, userController.endSubscription)
 
