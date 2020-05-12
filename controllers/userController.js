@@ -92,13 +92,15 @@ exports.logout = async (req, res) => {
 	res.status(200).send()
 }
 
-exports.purchaseSubscription = async (req, res) => {
+/////////////////////////////////////////////////////////////
+// SUBSCRIPTION //
+/////////////////////////////////////////////////////////////
+
+exports.purchaseSubscription = (req, res) => {
 	try {
-		await userModel.purchaseSubscription({ userId: req.session.userId })
-		res.status(200).send({ message: 'New subscription purchased!' })
+		res.redirect('/api/initializePaypalPayment')
 	} catch (err) {
-		console.error(err)
-		res.status(500).send({ message: 'DB Error' })
+		res.status(502).send({ message: 'Error establishing a connection to PayPal servers' })
 	}
 }
 
@@ -108,7 +110,7 @@ exports.getSubscriptionInfo = async (req, res) => {
 		res.status(200).send(result)
 	} catch (err) {
 		console.error(err)
-		res.status(500).send({ message: 'DB error' })
+		res.status(500).send({ message: 'Error Fetching Subscription Info' })
 	}
 }
 
@@ -118,7 +120,7 @@ exports.toggleAutoRenew = async (req, res) => {
 		res.status(200).send({ message: `Auto-renew: ${result.subscription.isRecurring ? 'enabled' : 'disabled'}` })
 	} catch (err) {
 		console.error(err)
-		res.status(500).send({ message: 'DB Error' })
+		res.status(500).send({ message: 'Error toggling auto-renew' })
 	}
 }
 

@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import AccountSettings from './pages/AccountSettingsPage/AccountSettingsPage'
 import BrowseStrategiesPage from './pages/BrowseStrategiesPage/BrowseStrategiesPage'
 import StrategySettingsPage from './pages/StrategySettingsPage/StrategySettingsPage'
+import PaymentResult from './pages/PaymentResultPage/PaymentResultPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 class App extends Component {
@@ -54,6 +55,19 @@ class App extends Component {
 		return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
 	}
 
+	/*
+		Like RootRouteRedirect but sends to PaymentResultPage on success or LandingPage on failure.
+		Needed for re-authenticating userId in session upon return from paypal after a payment
+	*/
+	PaymentRoute({ children, context }) {
+		if (context.state.validating) {
+			context.validateInitialSessionStatus()
+		} else {
+			return <Route render={() => (context.state.hasSession ? children : <Redirect to={{ pathname: '/' }} />)} />
+		}
+		return null
+	}
+
 	/* 
 		Each route below is wrapped in an authenticator route, that first checks if the user has a valid session
 		before allowing access to the route.
@@ -81,6 +95,10 @@ class App extends Component {
 					<this.PrivateRoute exact path="/strategy-settings" context={this}>
 						<Route exact path="/strategy-settings" render={(routeProps) => <StrategySettingsPage {...routeProps} />} />
 					</this.PrivateRoute>
+
+					<this.PaymentRoute exact path="/payment-result" context={this}>
+						<Route exact path="/payment-result" render={(routeProps) => <PaymentResult {...routeProps} />} />
+					</this.PaymentRoute>
 
 					<Route render={(routeProps) => <NotFoundPage {...routeProps} />} />
 				</Switch>

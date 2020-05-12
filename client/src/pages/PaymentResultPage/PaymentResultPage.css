@@ -1,0 +1,14 @@
+.PaymentSuccessPage {
+	text-align: center;
+}
+
+.button {
+	align-self: center;
+	font-size: 15pt;
+	width: 10em;
+	padding: 0.5em;
+	border: 0px;
+	color: white;
+	background-color: black;
+	margin: 1em;
+}

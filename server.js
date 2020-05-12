@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
-const db = require('./util/database')
+const db = require('./util/database') //Need this defined -- don't delete it
 const path = require('path')
 const cookieSession = require('cookie-session')
 
@@ -16,6 +16,13 @@ app.use(
 	})
 )
 
+const paypal = require('paypal-rest-sdk')
+paypal.configure({
+	mode: 'sandbox', //sandbox or live
+	client_id: 'AWPXamAP9KGfjx6Uw0wFz2rzgjza7LwoJAshQg8qP69sx6eI5vrVz21W2MbG-mb2IJyLLEhcrSYI9uCz',
+	client_secret: 'EOMWIvGaVY_9FTkmYHHu7Af-N6KPiZWRJJIm7lPKXsiPLI8f7QcRGcWnyTdPkP_D_TZMID_YXD_QHGWp'
+})
+
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
 
@@ -24,6 +31,9 @@ app.use('/api', userTradingRoutes)
 
 const strategyRoutes = require('./routes/strategyRoutes')
 app.use('/api', strategyRoutes)
+
+const paymentRoutes = require('./routes/paymentRoutes')
+app.use('/api', paymentRoutes)
 
 const utilRoutes = require('./routes/utilRoutes')
 app.use('/api', utilRoutes)
