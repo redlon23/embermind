@@ -6,6 +6,7 @@ import '../../sharedStyles.css'
 
 import { Row, Col, Layout } from 'antd'
 
+import './Dashboard.css'
 //Dashboard Content Components
 import AccountBalancesBar from './modules/AccountBalancesBar/AccountBalancesBar'
 import OpenPositionsTable from './modules/OpenPositionsTable/OpenPositionsTable'
@@ -13,7 +14,7 @@ import CoinDistributionChart from './modules/CoinDistributionChart/CoinDistribut
 import ProfitLossChart from './modules/ProfitLossChart/ProfitLossChart'
 const { Content } = Layout
 
-const contentStyle = { background: '#EBEBEB', border: '2px dashed blue' }
+const contentStyle = { background: '#1d222c' }
 const contentGutter = [ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]
 
 class Dashboard extends Component {
@@ -32,7 +33,7 @@ class Dashboard extends Component {
 					<SideNavBar />
 					<Layout>
 						<HeaderNavBar />
-						<Content style={{ padding: '1rem 1rem 0rem 1rem' }}>
+						<Content theme='dark' style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#1d222c' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
 									<div style={{ ...contentStyle, height: '2.6rem' }}>

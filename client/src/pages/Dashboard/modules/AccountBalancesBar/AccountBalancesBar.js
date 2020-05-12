@@ -4,30 +4,50 @@ import { Descriptions, Statistic } from 'antd'
 import classes from './AccountBalancesBar.module.css'
 import './AccountBalancesBar.css'
 
+import validateSessionStatus from '../../../../sessionValidator'
+
 class AccountBalancesBar extends Component{
+    state = {
+        unrealizedPLValue: 12,
+        totalBTCValue: 0,
+        totalCADValue: 0,
+    }
+
+    dynamicValueColourRG(value){
+        console.log(value)
+        if(value > 0){
+            return { color: '#00ff00' }
+        } else {
+            return { color: '#ff0000' }
+        }
+    }
+
+    async componentDidMount(){
+        await validateSessionStatus()
+    }
     render(){
         return (
             <div className={classes.AccountBalancesBar}>
                     <Descriptions> 
                         <Descriptions.Item label='Unrealized P&L'>
                             <Statistic
-                            value={-3}
-                            precision={0}
-                            valueStyle={{ color: '#ff0000' }}
-                            suffix='%'
+                            value = { this.state.unrealizedPLValue }
+                            precision = { 0 }
+                            valueStyle = { this.dynamicValueColourRG(this.state.unrealizedPLValue)}
+                            suffix ='%'
                             />
                         </Descriptions.Item>
                         <Descriptions.Item label='Total in BTC'>
                             <Statistic
-                            value={12.00323}
-                            precision={5}
-                            valueStyle={{ color: '#ffff00' }}/>
+                            value = { this.state.totalBTC }
+                            precision = { 5 }
+                            valueStyle = {{ color: '#ffff00' }}/>
                             </Descriptions.Item>
                         <Descriptions.Item label='Total in CAD'>
                             <Statistic
-                            value={113383.23}
-                            precision={2}
-                            valueStyle={{ color: '#00ff00' }}/>
+                            value = { this.state.totalCAD }
+                            precision = { 2 }
+                            valueStyle = {{ color: '#00ff00' }}/>
                             </Descriptions.Item>
                     </Descriptions>
             </div>
