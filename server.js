@@ -38,6 +38,9 @@ app.use('/api', paymentRoutes)
 const utilRoutes = require('./routes/utilRoutes')
 app.use('/api', utilRoutes)
 
+const tradeRecordRoutes = require('./routes/tradeRecordRoutes')
+app.use('/api', tradeRecordRoutes)
+
 // If hosted, node backend loads react frontend, which handles further routing
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'))

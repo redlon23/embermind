@@ -4,6 +4,10 @@ import classes from './CoinDistributionChart.module.css'
 import { Card } from 'antd'
 
 export default class CoinDistributionChart extends Component{
+    state = {
+        coinLabels: ['ETHUSDT', 'BTCUSDT', 'BATUSDT', 'XRPUSDT'],
+        distributionValues: [20, 20, 15, 7]
+    }
     chartRef = React.createRef();
 
     componentDidMount(){
@@ -12,10 +16,10 @@ export default class CoinDistributionChart extends Component{
         new Chart(myChartRef, {
             type: 'doughnut',
             data: {
-                labels: ['ETHUSDT', 'BTCUSDT', 'BATUSDT', 'XRPUSDT'],
+                labels: this.state.coinLabels,
                 datasets: [
                     {
-                    data: [20, 20, 15, 7],
+                    data: this.state.distributionValues,
                     backgroundColor: ['rgba(225,20,20,1)', 'rgba(0,225,0,1)', 'rgba(0,0,225,1)', 'rgba(225,225,0,1)'],
                     borderWidth: 0.5,
                     hoverBorderWidth: 2,
