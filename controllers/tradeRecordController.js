@@ -6,7 +6,8 @@ exports.getUnrealizedPnL = async (req, res) => {
         if(result == undefined){
             result = [];
         }
-        res.status(200).send(result);
+        let {unrealizedPnL, date} = result;
+        res.status(200).send({unrealizedPnL, date});
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'Error Finding Trade Record' })
