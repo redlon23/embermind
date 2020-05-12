@@ -17,7 +17,7 @@ exports.getMinuteRecord = async (userId) => {
 
 exports.getDailyRecords = async (userId) => {
 	try {
-		var result = await DailyRecord.find({userId: userId});
+		var result = await DailyRecord.find({userId: userId}).sort({date: -1});
 	} catch (err) {
 		console.log(err);
 		result = null;
@@ -28,7 +28,7 @@ exports.getDailyRecords = async (userId) => {
 
 exports.getWeeklyRecords = async (userId) => {
 	try {
-		var result = await WeeklyRecord.find({userId: userId});
+		var result = await WeeklyRecord.find({userId: userId}).sort({date: -1});
 	} catch (err) {
 		console.log(err);
 		result = null;
@@ -39,7 +39,7 @@ exports.getWeeklyRecords = async (userId) => {
 
 exports.getMonthlyRecords = async (userId) => {
 	try {
-		var result = await MonthlyRecord.find({userId: userId});
+		var result = await MonthlyRecord.find({userId: userId}).sort({date: -1});
 	} catch (err) {
 		console.log(err);
 		result = null;
