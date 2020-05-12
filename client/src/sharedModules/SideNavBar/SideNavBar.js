@@ -15,7 +15,7 @@ class SideNavBar extends Component {
 					<div className="logo-container">
 						<img
 							className="logo"
-							src={process.env.PUBLIC_URL + 'logo-text.png'}
+							src={`${process.env.PUBLIC_URL}logo-text.png`}
 							alt="EmberMind"
 							onClick={() => this.props.history.push('/dashboard')}
 						/>

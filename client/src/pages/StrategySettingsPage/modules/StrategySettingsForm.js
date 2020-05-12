@@ -31,7 +31,7 @@ class StrategySettingsForm extends Component {
 			selectedCoins: []
 		}
 
-		this.basicSettings = [ 'contractQuantity', 'takeProfit', 'stopLoss' ]
+		this.basicSettings = [ 'quantity', 'takeProfit', 'stopLoss' ]
 		this.advancedSettings = this.props.strategySettings.supportedSettings
 			.filter((setting) => {
 				return !this.basicSettings.includes(setting)
@@ -66,7 +66,7 @@ class StrategySettingsForm extends Component {
 	updateStrategySettings = async () => {
 		const updatedSettings = {
 			strategyName: this.state.strategyName,
-			contractQuantity: this.state.contractQuantity,
+			quantity: this.state.quantity,
 			DCA: this.state.DCA,
 			maxContractSize: this.state.maxContractSize,
 			noTradingZoneSize: this.state.noTradingZoneSize,
@@ -104,12 +104,8 @@ class StrategySettingsForm extends Component {
 			<Row>
 				<Col span={12}>
 					<Form className="form-section" {...layout} onFinish={this.updateStrategySettings}>
-						<Form.Item className="form-group" name="contractQuantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
-							<InputNumber
-								placeholder={this.props.strategySettings.contractQuantity}
-								parser={this.numIntInputRegEx}
-								style={fieldStyle}
-							/>
+						<Form.Item className="form-group" name="quantity" label="Contract Quantity" onChange={this.handleSaveInputToState}>
+							<InputNumber placeholder={this.props.strategySettings.quantity} parser={this.numIntInputRegEx} style={fieldStyle} />
 						</Form.Item>
 						<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={this.handleSaveInputToState}>
 							<InputNumber placeholder={this.props.strategySettings.takeProfit} parser={this.numDecInputRegEx} style={fieldStyle} />
