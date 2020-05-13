@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import renderSetting from './settingsFields'
 // import CoinSelector from './CoinSelector'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col, message } from 'antd'
@@ -20,26 +21,12 @@ const tailLayout = {
 	wrapperCol: { offset: 20, span: 7 }
 }
 
-const fieldStyle = { width: '15rem' }
-
-const numIntInputRegEx = (value) => value.replace(/[^0-9]/, '')
-const numDecInputRegEx = (value) => value.replace(/[^0-9.]/g, '') // doesn't prevent multiple decimals
-const camelToTitle = (camelCase) => camelCase.replace(/([A-Z])/g, (match) => ` ${match}`).replace(/^./, (match) => match.toUpperCase())
-
-const basicSettingsFields = (context) => (
+const requiredSettingsFields = (context) => (
 	<div>
 		<Row>
 			<Col span={12}>
 				<Form className="form-section" {...layout} initialValues={context.state} onFinish={context.updateStrategySettings}>
-					<Form.Item className="form-group" name="quantity" label="Contract Quantity" onChange={context.handleSaveInputToState}>
-						<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
-					</Form.Item>
-					<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={context.handleSaveInputToState}>
-						<InputNumber placeholder={context.props.strategySettings.takeProfit} parser={numDecInputRegEx} style={fieldStyle} />
-					</Form.Item>
-					<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={context.handleSaveInputToState}>
-						<InputNumber parser={numDecInputRegEx} style={fieldStyle} />
-					</Form.Item>
+					{context.requiredSettings.map((settingName) => context.renderSetting[settingName])}
 				</Form>
 			</Col>
 		</Row>
@@ -60,15 +47,15 @@ const basicSettingsFields = (context) => (
 	</div>
 )
 
-const advancedSettingsFields = (context) => (
+const optionalSettingsFields = (context) => (
 	<Form className="form-section" {...layout} initialValues={context.state} onFinish={context.updateStrategySettings}>
-		{context.advancedSettings.map(
+		{context.optionalSettings.map(
 			(settingName, index) =>
 				index % 2 === 0
-					? settingRow(context, settingName, context.advancedSettings[index + 1] ? context.advancedSettings[index + 1] : null, index)
+					? settingRow(context, settingName, context.optionalSettings[index + 1] ? context.optionalSettings[index + 1] : null, index)
 					: null
 		)}
-		{context.advancedSettings.length > 0 ? (
+		{context.optionalSettings.length > 0 ? (
 			<Form.Item {...tailLayout}>
 				<Button type="primary" htmlType="submit" onClick={context.updateStrategySettings}>
 					Submit
@@ -80,30 +67,8 @@ const advancedSettingsFields = (context) => (
 
 const settingRow = (context, settingName1, settingName2, index) => (
 	<Row key={index}>
-		<Col span={12}>
-			<Form.Item
-				className="form-group"
-				name={settingName1}
-				label={camelToTitle(settingName1)}
-				key={settingName1}
-				onChange={context.handleSaveInputToState}
-			>
-				<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
-			</Form.Item>
-		</Col>
-		<Col span={10}>
-			{settingName2 ? (
-				<Form.Item
-					className="form-group"
-					name={settingName2}
-					label={camelToTitle(settingName2)}
-					key={settingName2}
-					onChange={context.handleSaveInputToState}
-				>
-					<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
-				</Form.Item>
-			) : null}
-		</Col>
+		<Col span={12}>{context.renderSetting[settingName1]}</Col>
+		<Col span={10}>{settingName2 ? context.renderSetting[settingName2] : null}</Col>
 	</Row>
 )
 
@@ -111,23 +76,22 @@ class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			displayCategory: 'basic',
+			displayCategory: 'required',
 			renderDataLoaded: false
 			// supportedCoins: [],
 			// selectedCoins: []
 		}
 
-		this.basicSettings = [ 'quantity', 'takeProfit', 'stopLoss' ]
-		this.advancedSettings = this.props.strategySettings.supportedSettings
-			.filter((setting) => {
-				return !this.basicSettings.includes(setting)
-			})
-			.sort()
+		this.requiredSettings = this.props.strategySettings.requiredSettings
+		this.optionalSettings = this.props.strategySettings.optionalSettings
 
 		this.displayOptions = {
-			basic: basicSettingsFields,
-			advanced: advancedSettingsFields
+			required: requiredSettingsFields,
+			optional: optionalSettingsFields
 		}
+
+		// Grabs field rendering object from settingFields.js
+		this.renderSetting = renderSetting(this)
 	}
 
 	componentDidMount() {
@@ -144,7 +108,12 @@ class StrategySettingsForm extends Component {
 			this.setState({ [event.target.id]: null })
 		}
 
-		if (!isNaN(event.target.value[event.target.value.length - 1]) || event.target.value[event.target.value.length - 1] === '.') {
+		if (
+			!isNaN(
+				event.target.value[event.target.value.length - 1] ||
+					(event.target.value[event.target.value.length - 1] === '.' && !this.state[event.target.id].includes('.'))
+			)
+		) {
 			this.setState({ [event.target.id]: event.target.value })
 		}
 	}
@@ -178,12 +147,12 @@ class StrategySettingsForm extends Component {
 				{this.state.renderDataLoaded ? (
 					<Layout style={{ height: '28rem', marginTop: '0.5rem' }}>
 						<Sider>
-							<Menu theme="dark" mode="inline" defaultSelectedKeys={[ 'basic' ]}>
-								<Menu.Item key="basic" onClick={() => this.setState({ displayCategory: 'basic' })}>
-									Basic
+							<Menu theme="dark" mode="inline" defaultSelectedKeys={[ 'required' ]}>
+								<Menu.Item key="required" onClick={() => this.setState({ displayCategory: 'required' })}>
+									Required
 								</Menu.Item>
-								<Menu.Item key="advanced" onClick={() => this.setState({ displayCategory: 'advanced' })}>
-									Advanced
+								<Menu.Item key="optional" onClick={() => this.setState({ displayCategory: 'optional' })}>
+									Optional
 								</Menu.Item>
 							</Menu>
 						</Sider>

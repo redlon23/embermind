@@ -13,6 +13,9 @@ const allSettingsDefault = {
 	numOrders: null,
 	spread: null,
 	orderSpread: null,
+	rsiKlinePeriod: null,
+	rsiOverBought: null,
+	rsiOverSold: null,
 	trailingSafety: null,
 	trailingStop: null,
 	noTradingZoneSize: null,
@@ -25,11 +28,12 @@ exports.equipStrategy = async ({ userId, strategyName }) => {
 		if (hasPreviouslyUsed) {
 			await UserStrategySetting.update({ userId, strategyName }, { strategyIsEquipped: true })
 		} else {
-			const supportedSettings = await Strategy.find({ strategyName }, 'supportedSettings')
+			const strategyData = await Strategy.find({ strategyName })
 			await new UserStrategySetting({
 				userId,
 				strategyName,
-				supportedSettings: supportedSettings[0].supportedSettings,
+				requiredSettings: strategyData[0].requiredSettings,
+				optionalSettings: strategyData[0].optionalSettings,
 				...allSettingsDefault
 			}).save()
 		}

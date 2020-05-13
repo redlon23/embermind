@@ -20,7 +20,8 @@ const Strategy = new Schema({
 			description: { type: String }
 		}
 	],
-	supportedSettings: { type: Object, required: true }
+	requiredSettings: { type: Array, required: true },
+	optionalSettings: { type: Array, required: true }
 })
 
 module.exports = mongoose.model('Strategy', Strategy, 'strategies')
