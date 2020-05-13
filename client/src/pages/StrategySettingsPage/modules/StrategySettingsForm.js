@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { takeProfit, quantity, stopLoss } from './settingsFields'
+import renderSetting from './settingsFields'
 // import CoinSelector from './CoinSelector'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col, message } from 'antd'
@@ -21,18 +21,12 @@ const tailLayout = {
 	wrapperCol: { offset: 20, span: 7 }
 }
 
-const fieldStyle = { width: '15rem' }
-
-const numIntInputRegEx = (value) => value.replace(/[^0-9]/, '')
-const numDecInputRegEx = (value) => value.replace(/[^0-9.]/g, '') // doesn't prevent multiple decimals
-const camelToTitle = (camelCase) => camelCase.replace(/([A-Z])/g, (match) => ` ${match}`).replace(/^./, (match) => match.toUpperCase())
-
 const requiredSettingsFields = (context) => (
 	<div>
 		<Row>
 			<Col span={12}>
 				<Form className="form-section" {...layout} initialValues={context.state} onFinish={context.updateStrategySettings}>
-					{context.requiredSettings.map((settingName, index) => context.renderSetting[settingName])}
+					{context.requiredSettings.map((settingName) => context.renderSetting[settingName])}
 				</Form>
 			</Col>
 		</Row>
@@ -73,30 +67,8 @@ const optionalSettingsFields = (context) => (
 
 const settingRow = (context, settingName1, settingName2, index) => (
 	<Row key={index}>
-		<Col span={12}>
-			<Form.Item
-				className="form-group"
-				name={settingName1}
-				label={camelToTitle(settingName1)}
-				key={settingName1}
-				onChange={context.handleSaveInputToState}
-			>
-				<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
-			</Form.Item>
-		</Col>
-		<Col span={10}>
-			{settingName2 ? (
-				<Form.Item
-					className="form-group"
-					name={settingName2}
-					label={camelToTitle(settingName2)}
-					key={settingName2}
-					onChange={context.handleSaveInputToState}
-				>
-					<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
-				</Form.Item>
-			) : null}
-		</Col>
+		<Col span={12}>{context.renderSetting[settingName1]}</Col>
+		<Col span={10}>{settingName2 ? context.renderSetting[settingName2] : null}</Col>
 	</Row>
 )
 
@@ -118,11 +90,8 @@ class StrategySettingsForm extends Component {
 			optional: optionalSettingsFields
 		}
 
-		this.renderSetting = {
-			quantity: quantity(this),
-			takeProfit: takeProfit(this),
-			stopLoss: stopLoss(this)
-		}
+		// Grabs field rendering object from settingFields.js
+		this.renderSetting = renderSetting(this)
 	}
 
 	componentDidMount() {

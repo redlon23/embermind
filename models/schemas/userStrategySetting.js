@@ -11,6 +11,7 @@ const UserStrategySetting = new Schema(
 
 		// Settings
 		// NOTE: If you add or subtract settings here, change them in the allSettingsDefault object in userTradingModels.js too.
+		// NOTE: Also change them in this.renderSetting in StrategySettingsForm.
 		DCA: { type: Boolean },
 		maxContractSize: { type: Number },
 		noTradingZoneSize: { type: Number },
