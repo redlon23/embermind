@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { takeProfit, quantity, stopLoss } from './settingsFields'
 // import CoinSelector from './CoinSelector'
 
 import { Layout, Menu, Form, Button, InputNumber, Row, Col, message } from 'antd'
@@ -26,20 +27,12 @@ const numIntInputRegEx = (value) => value.replace(/[^0-9]/, '')
 const numDecInputRegEx = (value) => value.replace(/[^0-9.]/g, '') // doesn't prevent multiple decimals
 const camelToTitle = (camelCase) => camelCase.replace(/([A-Z])/g, (match) => ` ${match}`).replace(/^./, (match) => match.toUpperCase())
 
-const basicSettingsFields = (context) => (
+const requiredSettingsFields = (context) => (
 	<div>
 		<Row>
 			<Col span={12}>
 				<Form className="form-section" {...layout} initialValues={context.state} onFinish={context.updateStrategySettings}>
-					<Form.Item className="form-group" name="quantity" label="Contract Quantity" onChange={context.handleSaveInputToState}>
-						<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
-					</Form.Item>
-					<Form.Item className="form-group" name="takeProfit" label="Take Profit" onChange={context.handleSaveInputToState}>
-						<InputNumber placeholder={context.props.strategySettings.takeProfit} parser={numDecInputRegEx} style={fieldStyle} />
-					</Form.Item>
-					<Form.Item className="form-group" name="stopLoss" label="Stop Loss" onChange={context.handleSaveInputToState}>
-						<InputNumber parser={numDecInputRegEx} style={fieldStyle} />
-					</Form.Item>
+					{context.requiredSettings.map((settingName, index) => context.renderSetting[settingName])}
 				</Form>
 			</Col>
 		</Row>
@@ -60,15 +53,15 @@ const basicSettingsFields = (context) => (
 	</div>
 )
 
-const advancedSettingsFields = (context) => (
+const optionalSettingsFields = (context) => (
 	<Form className="form-section" {...layout} initialValues={context.state} onFinish={context.updateStrategySettings}>
-		{context.advancedSettings.map(
+		{context.optionalSettings.map(
 			(settingName, index) =>
 				index % 2 === 0
-					? settingRow(context, settingName, context.advancedSettings[index + 1] ? context.advancedSettings[index + 1] : null, index)
+					? settingRow(context, settingName, context.optionalSettings[index + 1] ? context.optionalSettings[index + 1] : null, index)
 					: null
 		)}
-		{context.advancedSettings.length > 0 ? (
+		{context.optionalSettings.length > 0 ? (
 			<Form.Item {...tailLayout}>
 				<Button type="primary" htmlType="submit" onClick={context.updateStrategySettings}>
 					Submit
@@ -111,22 +104,24 @@ class StrategySettingsForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			displayCategory: 'basic',
+			displayCategory: 'required',
 			renderDataLoaded: false
 			// supportedCoins: [],
 			// selectedCoins: []
 		}
 
-		this.basicSettings = [ 'quantity', 'takeProfit', 'stopLoss' ]
-		this.advancedSettings = this.props.strategySettings.supportedSettings
-			.filter((setting) => {
-				return !this.basicSettings.includes(setting)
-			})
-			.sort()
+		this.requiredSettings = this.props.strategySettings.requiredSettings
+		this.optionalSettings = this.props.strategySettings.optionalSettings
 
 		this.displayOptions = {
-			basic: basicSettingsFields,
-			advanced: advancedSettingsFields
+			required: requiredSettingsFields,
+			optional: optionalSettingsFields
+		}
+
+		this.renderSetting = {
+			quantity: quantity(this),
+			takeProfit: takeProfit(this),
+			stopLoss: stopLoss(this)
 		}
 	}
 
@@ -178,12 +173,12 @@ class StrategySettingsForm extends Component {
 				{this.state.renderDataLoaded ? (
 					<Layout style={{ height: '28rem', marginTop: '0.5rem' }}>
 						<Sider>
-							<Menu theme="dark" mode="inline" defaultSelectedKeys={[ 'basic' ]}>
-								<Menu.Item key="basic" onClick={() => this.setState({ displayCategory: 'basic' })}>
-									Basic
+							<Menu theme="dark" mode="inline" defaultSelectedKeys={[ 'required' ]}>
+								<Menu.Item key="required" onClick={() => this.setState({ displayCategory: 'required' })}>
+									Required
 								</Menu.Item>
-								<Menu.Item key="advanced" onClick={() => this.setState({ displayCategory: 'advanced' })}>
-									Advanced
+								<Menu.Item key="optional" onClick={() => this.setState({ displayCategory: 'optional' })}>
+									Optional
 								</Menu.Item>
 							</Menu>
 						</Sider>
