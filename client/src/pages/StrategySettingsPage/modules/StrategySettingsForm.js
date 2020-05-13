@@ -108,7 +108,12 @@ class StrategySettingsForm extends Component {
 			this.setState({ [event.target.id]: null })
 		}
 
-		if (!isNaN(event.target.value[event.target.value.length - 1]) || event.target.value[event.target.value.length - 1] === '.') {
+		if (
+			!isNaN(
+				event.target.value[event.target.value.length - 1] ||
+					(event.target.value[event.target.value.length - 1] === '.' && !this.state[event.target.id].includes('.'))
+			)
+		) {
 			this.setState({ [event.target.id]: event.target.value })
 		}
 	}
