@@ -30,16 +30,7 @@ const basicSettingsFields = (context) => (
 	<div>
 		<Row>
 			<Col span={12}>
-				<Form
-					className="form-section"
-					{...layout}
-					onFinish={context.updateStrategySettings}
-					initialValues={{
-						quantity: context.state.quantity,
-						takeProfit: context.state.takeProfit,
-						stopLoss: context.state.stopLoss
-					}}
-				>
+				<Form className="form-section" {...layout} initialValues={context.state} onFinish={context.updateStrategySettings}>
 					<Form.Item className="form-group" name="quantity" label="Contract Quantity" onChange={context.handleSaveInputToState}>
 						<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
 					</Form.Item>
@@ -70,7 +61,7 @@ const basicSettingsFields = (context) => (
 )
 
 const advancedSettingsFields = (context) => (
-	<Form className="form-section" {...layout} onFinish={context.updateStrategySettings}>
+	<Form className="form-section" {...layout} initialValues={context.state} onFinish={context.updateStrategySettings}>
 		{context.advancedSettings.map(
 			(settingName, index) =>
 				index % 2 === 0
@@ -97,7 +88,7 @@ const settingRow = (context, settingName1, settingName2, index) => (
 				key={settingName1}
 				onChange={context.handleSaveInputToState}
 			>
-				<InputNumber placeholder={context.props.strategySettings[settingName1]} parser={numIntInputRegEx} style={fieldStyle} />
+				<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
 			</Form.Item>
 		</Col>
 		<Col span={10}>
@@ -109,7 +100,7 @@ const settingRow = (context, settingName1, settingName2, index) => (
 					key={settingName2}
 					onChange={context.handleSaveInputToState}
 				>
-					<InputNumber placeholder={context.props.strategySettings[settingName2]} parser={numIntInputRegEx} style={fieldStyle} />
+					<InputNumber parser={numIntInputRegEx} style={fieldStyle} />
 				</Form.Item>
 			) : null}
 		</Col>
@@ -143,13 +134,16 @@ class StrategySettingsForm extends Component {
 		this.setState({ ...this.props.strategySettings, renderDataLoaded: true })
 	}
 
-	componentDidUpdate() {
-		// console.log('Selected Coins: ' + this.state.selectedCoins)
-		console.log(JSON.stringify(this.state))
-	}
+	// componentDidUpdate() {
+	// 	console.log('Selected Coins: ' + this.state.selectedCoins)
+	// }
 
 	handleSaveInputToState = (event) => {
-		// Ensures only numbers and decimals are saved to state
+		// Ensures only null, numbers, or decimals are saved to state (need one for boolean?)
+		if (event.target.value === '') {
+			this.setState({ [event.target.id]: null })
+		}
+
 		if (!isNaN(event.target.value[event.target.value.length - 1]) || event.target.value[event.target.value.length - 1] === '.') {
 			this.setState({ [event.target.id]: event.target.value })
 		}
