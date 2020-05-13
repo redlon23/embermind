@@ -6,20 +6,27 @@ const UserStrategySetting = new Schema(
 		userId: { type: Schema.Types.ObjectId, required: true, ref: 'users', unique: false },
 		strategyName: { type: String, required: true, ref: 'strategies' },
 		strategyIsEquipped: { type: Boolean, required: true, default: true },
-		supportedSettings: { type: Array, required: true, default: [ 'contractQuantity', 'takeProfit', 'stopLoss' ] },
-		contractQuantity: { type: Number },
+		supportedSettings: { type: Array, required: true, default: [ 'quantity', 'takeProfit', 'stopLoss' ] },
+
+		// Basic Settings
+		quantity: { type: Number },
 		takeProfit: { type: Number },
 		stopLoss: { type: Number },
-		tradeInterval: { type: Number },
+
+		// Advanced Settings
+		DCA: { type: Boolean },
 		maxContractSize: { type: Number },
-		DCA: { type: Boolean, default: true },
-		numOrders: { type: Number },
-		spread: { type: Boolean, default: true },
-		orderSpread: { type: Number },
-		trailingSafety: { type: Number },
-		trailingStop: { type: Number },
 		noTradingZoneSize: { type: Number },
-		noTradingZoneRange: { type: Number }
+		noTradingZoneRange: { type: Number },
+		numOrders: { type: Number },
+		orderSpread: { type: Number },
+		rsiKlinePeriod: { type: Number },
+		rsiOverBought: { type: Number },
+		rsiOverSold: { type: Number },
+		spread: { type: Boolean },
+		tradeInterval: { type: Number },
+		trailingSafety: { type: Number },
+		trailingStop: { type: Number }
 	},
 	{
 		versionKey: false

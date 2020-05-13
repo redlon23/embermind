@@ -16,12 +16,24 @@ app.use(
 	})
 )
 
+console.log('ENV: ' + process.env.NODE_ENV)
+
 const paypal = require('paypal-rest-sdk')
-paypal.configure({
-	mode: 'sandbox', //sandbox or live
-	client_id: 'AWPXamAP9KGfjx6Uw0wFz2rzgjza7LwoJAshQg8qP69sx6eI5vrVz21W2MbG-mb2IJyLLEhcrSYI9uCz',
-	client_secret: 'EOMWIvGaVY_9FTkmYHHu7Af-N6KPiZWRJJIm7lPKXsiPLI8f7QcRGcWnyTdPkP_D_TZMID_YXD_QHGWp'
-})
+if (process.env.NODE_ENV === 'production') {
+	// LIVE payment credentials (Real money)
+	paypal.configure({
+		mode: 'live',
+		client_id: 'AUwiml3PxTRl9TY64pOE9v5vSIcPMS0ZSgUIKReYSsvaVSoMd_Y61awY59rhjmrE37MT7Vx4fExy6Lp1',
+		client_secret: 'EOYQcMMYH3AySZLfMuPKG0hsMVDqQxJuTNZ9KU8v1fbfsHNEfQR9u6fSD40YFKsYAiv6g1RuKCpVVtHD'
+	})
+} else {
+	// SANDBOX payment credentials (Fake money -- use for development)
+	paypal.configure({
+		mode: 'sandbox',
+		client_id: 'AeGuz5Q24jPl20xErgTDIMRbkvDDNYOKOOSHTSr_boJlFuhK0uNiHRBywgQ_C0kiQgsFo9n6mg__aEGs',
+		client_secret: 'EHSb993cvMR3jsLLkmta4Y9jONzYEK095rbNnrLj8U-YTYkvJHs34eI4VAVo5evDEz1jS_irQOIw8gvk'
+	})
+}
 
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
@@ -42,6 +54,7 @@ const tradeRecordRoutes = require('./routes/tradeRecordRoutes')
 app.use('/api', tradeRecordRoutes)
 
 // If hosted, node backend loads react frontend, which handles further routing
+// **Production env variable set by Heroku during hosting. We may have to set it manually if hosting elsewhere.**
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'))
 	app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')))

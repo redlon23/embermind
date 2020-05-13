@@ -47,7 +47,7 @@ class StrategyCard extends Component {
 	render() {
 		return (
 			<div className="BrowseStategiesCard" style={{ display: 'flex', flexDirection: 'row' }}>
-				<img src={this.props.imgPath} alt="Strategy Img" style={{ width: '130px', height: '130px' }} />
+				<img src={`${process.env.PUBLIC_URL} ${this.props.imgPath}`} alt="Strategy Img" style={{ width: '130px', height: '130px' }} />
 				<Card
 					title={this.props.strategyName}
 					extra={<Rate disabled allowHalf defaultValue={this.nearestHalfStar} />}

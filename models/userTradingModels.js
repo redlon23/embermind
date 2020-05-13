@@ -4,7 +4,7 @@ const TradeLog = require('./schemas/tradeLog')
 
 // All possible settings initialized in UserStrategySetting doc creation. Strategy doc dictates which are actually used. Add more settings here as list grows.
 const allSettingsDefault = {
-	contractQuantity: null,
+	quantity: null,
 	takeProfit: null,
 	stopLoss: null,
 	tradeInterval: null,
