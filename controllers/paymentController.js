@@ -18,7 +18,7 @@ exports.initializePaypalPayment = async (req, res) => {
 						{
 							name: 'EmberMind Monthly Subscription',
 							sku: '001',
-							price: '30.00',
+							price: '1.00',
 							currency: 'USD',
 							quantity: 1
 						}
@@ -26,16 +26,21 @@ exports.initializePaypalPayment = async (req, res) => {
 				},
 				amount: {
 					currency: 'USD',
-					total: '30.00'
+					total: '1.00'
 				},
 				description: 'One month subscription to EmberMind.'
 			}
 		]
 	}
 
-	paypal.payment.create(create_payment_json, function(error, payment) {
-		if (error) {
-			throw error
+	paypal.payment.create(create_payment_json, function(err, payment) {
+		if (err) {
+			console.err(err.response)
+			res
+				.status(500)
+				.redirect(
+					`/payment-result?result=failed&message=Payment Failed&error-message=Something went wrong... No money has been withdrawn from your account.`
+				)
 		} else {
 			for (let i = 0; i < payment.links.length; i++) {
 				if (payment.links[i].rel === 'approval_url') {
@@ -58,16 +63,20 @@ exports.executePayment = async (req, res) => {
 			{
 				amount: {
 					currency: 'USD',
-					total: '30.00'
+					total: '1.00'
 				}
 			}
 		]
 	}
 
-	paypal.payment.execute(paymentId, execute_payment_json, async function(error, payment) {
-		if (error) {
-			console.error(error)
-			res.status(500).redirect(`/payment-result?result=failed&message=Payment Failed&error-message=${error}`)
+	paypal.payment.execute(paymentId, execute_payment_json, async function(err, payment) {
+		if (err) {
+			console.error(err.response)
+			res
+				.status(500)
+				.redirect(
+					`/payment-result?result=failed&message=Payment Failed&error-message=Something went wrong... No money has been withdrawn from your account.`
+				)
 		} else {
 			try {
 				// console.log('Payment Response')
@@ -76,7 +85,11 @@ exports.executePayment = async (req, res) => {
 				res.status(200).redirect('/payment-result?result=success&message=Payment Successful')
 			} catch (err) {
 				console.error(err)
-				res.status(500).redirect(`/payment-result?result=failed&message=Payment Failed&error-message=${error}`)
+				res
+					.status(500)
+					.redirect(
+						`/payment-result?result=failed&message=Payment Failed&error-message=Something went wrong... Please contact use at contact@embermind.io for support.}`
+					)
 			}
 		}
 	})
