@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import './SideNavBar.css'
+import Cookies from 'universal-cookie'
 
 import { Layout, Menu, Avatar, Badge, Button, Switch, message } from 'antd'
 import { BellOutlined } from '@ant-design/icons'
-import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
@@ -16,22 +16,14 @@ class SideNavBar extends Component {
 		this.state = { tradingEnabled: cookies.get('tradingEnabled') }
 	}
 
-	// async componentDidMount() {
-	// 	let tradingEnabled = false
-	// 	if (this.session.tradingEnabled) {
-	// 		tradingEnabled = this.session.tradinEnabled
-	// 	} else {
-	// 		tradingEnabled = await fetch('/isTradingEnabled')
-	// 	}
-	// 	this.setState({ tradingEnabled, renderDataLoaded: true })
-	// }
-
 	toggleTrading = async () => {
 		const response = await fetch('/api/toggleTrading')
 		const data = await response.json()
 		if (response.status === 200) {
-			this.setState({ tradingEnabled: !this.state.tradingEnabled })
-			message.success(data.message)
+			this.setState({ tradingEnabled: data.tradingEnabled }, () => {
+				cookies.set('tradingEnabled', data.tradingEnabled)
+				message.success(data.tradingEnabled ? 'Trading Enabled' : 'Trading Disabled')
+			})
 		} else {
 			message.error(data.message)
 		}
@@ -53,6 +45,7 @@ class SideNavBar extends Component {
 						<Button type="link" className="user-name" onClick={() => this.props.history.push('/account-settings')}>
 							{cookies.get('name')}
 						</Button>
+						{/*}
 						<Badge count={1}>
 							<Avatar
 								className="notification-icon"
@@ -61,6 +54,7 @@ class SideNavBar extends Component {
 								icon={<BellOutlined style={{ fontSize: '16pt', color: '#DBDBDB' }} />}
 							/>
 						</Badge>
+				*/}
 					</div>
 					<Menu theme="dark" mode="inline" defaultSelectedKeys={[ this.props.location.pathname ]}>
 						<Menu.Divider />
@@ -82,10 +76,10 @@ class SideNavBar extends Component {
 						</Menu.Item>
 					</Menu>
 					<Menu theme="dark" selectable={false}>
-						<Menu.Item onClick={this.toggleTrading}>
-							<Switch defaultChecked={this.state.tradingEnabled} onChange={this.toggleTrading} />
+						<Menu.Item>
+							<Switch defaultChecked={this.state.tradingEnabled === 'true'} onChange={this.toggleTrading} />
 							<span className="nav-text" style={{ paddingLeft: '0.6rem' }}>
-								Enable / Disable
+								Enable Trading
 							</span>
 						</Menu.Item>
 					</Menu>
