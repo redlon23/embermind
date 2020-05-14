@@ -1,5 +1,6 @@
 const UserStrategySetting = require('./schemas/userStrategySetting')
 const Strategy = require('./schemas/strategy')
+const User = require('./schemas/user')
 const TradeLog = require('./schemas/tradeLog')
 
 // All possible settings initialized in UserStrategySetting doc creation. Strategy doc dictates which are actually used. Add more settings here as list grows.
@@ -44,7 +45,7 @@ exports.equipStrategy = async ({ userId, strategyName }) => {
 
 exports.unequipStrategy = async ({ userId, strategyName }) => {
 	try {
-		await await UserStrategySetting.update({ userId, strategyName }, { strategyIsEquipped: false })
+		await UserStrategySetting.update({ userId, strategyName }, { strategyIsEquipped: false })
 	} catch (err) {
 		throw err
 	}
@@ -72,8 +73,6 @@ exports.getAllEquippedStrategySettings = async ({ userId }) => {
 	}
 }
 
-////////////////////////////////////////////////////////
-
 exports.updateStrategySettings = async ({ userId, updatedSettings }) => {
 	try {
 		const strategyName = updatedSettings.strategyName
@@ -85,6 +84,27 @@ exports.updateStrategySettings = async ({ userId, updatedSettings }) => {
 		throw err
 	}
 }
+
+exports.toggleTrading = async ({ userId }) => {
+	try {
+		const result = await User.findById(userId)
+		await User.findByIdAndUpdate(userId, { tradingEnabled: !result.tradingEnabled })
+	} catch (err) {
+		throw err
+	}
+}
+///
+exports.getSubscriptionDetails = async (req) => {
+	try {
+		var result = await User.findById(req.userId, 'subscription')
+		return result.subscription
+	} catch (err) {
+		throw err
+	}
+}
+///
+
+////////////////////////////////////////////////////////
 
 // exports.insertStrategySetting = async (req) => {
 // 	var stratSetting = new UserStrategySetting(req)

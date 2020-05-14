@@ -1,13 +1,34 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import './SideNavBar.css'
+import Cookies from 'universal-cookie'
 
-import { Layout, Menu, Avatar, Badge, Button, Switch } from 'antd'
+import { Layout, Menu, Avatar, Badge, Button, Switch, message } from 'antd'
 import { BellOutlined } from '@ant-design/icons'
+
+const cookies = new Cookies()
 
 const { Sider } = Layout
 
 class SideNavBar extends Component {
+	constructor(props) {
+		super(props)
+		this.state = { tradingEnabled: cookies.get('tradingEnabled') }
+	}
+
+	toggleTrading = async () => {
+		const response = await fetch('/api/toggleTrading')
+		const data = await response.json()
+		if (response.status === 200) {
+			this.setState({ tradingEnabled: data.tradingEnabled }, () => {
+				cookies.set('tradingEnabled', data.tradingEnabled)
+				message.success(data.tradingEnabled ? 'Trading Enabled' : 'Trading Disabled')
+			})
+		} else {
+			message.error(data.message)
+		}
+	}
+
 	render() {
 		return (
 			<div className="SideNavBar">
@@ -22,8 +43,9 @@ class SideNavBar extends Component {
 					</div>
 					<div className="user-container">
 						<Button type="link" className="user-name" onClick={() => this.props.history.push('/account-settings')}>
-							Bob Bobasson
+							{cookies.get('name')}
 						</Button>
+						{/*}
 						<Badge count={1}>
 							<Avatar
 								className="notification-icon"
@@ -32,6 +54,7 @@ class SideNavBar extends Component {
 								icon={<BellOutlined style={{ fontSize: '16pt', color: '#DBDBDB' }} />}
 							/>
 						</Badge>
+				*/}
 					</div>
 					<Menu theme="dark" mode="inline" defaultSelectedKeys={[ this.props.location.pathname ]}>
 						<Menu.Divider />
@@ -54,9 +77,9 @@ class SideNavBar extends Component {
 					</Menu>
 					<Menu theme="dark" selectable={false}>
 						<Menu.Item>
-							<Switch defaultChecked={false} />
+							<Switch defaultChecked={this.state.tradingEnabled === 'true'} onChange={this.toggleTrading} />
 							<span className="nav-text" style={{ paddingLeft: '0.6rem' }}>
-								Active / Inactive
+								Enable Trading
 							</span>
 						</Menu.Item>
 					</Menu>

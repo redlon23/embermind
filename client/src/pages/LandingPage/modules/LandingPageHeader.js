@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import Cookies from 'universal-cookie'
 import './LandingPageHeader.css'
 
 import { Layout, Button, Form, Input, message } from 'antd'
 const { Header } = Layout
+
+const cookies = new Cookies()
 
 class LandingPageHeader extends Component {
 	handleLogin = async (event) => {
@@ -18,10 +21,12 @@ class LandingPageHeader extends Component {
 			},
 			body: JSON.stringify(loginCreds)
 		})
+		const data = await response.json()
 		if (response.status === 200) {
+			cookies.set('name', data.name)
+			cookies.set('tradingEnabled', data.tradingEnabled)
 			window.location.reload()
 		} else {
-			const data = await response.json()
 			message.error(data.message)
 		}
 	}
