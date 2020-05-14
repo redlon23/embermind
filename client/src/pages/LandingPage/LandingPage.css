@@ -1,3 +1,19 @@
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/landing-page-bg-black-sand.jpg");
+	background-size: 100vw;
+}
+
+.LandingPage {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.heroSection {
+	flex-direction: row;
+	flex: 1;
+}
+
 .button {
 	align-self: center;
 	font-size: 15pt;
