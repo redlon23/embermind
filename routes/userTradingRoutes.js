@@ -8,8 +8,6 @@ router.get('/unequipStrategy', isApiAuth, userTradingController.unequipStrategy)
 router.get('/getStrategyEquippedStatus', isApiAuth, userTradingController.getStrategyEquippedStatus)
 router.get('/getAllEquippedStrategySettings', isApiAuth, userTradingController.getAllEquippedStrategySettings)
 router.post('/updateStrategySettings', isApiAuth, userTradingController.updateStrategySettings)
-
-// router.get('/isTradingEnabled', isApiAuth, userTradingController.isTradingEnabled)
 router.get('/toggleTrading', isApiAuth, userTradingController.toggleTrading)
 
 module.exports = router

@@ -53,23 +53,13 @@ exports.updateStrategySettings = async (req, res) => {
 	}
 }
 
-// exports.isTradingEnabled = async (req, res) => {
-// 	try {
-// 		await userModel.isTradingEnabled({ userId: req.session.userId })
-// 		res.status(200).send({ message: 'Trading Status Returned' })
-// 	} catch (err) {
-// 		console.error(err)
-// 		res.status(500).send({ message: 'Error Fetching Trading Status' })
-// 	}
-// }
-
 exports.toggleTrading = async (req, res) => {
 	try {
-		await userTradingModel.toggleTrading({ userId: req.session.userId })
-		res.status(200).send({ message: 'Trading Toggled' })
+		const tradingEnabled = await userTradingModel.toggleTrading({ userId: req.session.userId })
+		res.status(200).send({ tradingEnabled: tradingEnabled })
 	} catch (err) {
 		console.error(err)
-		res.status(500).send({ message: 'Error Toggling Trading' })
+		res.status(500).send({ message: 'Error Enabling/Disabling Trading' })
 	}
 }
 
