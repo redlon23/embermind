@@ -8,6 +8,7 @@ const User = new Schema({
 	exchange: { type: String, required: false, default: 'None' },
 	publicAPI: { type: String, required: false },
 	secretAPI: { type: String, required: false },
+	tradingEnabled: { type: Boolean, required: true, default: false },
 	subscription: {
 		lastPayment: { type: Date, required: false, default: new Date().toISOString() },
 		//7 day free trial default, next payment due 7 days from today
