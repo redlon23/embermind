@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import Cookies from 'universal-cookie'
 
 import { Form, Input, Button, message } from 'antd'
+
+const cookies = new Cookies()
 
 const contentStyle = {
 	background: '#1A1C25',
@@ -57,7 +60,8 @@ class RegistrationForm extends Component {
 		})
 		const data = await response.json()
 		if (response.status === 200) {
-			console.log(JSON.stringify(data.message))
+			cookies.set('name', data.name)
+			cookies.set('tradingEnabled', data.tradingEnabled)
 			window.location.reload()
 		} else {
 			message.error(data.message)
