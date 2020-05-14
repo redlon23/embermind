@@ -88,7 +88,8 @@ exports.updateStrategySettings = async ({ userId, updatedSettings }) => {
 exports.toggleTrading = async ({ userId }) => {
 	try {
 		const result = await User.findById(userId)
-		await User.findByIdAndUpdate(userId, { tradingEnabled: !result.tradingEnabled })
+		const user = await User.findByIdAndUpdate(userId, { tradingEnabled: !result.tradingEnabled }, { new: true })
+		return user.tradingEnabled
 	} catch (err) {
 		throw err
 	}

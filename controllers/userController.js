@@ -1,14 +1,17 @@
 const userModel = require('../models/userModels')
 
 exports.loginUser = async (req, res) => {
+	let user = null
+
 	try {
 		const { email, password } = req.body
 
-		const user = await userModel.loginUser({ email, password })
+		user = await userModel.loginUser({ email, password })
 		const validPassword = await userModel.comparePasswords(user.password, password)
 		if (!validPassword) {
 			throw new Error()
 		}
+
 		req.session.userId = user._id
 	} catch (err) {
 		console.error(err)
@@ -17,7 +20,7 @@ exports.loginUser = async (req, res) => {
 
 	try {
 		await validateSubscriptionExpiry(req)
-		res.status(200).send()
+		res.status(200).send({ name: user.name, tradingEnabled: user.tradingEnabled })
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'Subscription Validation Error' })
@@ -53,8 +56,8 @@ exports.registerNewUser = async (req, res) => {
 		res.status(409).send({ message: 'Email already in use' })
 	}
 
-	req.session.userId = user._id // Added by cookie-session
-	res.status(200).send({ message: 'Account Created' })
+	req.session.userId = user._id
+	res.status(200).send({ name: user.name, tradingEnabled: user.tradingEnabled })
 }
 
 exports.setAPIKeys = async (req, res) => {
