@@ -52,3 +52,29 @@ exports.getMonthlyPnL = async (req, res) => {
 		res.status(500).send({ message: 'Error Finding Trade Record' })
 	}
 }
+
+exports.getWalletBalance = async (req, res) => {
+	try {
+        var result = await tradeRecordModels.getWalletBalance(req.session.userId);
+        if(result == undefined){
+            result = [];
+        }
+        res.status(200).send(result);
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Error Finding Trade Record' })
+	}
+}
+
+exports.getOpenPositions = async (req, res) => {
+	try {
+        var result = await tradeRecordModels.getOpenPositions(req.session.userId);
+        if(result == undefined){
+            result = [];
+        }
+        res.status(200).send(result);
+	} catch (err) {
+		console.error(err)
+		res.status(500).send({ message: 'Error Finding Trade Record' })
+	}
+}
