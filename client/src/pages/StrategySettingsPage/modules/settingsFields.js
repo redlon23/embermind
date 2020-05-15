@@ -1,7 +1,7 @@
 import React from 'react'
 // import CoinSelector from './CoinSelector'
 
-import { Form, InputNumber } from 'antd'
+import { Form, InputNumber, Tooltip } from 'antd'
 
 const fieldStyle = { width: '15rem' }
 
@@ -10,20 +10,50 @@ const numDecInputRegEx = (value) => value.replace(/[^0-9.]/g, '') // doesn't pre
 const camelToTitle = (camelCase) => camelCase.replace(/([A-Z])/g, (match) => ` ${match}`).replace(/^./, (match) => match.toUpperCase())
 
 const quantity = (context) => (
-	<Form.Item className="form-group" name="quantity" label="Quantity (BTC)" key="quantity" onChange={context.handleSaveInputToState}>
+	<Form.Item
+		className="form-group"
+		name="quantity"
+		label={
+			<Tooltip placement="top" title="Strategy attempts to buy this quantity each time it trades">
+				Quantity per Trade (BTC)
+			</Tooltip>
+		}
+		key="quantity"
+		onChange={context.handleSaveInputToState}
+	>
 		<InputNumber placeholder={'0.00000000'} parser={numDecInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
 const takeProfit = (context) => (
-	<Form.Item className="form-group" name="takeProfit" label="Take Profit" key="takeProfit" onChange={context.handleSaveInputToState}>
-		<InputNumber placeholder={'0.0'} parser={numDecInputRegEx} style={fieldStyle} />
+	<Form.Item
+		className="form-group"
+		name="takeProfit"
+		label={
+			<Tooltip placement="left" title="Strategy sells its holdings once it's achieved this amount profit">
+				Take Profit (BTC)
+			</Tooltip>
+		}
+		key="takeProfit"
+		onChange={context.handleSaveInputToState}
+	>
+		<InputNumber placeholder={'0.00000000'} parser={numDecInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
 const stopLoss = (context) => (
-	<Form.Item className="form-group" name="stopLoss" label="Stop Loss" key="stopLoss" onChange={context.handleSaveInputToState}>
-		<InputNumber placeholder={'0.0'} parser={numDecInputRegEx} style={fieldStyle} />
+	<Form.Item
+		className="form-group"
+		name="stopLoss"
+		label={
+			<Tooltip placement="left" title="Strategy sells its holdings if this amount is lost">
+				Stop Loss (BTC)
+			</Tooltip>
+		}
+		key="stopLoss"
+		onChange={context.handleSaveInputToState}
+	>
+		<InputNumber placeholder={'0.00000000'} parser={numDecInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
@@ -31,26 +61,52 @@ const rsiKLinePeriod = (context) => (
 	<Form.Item
 		className="form-group"
 		name="rsiKlinePeriod"
-		label="RSI K-Line Period (minutes)"
+		label={
+			<Tooltip placement="left" title="How far back in time Strategy looks when determining whether coin is overbought or oversold">
+				RSI K-Line Period (minutes)
+			</Tooltip>
+		}
 		key="rsiKlinePeriod"
 		onChange={context.handleSaveInputToState}
 	>
-		<InputNumber placeholder={'0'} parser={numIntInputRegEx} style={fieldStyle} />
+		<InputNumber placeholder={'15'} parser={numIntInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
 const rsiOverBought = (context) => (
-	<Form.Item className="form-group" name="rsiOverBought" label="RSI Overbought" key="rsiOverBought" onChange={context.handleSaveInputToState}>
-		<InputNumber placeholder={'0.0'} parser={numDecInputRegEx} style={fieldStyle} />
+	<Form.Item
+		className="form-group"
+		name="rsiOverBought"
+		label={
+			<Tooltip placement="left" title="RSI (Relative Strength Index) value at which strategy considers coin overbought">
+				RSI Overbought (0-100)
+			</Tooltip>
+		}
+		key="rsiOverBought"
+		onChange={context.handleSaveInputToState}
+	>
+		<InputNumber placeholder={'70'} parser={numIntInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
 const rsiOverSold = (context) => (
-	<Form.Item className="form-group" name="rsiOverSold" label="RSI Oversold" key="rsiOverSold" onChange={context.handleSaveInputToState}>
-		<InputNumber placeholder={'0.0'} parser={numDecInputRegEx} style={fieldStyle} />
+	<Form.Item
+		className="form-group"
+		name="rsiOverSold"
+		label="RSI Oversold (0-100)"
+		label={
+			<Tooltip placement="left" title="RSI (Relative Strength Index) value at which strategy considers coin oversold">
+				RSI Oversold (0-100)
+			</Tooltip>
+		}
+		key="rsiOverSold"
+		onChange={context.handleSaveInputToState}
+	>
+		<InputNumber placeholder={'30'} parser={numIntInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
+// Fields we havn't customized yet get this generic field
 const genericField = (context, settingName) => (
 	<Form.Item
 		className="form-group"
