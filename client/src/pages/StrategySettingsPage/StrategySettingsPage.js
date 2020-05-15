@@ -4,7 +4,7 @@ import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
 import StrategySettingsForm from './modules/StrategySettingsForm'
-import './StrategySettingsPage.css'
+import './StrategySettingsPage.scss'
 
 import { Row, Col, Layout, Tabs, Tooltip, message } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import './SideNavBar.css'
+import './SideNavBar.scss'
 import Cookies from 'universal-cookie'
 
 import { Layout, Menu, Avatar, Badge, Button, Switch, message } from 'antd'
