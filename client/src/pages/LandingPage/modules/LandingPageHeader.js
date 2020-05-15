@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import Cookies from 'universal-cookie'
 import './LandingPageHeader.css'
 
-import { Layout, Button, Form, Input, message } from 'antd'
-const { Header } = Layout
+import { Button, Form, Input, message } from 'antd'
 
 const cookies = new Cookies()
 
@@ -33,26 +32,30 @@ class LandingPageHeader extends Component {
 
 	render() {
 		return (
-			<div>
-				<Layout>
-					<Header className="landingPageHeader">
-						<Form name="horizontal_login" layout="inline" size="small" onFinish={this.handleLogin}>
-							<Form.Item name="email">
-								<Input placeholder="Email" />
-							</Form.Item>
-							<Form.Item name="password">
-								<Input type="password" placeholder="Password" />
-							</Form.Item>
-							<Form.Item shouldUpdate={true}>
-								{() => (
-									<Button type="primary" htmlType="submit">
-										Log in
-									</Button>
-								)}
-							</Form.Item>
-						</Form>
-					</Header>
-				</Layout>
+			<div className="landingPageHeader">
+				<img
+					className="logo"
+					src={`${process.env.PUBLIC_URL}logo-text.png`}
+					alt="EmberMind"
+					onClick={() => this.props.history.push('/dashboard')}
+				/>
+				<div className="loginFormContainer">
+					<Form name="horizontal_login" layout="inline" size="small" onFinish={this.handleLogin}>
+						<Form.Item name="email">
+							<Input placeholder="Email" />
+						</Form.Item>
+						<Form.Item name="password">
+							<Input type="password" placeholder="Password" />
+						</Form.Item>
+						<Form.Item shouldUpdate={true}>
+							{() => (
+								<Button type="primary" htmlType="submit">
+									Log in
+								</Button>
+							)}
+						</Form.Item>
+					</Form>
+				</div>
 			</div>
 		)
 	}

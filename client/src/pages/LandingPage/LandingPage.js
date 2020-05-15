@@ -17,23 +17,34 @@ class LandingPage extends Component {
 		return (
 			<div className="LandingPage">
 				<LandingPageHeader {...this.props} />
-				<button className="button" onClick={() => this.setState({ showRegForm: true })}>
-					Register
-				</button>
-				{this.state.showRegForm ? (
-					<Modal
-						title="Create a New Account"
-						visible={this.state.showRegForm}
-						okText="Sign Up"
-						footer={null}
-						onOk={this.handleOk}
-						onCancel={() => this.setState({ showRegForm: false })}
-						bodyStyle={{ padding: 0 }}
-						width="30rem"
-					>
-						<RegistrationForm />
-					</Modal>
-				) : null}
+				<div className="heroSection">
+					<div className="dashboardImg" />
+					<div className="infoContainer">
+						<h1>Automated Cryptocurrency Trading</h1>
+						<h2>
+							Made <b>Unreasonably</b> Simple
+						</h2>
+						<p>Our pre-developed strategies do the work for you so you can get back to achieving the life you deserve.</p>
+
+						<button className="btnGetStarted" onClick={() => this.setState({ showRegForm: true })}>
+							Get started free!
+						</button>
+					</div>
+					{this.state.showRegForm ? (
+						<Modal
+							title="Create a New Account"
+							visible={this.state.showRegForm}
+							okText="Sign Up"
+							footer={null}
+							onOk={this.handleOk}
+							onCancel={() => this.setState({ showRegForm: false })}
+							bodyStyle={{ padding: 0 }}
+							width="30rem"
+						>
+							<RegistrationForm />
+						</Modal>
+					) : null}
+				</div>
 			</div>
 		)
 	}

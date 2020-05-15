@@ -38,7 +38,7 @@ class SideNavBar extends Component {
 							className="logo"
 							src={`${process.env.PUBLIC_URL}logo-text.png`}
 							alt="EmberMind"
-							onClick={() => this.props.history.push('/dashboard')}
+							onClick={() => this.props.history.push('/')}
 						/>
 					</div>
 					<div className="user-container">
