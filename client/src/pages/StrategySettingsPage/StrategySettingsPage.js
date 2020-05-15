@@ -4,8 +4,10 @@ import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
 import StrategySettingsForm from './modules/StrategySettingsForm'
+import './StrategySettingsPage.css'
 
-import { Row, Col, Layout, Tabs, message } from 'antd'
+import { Row, Col, Layout, Tabs, Tooltip, message } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 
 const { Content } = Layout
 const { TabPane } = Tabs
@@ -43,7 +45,12 @@ class StrategySettingsPage extends Component {
 	strategyTabPane = (strategy) => (
 		<TabPane tab={strategy.strategyName} key={strategy.strategyName}>
 			<div style={paneStyle}>
-				{`${strategy.strategyName} Settings`}
+				<div className="iconContainer">
+					{`${strategy.strategyName} Settings`}
+					<Tooltip placement="top" title="Hover over setting names for a description of each">
+						<QuestionCircleOutlined style={{ marginRight: '0.6rem', marginTop: '0.4rem' }} />
+					</Tooltip>
+				</div>
 				<StrategySettingsForm strategySettings={strategy} />
 			</div>
 		</TabPane>

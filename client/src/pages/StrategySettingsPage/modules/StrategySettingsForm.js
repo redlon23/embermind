@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import renderSetting from './settingsFields'
 // import CoinSelector from './CoinSelector'
 
-import { Layout, Menu, Form, Button, InputNumber, Row, Col, message } from 'antd'
+import { Layout, Menu, Form, Button, Row, Col, message } from 'antd'
 
 const { Content, Sider } = Layout
 

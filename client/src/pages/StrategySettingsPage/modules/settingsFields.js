@@ -31,13 +31,13 @@ const takeProfit = (context) => (
 		name="takeProfit"
 		label={
 			<Tooltip placement="left" title="Strategy sells its holdings once it's achieved this amount profit">
-				Take Profit (BTC)
+				Take Profit (USD)
 			</Tooltip>
 		}
 		key="takeProfit"
 		onChange={context.handleSaveInputToState}
 	>
-		<InputNumber placeholder={'0.00000000'} parser={numDecInputRegEx} style={fieldStyle} />
+		<InputNumber placeholder={'0'} parser={numDecInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
@@ -47,13 +47,13 @@ const stopLoss = (context) => (
 		name="stopLoss"
 		label={
 			<Tooltip placement="left" title="Strategy sells its holdings if this amount is lost">
-				Stop Loss (BTC)
+				Stop Loss (USD)
 			</Tooltip>
 		}
 		key="stopLoss"
 		onChange={context.handleSaveInputToState}
 	>
-		<InputNumber placeholder={'0.00000000'} parser={numDecInputRegEx} style={fieldStyle} />
+		<InputNumber placeholder={'0'} parser={numDecInputRegEx} style={fieldStyle} />
 	</Form.Item>
 )
 
