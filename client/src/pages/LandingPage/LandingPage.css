@@ -1,6 +1,13 @@
 body {
 	background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/landing-page-bg-black-sand.jpg");
 	background-size: 100vw;
+	background-repeat: no-repeat;
+}
+
+h1,
+h2,
+p {
+	color: #fcfcfc;
 }
 
 .LandingPage {
@@ -10,17 +17,47 @@ body {
 }
 
 .heroSection {
+	display: flex;
 	flex-direction: row;
 	flex: 1;
 }
 
-.button {
-	align-self: center;
+.dashboardImg {
+	width: 70rem;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("/dashboard-img.png");
+	background-size: 100%;
+	margin: 7rem 4rem 4rem 3rem;
+	background-repeat: no-repeat;
+}
+
+.infoContainer {
+	margin: 8rem 8rem 0 0;
+	text-align: end;
+	font-size: medium;
+	justify-content: end;
+}
+
+.infoContainer h1 {
+	margin-bottom: 0;
+}
+
+.infoContainer h2 {
+	margin-bottom: 2rem;
+}
+
+.infoContainer p {
+	margin-left: 5rem;
+	margin-bottom: 2rem;
+}
+
+.btnGetStarted {
 	font-size: 15pt;
 	width: 10em;
 	padding: 0.5em;
-	border: 0px;
-	color: white;
+	border: 1px solid #dbdbdb;
+	border-radius: 4px;
+	color: #3db4ff;
 	background-color: black;
-	margin: 1em;
+	margin-right: 0;
+	cursor: pointer;
 }

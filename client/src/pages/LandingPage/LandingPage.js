@@ -18,9 +18,18 @@ class LandingPage extends Component {
 			<div className="LandingPage">
 				<LandingPageHeader {...this.props} />
 				<div className="heroSection">
-					<button className="button" onClick={() => this.setState({ showRegForm: true })}>
-						Register
-					</button>
+					<div className="dashboardImg" />
+					<div className="infoContainer">
+						<h1>Automated Cryptocurrency Trading</h1>
+						<h2>
+							Made <b>Unreasonably</b> Simple
+						</h2>
+						<p>Our pre-developed strategies do the work for you so you can get back to achieving the life you deserve.</p>
+
+						<button className="btnGetStarted" onClick={() => this.setState({ showRegForm: true })}>
+							Get started free!
+						</button>
+					</div>
 					{this.state.showRegForm ? (
 						<Modal
 							title="Create a New Account"
