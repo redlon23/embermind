@@ -68,16 +68,16 @@ class SideNavBar extends Component {
 					</Menu.Item>
 					<Menu.Divider />
 					<Menu.Item key="/account-settings" onClick={() => this.props.history.push('/account-settings')}>
-						<span className="nav-text">Account Settings</span>
+						<span className="navText">Account Settings</span>
 					</Menu.Item>
 					<Menu.Item key="/strategy-settings" onClick={() => this.props.history.push('/strategy-settings')}>
-						<span className="nav-text">Strategy Settings</span>
+						<span className="navText">Strategy Settings</span>
 					</Menu.Item>
 				</Menu>
 				<Menu className="enableTradingToggle" selectable={false}>
 					<Menu.Item>
 						<Switch defaultChecked={this.state.tradingEnabled === 'true'} onChange={this.toggleTrading} />
-						<span className="nav-text" style={{ paddingLeft: '0.6rem' }}>
+						<span className="navText" style={{ paddingLeft: '0.6rem' }}>
 							Enable Trading
 						</span>
 					</Menu.Item>
