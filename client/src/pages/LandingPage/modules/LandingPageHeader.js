@@ -50,7 +50,7 @@ class LandingPageHeader extends Component {
 						<Form.Item shouldUpdate={true}>
 							{() => (
 								<Button className="loginButton" type="link" htmlType="submit">
-									Log in
+									Log In
 								</Button>
 							)}
 						</Form.Item>

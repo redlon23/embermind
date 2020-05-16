@@ -85,8 +85,15 @@ It's currently imported in index.js
 	display: none;
 }
 
+// Overlay modals (like the registration one on the LandingPage
+.ant-modal-content {
+	background-color: $opaque;
+	border: solid #12141a 1px;
+}
+
 .ant-modal-header {
-	background-color: #1a1c25;
+	background-color: $opaque;
+	border-bottom: none;
 }
 
 .ant-modal-title {

@@ -15,9 +15,10 @@ const layout = {
 }
 
 const tailLayout = {
-	wrapperCol: { offset: 19, span: 7 },
+	wrapperCol: { offset: 22, span: 7 },
 	style: {
-		marginTop: '4.4rem',
+		marginTop: '4.9rem',
+		marginRight: '0.8rem',
 		marginBottom: '0'
 	}
 }

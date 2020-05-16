@@ -85,7 +85,9 @@ class PurchaseSubscription extends Component {
 						<img className="logoNoClick" src={process.env.PUBLIC_URL + 'logo.png'} alt="EmberMind" />
 					</Col>
 				</Row>
-				<Row justify="end">{this.props.subscribed === true ? this.buttonsActiveSub() : this.buttonsInactiveSub()}</Row>
+				<Row style={{ marginTop: '1.7rem' }} justify="end">
+					{this.props.subscribed === true ? this.buttonsActiveSub() : this.buttonsInactiveSub()}
+				</Row>
 			</div>
 		)
 	}

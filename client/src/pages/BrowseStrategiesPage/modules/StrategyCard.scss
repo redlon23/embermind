@@ -6,8 +6,13 @@
 	border: solid $dividerDark 1px;
 }
 
+.BrowseStategiesCard .ant-card-head {
+	background-color: $primary2;
+}
+
 .BrowseStategiesCard .ant-card-body {
 	padding-top: 0.5rem;
+	background-color: $primary2;
 }
 
 .cardContent {
