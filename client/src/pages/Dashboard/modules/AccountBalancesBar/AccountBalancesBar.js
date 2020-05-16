@@ -8,7 +8,7 @@ import './AccountBalancesBar.css'
 class AccountBalancesBar extends Component{
     state = {
         unrealizedPLValue: 0,
-        totalBTCValue: 0,
+        totalUSDTValue: 0,
         totalCADValue: 0,
     }
 
@@ -23,7 +23,9 @@ class AccountBalancesBar extends Component{
     async componentDidMount(){
         const response = await fetch('/api/getUnrealizedPnL')
         const data = await response.json()
-        this.setState({ unrealizedPLValue: data.unrealizedPnL*100})
+        const response2 = await fetch('/api/getWalletBalance')
+        const data2 = await response2.json()
+        this.setState({ unrealizedPLValue: data.unrealizedPnL, totalUSDTValue: data2.balance })
         }
 
     render(){
@@ -33,14 +35,14 @@ class AccountBalancesBar extends Component{
                             <Descriptions.Item label='Unrealized P&L'>
                                 <Statistic
                                 value = { this.state.unrealizedPLValue }
-                                precision = { 0 }
+                                precision = { 4 }
                                 valueStyle = { this.dynamicValueColourRG(this.state.unrealizedPLValue)}
-                                suffix ='%'
+                                suffix =''
                                 />
                             </Descriptions.Item>
-                            <Descriptions.Item label='Total in BTC'>
+                            <Descriptions.Item label='Total in USDT'>
                                 <Statistic
-                                value = { this.state.totalBTC }
+                                value = { this.state.totalUSDTValue }
                                 precision = { 5 }
                                 valueStyle = {{ color: '#ffff00' }}/>
                                 </Descriptions.Item>
