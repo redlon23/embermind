@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Cookies from 'universal-cookie'
-import './LandingPageHeader.css'
+import './LandingPageHeader.scss'
 
 import { Button, Form, Input, message } from 'antd'
 
@@ -49,7 +49,7 @@ class LandingPageHeader extends Component {
 						</Form.Item>
 						<Form.Item shouldUpdate={true}>
 							{() => (
-								<Button type="primary" htmlType="submit">
+								<Button className="loginButton" type="link" htmlType="submit">
 									Log in
 								</Button>
 							)}

@@ -65,9 +65,15 @@ class StrategyCard extends Component {
 							<Row>
 								<Col span={24} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
 									{this.props.details.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
-									<Button type="primary" size="small" onClick={this.equipStrategy} style={{ marginTop: '0.3rem' }}>
-										{this.state.isEquipped ? 'Unequip' : 'Equip'}
-									</Button>
+									{this.state.isEquipped ? (
+										<Button type="primary" size="small" onClick={this.equipStrategy} style={{ marginTop: '0.3rem' }}>
+											Unequip
+										</Button>
+									) : (
+										<Button type="ghost" size="small" onClick={this.equipStrategy} style={{ marginTop: '0.3rem' }}>
+											Equip
+										</Button>
+									)}
 								</Col>
 							</Row>
 						</Col>

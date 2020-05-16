@@ -1,0 +1,30 @@
+@import '../../../_styleVariables.scss';
+
+.landingPageHeader {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	height: 4rem;
+	margin-left: 7rem;
+}
+
+.loginFormContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	width: 100%;
+	margin-right: 7rem;
+}
+
+.loginButton {
+	font-size: medium !important;
+	padding-bottom: 3px !important;
+	color: $white !important;
+	background-color: $transparant !important;
+	border: none !important;
+}
+
+.loginButton:hover {
+	background-color: $primary1;
+}

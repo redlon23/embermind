@@ -10,9 +10,26 @@ It's currently imported in index.js
 
 @import './styleVariables';
 
+.ant-btn-primary {
+	color: red;
+	background-color: $transparant;
+	border: solid $primary2 1px;
+}
+
+.ant-btn-primary:hover {
+	background-color: $primary1;
+	border: solid $primary2 1px;
+}
+
 /* Removes button click animation */
 .ant-btn-primary:after {
+	background-color: $transparant;
 	animation: none !important;
+}
+
+.ant-btn-primary:focus {
+	background-color: $transparant;
+	border: solid $primary2 1px;
 }
 
 /* Removes notification badge animation */

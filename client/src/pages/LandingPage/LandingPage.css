@@ -54,10 +54,10 @@ p {
 	font-size: 15pt;
 	width: 10em;
 	padding: 0.5em;
-	border: 1px solid #dbdbdb;
+	border: 1px solid #353c4d;
 	border-radius: 4px;
 	color: #3db4ff;
-	background-color: black;
+	background-color: #000000AA;
 	margin-right: 0;
 	cursor: pointer;
 }
