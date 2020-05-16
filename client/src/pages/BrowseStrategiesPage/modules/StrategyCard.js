@@ -50,28 +50,28 @@ class StrategyCard extends Component {
 			<div className="BrowseStategiesCard">
 				<img className="cardImg" src={`${process.env.PUBLIC_URL} ${this.props.imgPath}`} alt="Strategy Img" />
 				<Card
-					className="cardBody"
+					className="cardContent"
 					title={this.props.strategyName}
 					extra={<Rate disabled allowHalf defaultValue={this.nearestHalfStar} />}
 					size="small"
 					headStyle={{ height: 0, fontSize: '14pt', border: 'none' }}
 				>
 					<Row>
-						<Col span={12}>
+						<Col span={15}>
 							<Meta description={this.props.description} />
 						</Col>
-						<Col span={12} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-							<Meta description={`${this.props.details.subscriberCount} Traders Using`} style={{ marginBottom: '0.1rem' }} />
-							<Meta description={`${this.props.details.ratingCount} Ratings`} style={{ marginBottom: '0.1rem' }} />
-							<Row>
-								<Col span={24} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+						<Col className="endContainer" span={9}>
+							<Meta className="statsText" description={`${this.props.details.subscriberCount} Traders Using`} />
+							<Meta className="statsText" description={`${this.props.details.ratingCount} Ratings`} />
+							<Row className="bottomRow">
+								<Col span={24} className="bottomContainer">
 									{this.props.details.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
 									{this.state.isEquipped ? (
-										<Button type="primary" size="small" onClick={this.equipStrategy} style={{ marginTop: '0.3rem' }}>
+										<Button type="ghost" size="small" onClick={this.equipStrategy}>
 											Unequip
 										</Button>
 									) : (
-										<Button type="ghost" size="small" onClick={this.equipStrategy} style={{ marginTop: '0.3rem' }}>
+										<Button type="primary" size="small" onClick={this.equipStrategy}>
 											Equip
 										</Button>
 									)}

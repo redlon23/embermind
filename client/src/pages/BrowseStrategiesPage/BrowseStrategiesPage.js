@@ -29,7 +29,7 @@ class BrowseStrategiesPage extends Component {
 	}
 
 	cardRow = (strategy, index) => (
-		<Row gutter={[ 28, 16 ]} key={index}>
+		<Row gutter={[ 10, 10 ]} key={index}>
 			<Col span={12}>
 				<StrategyCard {...strategy} />
 			</Col>

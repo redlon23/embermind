@@ -11,22 +11,33 @@ It's currently imported in index.js
 @import './styleVariables';
 
 .ant-btn-primary {
+	background-color: $button1;
+	border: $dividerDark;
+	line-height: 7px;
 }
 
 .ant-btn-primary:hover {
-	// background-color: $primary1;
-	// border: solid $primary2 1px;
-}
-
-/* Removes button click animation */
-.ant-btn-primary:after {
-	// background-color: $transparant;
-	// animation: none !important;
+	background-color: $button2;
 }
 
 .ant-btn-primary:focus {
-	// background-color: $transparant;
-	// border: solid $primary2 1px;
+	background-color: $button1;
+}
+
+.ant-btn-ghost {
+	color: $white;
+	border: solid $button1 1px;
+	line-height: 7px;
+}
+
+.ant-btn-ghost:hover {
+	color: $white;
+	border-color: $button2;
+}
+
+.ant-btn-ghost:focus {
+	color: $white;
+	border: solid $button1 1px;
 }
 
 /* Removes notification badge animation */
