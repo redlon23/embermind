@@ -25,7 +25,7 @@ class AccountBalancesBar extends Component{
         const data = await response.json()
         const response2 = await fetch('/api/getWalletBalance')
         const data2 = await response2.json()
-        this.setState({ unrealizedPLValue: data.unrealizedPnL, totalUSDTValue: data2.balance })
+        this.setState({ unrealizedPLValue: data.unrealizedPnL, totalUSDTValue: data2.balance, totalCADValue: data2.balance * 1.41 })
         }
 
     render(){
@@ -43,12 +43,12 @@ class AccountBalancesBar extends Component{
                             <Descriptions.Item label='Total in USDT'>
                                 <Statistic
                                 value = { this.state.totalUSDTValue }
-                                precision = { 5 }
+                                precision = { 2 }
                                 valueStyle = {{ color: '#ffff00' }}/>
                                 </Descriptions.Item>
                             <Descriptions.Item label='Total in CAD'>
                                 <Statistic
-                                value = { this.state.totalCAD }
+                                value = { this.state.totalCADValue }
                                 precision = { 2 }
                                 valueStyle = {{ color: '#00ff00' }}/>
                                 </Descriptions.Item>
