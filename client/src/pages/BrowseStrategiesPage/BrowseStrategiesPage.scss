@@ -1,0 +1,13 @@
+@import './../../styleVariables';
+
+.contentSection {
+	padding: 1rem;
+}
+
+.cardContainer {
+	background: $primary1;
+	min-height: 36rem;
+	font-size: 16pt;
+	padding: 1rem;
+	color: $white;
+}

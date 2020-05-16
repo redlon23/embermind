@@ -1,0 +1,31 @@
+@import '../../../styleVariables';
+
+.BrowseStategiesCard {
+	display: flex;
+	flex-direction: row;
+	border: solid $dividerDark 1px;
+}
+
+.cardBody {
+	width: 31.5rem;
+	height: 130px;
+	border: none;
+}
+
+.cardImg {
+	width: 130px;
+	height: 130px;
+	border: none;
+}
+
+.posAvgText {
+	font-size: 12pt;
+	margin-right: 2rem;
+	color: $green;
+}
+
+.negAvgText {
+	font-size: 12pt;
+	margin-right: 2rem;
+	color: $red;
+}

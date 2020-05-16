@@ -4,18 +4,11 @@ import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
 import StrategyCard from './modules/StrategyCard'
+import './BrowseStrategiesPage.scss'
 
 import { Row, Col, Layout } from 'antd'
 
 const { Content } = Layout
-
-const contentStyle = {
-	background: '#1A1C25',
-	minHeight: '36rem',
-	fontSize: '16pt',
-	padding: '1rem',
-	color: '#EBEBEB'
-}
 
 class BrowseStrategiesPage extends Component {
 	constructor(props) {
@@ -55,14 +48,14 @@ class BrowseStrategiesPage extends Component {
 					<SideNavBar />
 					<Layout>
 						<HeaderNavBar />
-						<Content style={{ padding: '2rem' }}>
+						<Content className="contentSection">
 							<Row gutter={[ 28, 16 ]}>
 								<Col span={24}>
 									<PageTitleHeader header="Browse Strategies" />
 								</Col>
 							</Row>
 
-							<div style={contentStyle}>
+							<div className="cardContainer">
 								{this.state.strategies.map((strategy, index) => (index % 2 === 0 ? this.cardRow(strategy, index) : null))}
 							</div>
 						</Content>

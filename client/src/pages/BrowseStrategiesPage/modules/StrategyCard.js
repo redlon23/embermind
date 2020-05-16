@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import './StrategyCard.scss'
 
 import { Card, Rate, Row, Col, Button, message } from 'antd'
 
@@ -40,19 +41,19 @@ class StrategyCard extends Component {
 	avgProfitPerTrade = this.props.details.avgProfitPerTrade * 100
 	nearestHalfStar = parseFloat((Math.round(this.props.details.avgRating * 2) / 2).toFixed(1))
 
-	posAvg = () => <div style={{ fontSize: '12pt', marginRight: '2rem', color: '#0DDD22' }}>+{this.avgProfitPerTrade}% Avg</div>
+	posAvg = () => <div className="posAvgText">+{this.avgProfitPerTrade}% Avg</div>
 
-	negAvg = () => <div style={{ fontSize: '12pt', marginRight: '2rem', color: '#B40500' }}>{this.avgProfitPerTrade}% Avg</div>
+	negAvg = () => <div className="negAvgText">{this.avgProfitPerTrade}% Avg</div>
 
 	render() {
 		return (
-			<div className="BrowseStategiesCard" style={{ display: 'flex', flexDirection: 'row' }}>
-				<img src={`${process.env.PUBLIC_URL} ${this.props.imgPath}`} alt="Strategy Img" style={{ width: '130px', height: '130px' }} />
+			<div className="BrowseStategiesCard">
+				<img className="cardImg" src={`${process.env.PUBLIC_URL} ${this.props.imgPath}`} alt="Strategy Img" />
 				<Card
+					className="cardBody"
 					title={this.props.strategyName}
 					extra={<Rate disabled allowHalf defaultValue={this.nearestHalfStar} />}
 					size="small"
-					style={{ width: '31.5rem', height: '130px' }}
 					headStyle={{ height: 0, fontSize: '14pt', border: 'none' }}
 				>
 					<Row>

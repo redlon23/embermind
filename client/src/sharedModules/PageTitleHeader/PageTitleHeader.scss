@@ -1,0 +1,11 @@
+@import '../../styleVariables';
+
+.PageTitleHeader {
+	height: 3rem;
+	background-color: $primary1;
+	color: $white;
+	display: flex;
+	align-items: center;
+	font-size: 16pt;
+	padding: 1rem;
+}

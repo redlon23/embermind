@@ -11,25 +11,22 @@ It's currently imported in index.js
 @import './styleVariables';
 
 .ant-btn-primary {
-	color: red;
-	background-color: $transparant;
-	border: solid $primary2 1px;
 }
 
 .ant-btn-primary:hover {
-	background-color: $primary1;
-	border: solid $primary2 1px;
+	// background-color: $primary1;
+	// border: solid $primary2 1px;
 }
 
 /* Removes button click animation */
 .ant-btn-primary:after {
-	background-color: $transparant;
-	animation: none !important;
+	// background-color: $transparant;
+	// animation: none !important;
 }
 
 .ant-btn-primary:focus {
-	background-color: $transparant;
-	border: solid $primary2 1px;
+	// background-color: $transparant;
+	// border: solid $primary2 1px;
 }
 
 /* Removes notification badge animation */
@@ -51,6 +48,10 @@ It's currently imported in index.js
 /* The content section of Layouts  */
 .site-layout-background {
 	background-color: #1d222c;
+}
+
+.ant-layout-content {
+	background-color: $primary2;
 }
 
 /* Removes the step arrows on InputNumber components*/
