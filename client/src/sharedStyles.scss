@@ -8,6 +8,8 @@ It's currently imported in index.js
 
 */
 
+@import './styleVariables';
+
 /* Removes button click animation */
 .ant-btn-primary:after {
 	animation: none !important;
@@ -61,4 +63,8 @@ It's currently imported in index.js
 .ant-modal-title {
 	font-size: 16pt;
 	color: #ebebeb;
+}
+
+.ant-switch .ant-switch-checked {
+	background-color: $logoBlue;
 }
