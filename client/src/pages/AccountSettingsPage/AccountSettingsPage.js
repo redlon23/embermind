@@ -7,6 +7,7 @@ import UserSettingsForm from './modules/UserSettingsForm'
 import APISettingsForm from './modules/APISettingsForm'
 import SubscriptionDetails from './modules/SubscriptionDetails'
 import PurchaseSubscription from './modules/PurchaseSubscription'
+import './AccountSettingsPage.scss'
 
 import { Row, Col, Layout } from 'antd'
 
@@ -37,35 +38,31 @@ class AccountSettingsPage extends Component {
 
 	render() {
 		return (
-			<div className="AccountSettingsPage">
-				<div>
-					<Layout>
-						<SideNavBar />
-						<Layout>
-							<HeaderNavBar />
-							<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
-								<Row gutter={[ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]}>
-									<Col span={24}>
-										<PageTitleHeader header="Account Settings" />
-									</Col>
-								</Row>
-								<Row gutter={[ 4, 4 ]}>
-									<Col span={12}>
-										<UserSettingsForm />
-									</Col>
-									<Col span={12}>
-										<APISettingsForm />
-									</Col>
-								</Row>
-								<Row gutter={[ 0, 0 ]}>
-									<Col span={12}>{this.state.renderDataLoaded ? <SubscriptionDetails {...this.state} /> : null}</Col>
-									<Col span={12}>{this.state.renderDataLoaded ? <PurchaseSubscription {...this.state} /> : null}</Col>
-								</Row>
-							</Content>
-						</Layout>
-					</Layout>
-				</div>
-			</div>
+			<Layout className="AccountSettingsPage">
+				<SideNavBar />
+				<Layout>
+					<HeaderNavBar />
+					<Content className="contentSection">
+						<Row gutter={[ 28, 16 ]}>
+							<Col span={24}>
+								<PageTitleHeader header="Account Settings" />
+							</Col>
+						</Row>
+						<Row gutter={[ 4, 4 ]}>
+							<Col span={12}>
+								<UserSettingsForm />
+							</Col>
+							<Col span={12}>
+								<APISettingsForm />
+							</Col>
+						</Row>
+						<Row gutter={[ 0, 0 ]}>
+							<Col span={12}>{this.state.renderDataLoaded ? <SubscriptionDetails {...this.state} /> : null}</Col>
+							<Col span={12}>{this.state.renderDataLoaded ? <PurchaseSubscription {...this.state} /> : null}</Col>
+						</Row>
+					</Content>
+				</Layout>
+			</Layout>
 		)
 	}
 }

@@ -1,21 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Row, Col, Button, Space } from 'antd'
-
-const componentStyle = {
-	background: '#1A1C25',
-	height: '17rem',
-	fontSize: '16pt',
-	padding: '1rem',
-	color: '#EBEBEB'
-}
-
-const featureText = {
-	color: '#3FB2FF',
-	fontSize: '15pt',
-	textAlign: 'right',
-	marginTop: '0.6rem'
-}
+import './PurchaseSubscription.scss'
 
 class PurchaseSubscription extends Component {
 	devImmediateUnsubscribe = async () => {
@@ -85,18 +71,18 @@ class PurchaseSubscription extends Component {
 
 	render() {
 		return (
-			<div className="PurchaseSubscription" style={componentStyle}>
+			<div className="PurchaseSubscription">
 				<Row gutter={[ 10, 18 ]}>
 					<Col span={12}>
 						Purchase Subscription
-						<Row justify="end" style={{ marginTop: '1rem', marginRight: '2.5rem' }}>
-							<Row style={featureText}>• Only $30/month</Row>
-							<Row style={featureText}>• Total Access</Row>
-							<Row style={featureText}>• Unlimited Positions</Row>
+						<Row className="featureContainer" justify="end">
+							<Row className="featureText">• Only $30/month</Row>
+							<Row className="featureText">• Total Access</Row>
+							<Row className="featureText">• Unlimited Positions</Row>
 						</Row>
 					</Col>
 					<Col span={12} style={{ padding: 0 }}>
-						<img className="logoNoClick" src={process.env.PUBLIC_URL + 'logo.png'} alt="EmberMind" style={{ maxWidth: '13rem' }} />
+						<img className="logoNoClick" src={process.env.PUBLIC_URL + 'logo.png'} alt="EmberMind" />
 					</Col>
 				</Row>
 				<Row justify="end">{this.props.subscribed === true ? this.buttonsActiveSub() : this.buttonsInactiveSub()}</Row>
