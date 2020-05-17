@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import './StrategyCard.scss'
 
-import { Card, Rate, Row, Col, Button, message } from 'antd'
+import { Card, Rate, Row, Col, Button, Tooltip, message } from 'antd'
 
 const { Meta } = Card
 
@@ -49,37 +49,39 @@ class StrategyCard extends Component {
 		return (
 			<div className="BrowseStategiesCard">
 				<img className="cardImg" src={`${process.env.PUBLIC_URL} ${this.props.imgPath}`} alt="Strategy Img" />
-				<Card
-					className="cardContent"
-					title={this.props.strategyName}
-					extra={<Rate disabled allowHalf defaultValue={this.nearestHalfStar} />}
-					size="small"
-					headStyle={{ height: 0, fontSize: '14pt', border: 'none' }}
-				>
-					<Row>
-						<Col span={15}>
-							<Meta description={this.props.description} />
-						</Col>
-						<Col className="endContainer" span={9}>
-							<Meta className="statsText" description={`${this.props.details.subscriberCount} Traders Using`} />
-							<Meta className="statsText" description={`${this.props.details.ratingCount} Ratings`} />
-							<Row className="bottomRow">
-								<Col span={24} className="bottomContainer">
-									{this.props.details.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
-									{this.state.isEquipped ? (
-										<Button type="ghost" size="small" onClick={this.equipStrategy}>
-											Unequip
-										</Button>
-									) : (
-										<Button type="primary" size="small" onClick={this.equipStrategy}>
-											Equip
-										</Button>
-									)}
-								</Col>
-							</Row>
-						</Col>
-					</Row>
-				</Card>
+				<Tooltip placement="topLeft" align={{ offset: [ 396, 20 ] }} title={`Avg Rating: ${this.props.details.avgRating}`}>
+					<Card
+						className="cardContent"
+						title={this.props.strategyName}
+						extra={<Rate disabled allowHalf defaultValue={this.nearestHalfStar} />}
+						size="small"
+						headStyle={{ height: 0, fontSize: '14pt', border: 'none' }}
+					>
+						<Row>
+							<Col span={15}>
+								<Meta description={this.props.description} />
+							</Col>
+							<Col className="endContainer" span={9}>
+								<Meta className="statsText" description={`${this.props.details.subscriberCount} Traders Using`} />
+								<Meta className="statsText" description={`${this.props.details.ratingCount} Ratings`} />
+								<Row className="bottomRow">
+									<Col span={24} className="bottomContainer">
+										{this.props.details.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
+										{this.state.isEquipped ? (
+											<Button type="ghost" size="small" onClick={this.equipStrategy}>
+												Unequip
+											</Button>
+										) : (
+											<Button type="primary" size="small" onClick={this.equipStrategy}>
+												Equip
+											</Button>
+										)}
+									</Col>
+								</Row>
+							</Col>
+						</Row>
+					</Card>
+				</Tooltip>
 			</div>
 		)
 	}
