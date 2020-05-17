@@ -2,14 +2,7 @@ import React, { Component } from 'react'
 import { Form, Input, Button, Menu, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { withRouter } from 'react-router-dom'
-
-const contentStyle = {
-	background: '#1A1C25',
-	height: '19rem',
-	fontSize: '16.5pt',
-	padding: '1rem',
-	color: '#EBEBEB'
-}
+import './APISettingsForm.scss'
 
 const layout = {
 	labelCol: {
@@ -22,9 +15,10 @@ const layout = {
 }
 
 const tailLayout = {
-	wrapperCol: { offset: 20, span: 7 },
+	wrapperCol: { offset: 22, span: 7 },
 	style: {
-		marginTop: '4.4rem',
+		marginTop: '4.9rem',
+		marginRight: '0.8rem',
 		marginBottom: '0'
 	}
 }
@@ -93,7 +87,7 @@ class APISettingsForm extends Component {
 	render() {
 		if (this.state.ready) {
 			return (
-				<div style={{ ...contentStyle }}>
+				<div className="APISettingsForm">
 					API Settings
 					<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitAPISettings}>
 						<Form.Item className="form-group" label="Public API" name="publicApi" onChange={this.handleSaveInputToState}>

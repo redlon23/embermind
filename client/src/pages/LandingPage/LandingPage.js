@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LandingPageHeader from './modules/LandingPageHeader.js'
 import RegistrationForm from './modules/RegistrationForm.js'
-import './LandingPage.css'
+import './LandingPage.scss'
 
 import { Modal } from 'antd'
 

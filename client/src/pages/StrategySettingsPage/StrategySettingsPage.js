@@ -4,8 +4,10 @@ import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
 import StrategySettingsForm from './modules/StrategySettingsForm'
+import './StrategySettingsPage.scss'
 
-import { Row, Col, Layout, Tabs, message } from 'antd'
+import { Row, Col, Layout, Tabs, Tooltip, message } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 
 const { Content } = Layout
 const { TabPane } = Tabs
@@ -43,7 +45,12 @@ class StrategySettingsPage extends Component {
 	strategyTabPane = (strategy) => (
 		<TabPane tab={strategy.strategyName} key={strategy.strategyName}>
 			<div style={paneStyle}>
-				{`${strategy.strategyName} Settings`}
+				<div className="iconContainer">
+					{`${strategy.strategyName} Settings`}
+					<Tooltip placement="top" title="Hover over setting names for a description of each">
+						<QuestionCircleOutlined style={{ marginRight: '0.6rem', marginTop: '0.4rem' }} />
+					</Tooltip>
+				</div>
 				<StrategySettingsForm strategySettings={strategy} />
 			</div>
 		</TabPane>
@@ -51,30 +58,28 @@ class StrategySettingsPage extends Component {
 
 	render() {
 		return (
-			<div className="StrategySettingsPage">
+			<Layout className="StrategySettingsPage">
+				<SideNavBar />
 				<Layout>
-					<SideNavBar />
-					<Layout>
-						<HeaderNavBar />
-						<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
-							<Row gutter={[ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]} style={{ marginBottom: 0 }}>
-								<Col span={24}>
-									<PageTitleHeader header="Strategy Settings" />
-								</Col>
-							</Row>
-							<Row style={{ height: '10rem' }}>
-								<Col span={24}>
-									{this.state.renderDataLoaded ? (
-										<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
-											{this.state.equippedStrategySettings.map((strategy) => this.strategyTabPane(strategy))}
-										</Tabs>
-									) : null}
-								</Col>
-							</Row>
-						</Content>
-					</Layout>
+					<HeaderNavBar />
+					<Content className="contentSection">
+						<Row gutter={[ 28, 16 ]}>
+							<Col span={24}>
+								<PageTitleHeader header="Strategy Settings" />
+							</Col>
+						</Row>
+						<Row>
+							<Col className="tabSection" span={24}>
+								{this.state.renderDataLoaded ? (
+									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
+										{this.state.equippedStrategySettings.map((strategy) => this.strategyTabPane(strategy))}
+									</Tabs>
+								) : null}
+							</Col>
+						</Row>
+					</Content>
 				</Layout>
-			</div>
+			</Layout>
 		)
 	}
 }

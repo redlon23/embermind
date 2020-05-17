@@ -1,0 +1,20 @@
+@import '../../styleVariables';
+
+.HeaderNavBar {
+	background-color: $primary1;
+	height: 2.8rem !important;
+	line-height: 3rem !important;
+	border: solid $moduleBorder 1px;
+}
+
+.navLink {
+	font-size: 11pt;
+	color: $white;
+	opacity: 0.7;
+	margin-bottom: 2rem !important;
+}
+
+.navLink:hover {
+	color: $white;
+	opacity: 1;
+}

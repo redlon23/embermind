@@ -10,7 +10,7 @@ module.exports = override(
 		javascriptEnabled: true,
 		modifyVars: {
 			// Custom Style Colors
-			'@white': '#fcfcfc',
+			'@white': '#f1eeee',
 			'@black': '#020202',
 			'@primary-1': '#1D222C',
 			'@primary-2': '#1A1C25',
@@ -25,15 +25,14 @@ module.exports = override(
 
 			// Text Styles
 			'@text-color': '@black',
-			'@text-color-secondary': '@primary-6',
-			'@text-color-dark': '@primary-5',
-			'@text-color-dark-secondary': '@primary-4',
+			'@text-color-secondary': '@white',
+			'@text-color-dark': '@white',
+			'@text-color-dark-secondary': '@white',
 
 			// Component Styles
 			// '@body-background': '@primary-1',
 			'@component-background': '@white',
 			'@body-background': '@white',
-			'@btn-primary-bg': '@primary-5',
 			'@card-background': '@primary-2',
 			'@card-head-color': '@white',
 			'@border-color-base': '@primary-3',

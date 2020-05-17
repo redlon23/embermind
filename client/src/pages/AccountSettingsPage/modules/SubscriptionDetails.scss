@@ -1,0 +1,20 @@
+@import './../../../styleVariables';
+
+.SubscriptionDetails {
+	background: $primary1;
+	height: 18rem;
+	font-size: 16pt;
+	padding: 1rem;
+	color: $white;
+	border: solid $moduleBorder 1px;
+}
+
+.categoryColumn {
+	color: $secondaryText;
+	font-size: 14pt;
+}
+
+.valueColumn {
+	background-color: $primary2;
+	font-size: 14pt;
+}

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import validateSessionStatus from '../../sessionValidator'
 import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
-import '../../sharedStyles.css'
 
 import { Row, Col, Layout } from 'antd'
 
@@ -33,7 +32,7 @@ class Dashboard extends Component {
 					<SideNavBar />
 					<Layout>
 						<HeaderNavBar />
-						<Content theme='dark' style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#1d222c' }}>
+						<Content theme="dark" style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#1d222c' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
 									<div style={{ ...contentStyle, height: '2.6rem' }}>
@@ -43,15 +42,21 @@ class Dashboard extends Component {
 							</Row>
 							<Row gutter={contentGutter}>
 								<Col span={15}>
-									<div style={{ ...contentStyle, height: '30rem' }}><ProfitLossChart/></div>
+									<div style={{ ...contentStyle, height: '30rem' }}>
+										<ProfitLossChart />
+									</div>
 								</Col>
 								<Col span={9}>
-									<div style={{ ...contentStyle, height: '30rem' }}><CoinDistributionChart/></div>
+									<div style={{ ...contentStyle, height: '30rem' }}>
+										<CoinDistributionChart />
+									</div>
 								</Col>
 							</Row>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
-									<div style={{ ...contentStyle, height: '13rem' }}><OpenPositionsTable/></div>
+									<div style={{ ...contentStyle, height: '13rem' }}>
+										<OpenPositionsTable />
+									</div>
 								</Col>
 							</Row>
 						</Content>

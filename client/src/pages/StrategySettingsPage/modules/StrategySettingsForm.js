@@ -2,19 +2,21 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import renderSetting from './settingsFields'
 // import CoinSelector from './CoinSelector'
+import './StrategySettingsForm.scss'
 
-import { Layout, Menu, Form, Button, InputNumber, Row, Col, message } from 'antd'
+import { Layout, Menu, Form, Button, Row, Col, message } from 'antd'
 
 const { Content, Sider } = Layout
 
 const layout = {
 	labelCol: {
+		offset: 2,
 		span: 9
 	},
 	wrapperCol: {
 		span: 15
 	},
-	style: { paddingTop: '1rem', paddingLeft: 0 }
+	style: { paddingTop: '1.5rem', paddingLeft: '10rem', paddingLeft: 0 }
 }
 
 const tailLayout = {
@@ -30,11 +32,13 @@ const requiredSettingsFields = (context) => (
 				</Form>
 			</Col>
 		</Row>
+
 		<Row justify="end">
-			<Button type="primary" htmlType="submit" onClick={context.updateStrategySettings} style={{ marginRight: '6.2rem' }}>
+			<Button className="submitButton" type="primary" htmlType="submit" onClick={context.updateStrategySettings}>
 				Submit
 			</Button>
 		</Row>
+
 		{/*<Col span={12}>
 				<Form.Item>
 					<CoinSelector
@@ -57,7 +61,7 @@ const optionalSettingsFields = (context) => (
 		)}
 		{context.optionalSettings.length > 0 ? (
 			<Form.Item {...tailLayout}>
-				<Button type="primary" htmlType="submit" onClick={context.updateStrategySettings}>
+				<Button className="submitButton" type="primary" htmlType="submit" onClick={context.updateStrategySettings}>
 					Submit
 				</Button>
 			</Form.Item>
@@ -145,8 +149,8 @@ class StrategySettingsForm extends Component {
 		return (
 			<div className="StrategySettingsForm">
 				{this.state.renderDataLoaded ? (
-					<Layout style={{ height: '28rem', marginTop: '0.5rem' }}>
-						<Sider>
+					<Layout className="layout">
+						<Sider className="sider">
 							<Menu theme="dark" mode="inline" defaultSelectedKeys={[ 'required' ]}>
 								<Menu.Item key="required" onClick={() => this.setState({ displayCategory: 'required' })}>
 									Required
@@ -156,11 +160,7 @@ class StrategySettingsForm extends Component {
 								</Menu.Item>
 							</Menu>
 						</Sider>
-						<Content>
-							<div className="site-layout-background" style={{ paddingTop: 24, paddingBottom: 24, margin: 0, height: '28rem' }}>
-								{this.displayOptions[this.state.displayCategory](this)}
-							</div>
-						</Content>
+						<Content className="content">{this.displayOptions[this.state.displayCategory](this)}</Content>
 					</Layout>
 				) : null}
 			</div>

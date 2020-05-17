@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Form, Input, Button } from 'antd'
-
-const contentStyle = {
-	background: '#1A1C25',
-	height: '19rem',
-	fontSize: '16pt',
-	padding: '1rem',
-	color: '#EBEBEB'
-}
+import './UserSettingsForm.scss'
 
 const layout = {
 	labelCol: {
@@ -21,7 +14,8 @@ const layout = {
 }
 
 const tailLayout = {
-	wrapperCol: { offset: 20, span: 7 }
+	wrapperCol: { offset: 21, span: 7 },
+	style: { marginTop: '1.9rem' }
 }
 
 class UserSettingsForm extends Component {
@@ -85,7 +79,7 @@ class UserSettingsForm extends Component {
 	render() {
 		if (this.state.ready) {
 			return (
-				<div style={{ ...contentStyle }}>
+				<div className="UserSettingForm">
 					User Settings
 					<Form className="form-section" {...layout} size={'small'} onFinish={this.handleSubmitUserSettings}>
 						<Form.Item className="form-group" label="Name" name="name" onChange={this.handleSaveInputToState}>

@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Cookies from 'universal-cookie'
+import './RegistrationForm.scss'
 
 import { Form, Input, Button, message } from 'antd'
 
 const cookies = new Cookies()
-
-const contentStyle = {
-	background: '#1A1C25',
-	width: '30rem',
-	height: '17.5rem',
-	paddingTop: '1rem'
-}
 
 const formLayout = {
 	labelCol: {
@@ -70,7 +64,7 @@ class RegistrationForm extends Component {
 
 	render() {
 		return (
-			<div className="registrationForm" style={{ ...contentStyle }}>
+			<div className="RegistrationForm">
 				<Form className="form-section" {...formLayout} size={'small'} onFinish={this.handleRegistration}>
 					<Form.Item
 						className="form-group"

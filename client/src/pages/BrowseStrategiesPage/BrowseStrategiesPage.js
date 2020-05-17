@@ -4,18 +4,11 @@ import HeaderNavBar from '../../sharedModules/HeaderNavBar/HeaderNavBar'
 import SideNavBar from '../../sharedModules/SideNavBar/SideNavBar'
 import PageTitleHeader from '../../sharedModules/PageTitleHeader/PageTitleHeader'
 import StrategyCard from './modules/StrategyCard'
+import './BrowseStrategiesPage.scss'
 
 import { Row, Col, Layout } from 'antd'
 
 const { Content } = Layout
-
-const contentStyle = {
-	background: '#1A1C25',
-	minHeight: '36rem',
-	fontSize: '16pt',
-	padding: '1rem',
-	color: '#EBEBEB'
-}
 
 class BrowseStrategiesPage extends Component {
 	constructor(props) {
@@ -36,7 +29,7 @@ class BrowseStrategiesPage extends Component {
 	}
 
 	cardRow = (strategy, index) => (
-		<Row gutter={[ 28, 16 ]} key={index}>
+		<Row gutter={[ 10, 10 ]} key={index}>
 			<Col span={12}>
 				<StrategyCard {...strategy} />
 			</Col>
@@ -50,25 +43,23 @@ class BrowseStrategiesPage extends Component {
 
 	render() {
 		return (
-			<div>
+			<Layout className="BrowseStrategiesPage">
+				<SideNavBar />
 				<Layout>
-					<SideNavBar />
-					<Layout>
-						<HeaderNavBar />
-						<Content style={{ padding: '2rem' }}>
-							<Row gutter={[ 28, 16 ]}>
-								<Col span={24}>
-									<PageTitleHeader header="Browse Strategies" />
-								</Col>
-							</Row>
+					<HeaderNavBar />
+					<Content className="contentSection">
+						<Row gutter={[ 28, 16 ]}>
+							<Col span={24}>
+								<PageTitleHeader header="Browse Strategies" />
+							</Col>
+						</Row>
 
-							<div style={contentStyle}>
-								{this.state.strategies.map((strategy, index) => (index % 2 === 0 ? this.cardRow(strategy, index) : null))}
-							</div>
-						</Content>
-					</Layout>
+						<div className="cardContainer">
+							{this.state.strategies.map((strategy, index) => (index % 2 === 0 ? this.cardRow(strategy, index) : null))}
+						</div>
+					</Content>
 				</Layout>
-			</div>
+			</Layout>
 		)
 	}
 }

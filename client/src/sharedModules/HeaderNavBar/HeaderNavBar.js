@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import './HeaderNavBar.css'
+import './HeaderNavBar.scss'
 
 import { Row, Col, Layout, Button } from 'antd'
 
@@ -18,29 +18,27 @@ class HeaderNavBar extends Component {
 	}
 	render() {
 		return (
-			<div className="HeaderNavBar">
-				<Header style={{ height: '3.2rem', paddingRight: 0 }}>
-					<Row gutter={5}>
-						<Col xs={0} sm={0} md={4}>
-							<Button className="nav-link" type="link" onClick={() => this.props.history.push('/browse-strategies')}>
-								Browse Strategies
-							</Button>
-						</Col>
-						<Col flex="auto" />
-						<Col xs={24} sm={20} md={13} lg={9} xl={7}>
-							<Button className="nav-link" type="link">
-								Discussion
-							</Button>
-							<Button className="nav-link" type="link">
-								News
-							</Button>
-							<Button className="nav-link" type="link" onClick={this.handleLogout}>
-								Logout
-							</Button>
-						</Col>
-					</Row>
-				</Header>
-			</div>
+			<Header className="HeaderNavBar" style={{ height: '3.2rem', paddingRight: 0 }}>
+				<Row gutter={5}>
+					<Col xs={0} sm={0} md={4}>
+						<Button className="navLink" type="link" onClick={() => this.props.history.push('/browse-strategies')}>
+							Browse Strategies
+						</Button>
+					</Col>
+					<Col flex="auto" />
+					<Col xs={24} sm={20} md={13} lg={9} xl={7}>
+						<Button className="navLink" type="link">
+							Discussion
+						</Button>
+						<Button className="navLink" type="link">
+							News
+						</Button>
+						<Button className="navLink" type="link" onClick={this.handleLogout}>
+							Logout
+						</Button>
+					</Col>
+				</Row>
+			</Header>
 		)
 	}
 }

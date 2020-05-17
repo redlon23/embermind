@@ -1,0 +1,129 @@
+/* 
+ANT DESIGN related
+These styles are available to any component in the app that has the className.
+If the styles are here, it's because I couldn't find any other way of styling the component.
+
+NOTE: It seems like if one component imports this style sheet, all pages import it automatically.
+It's currently imported in index.js
+
+*/
+
+@import './styleVariables';
+
+.ant-btn-primary {
+	background-color: $button1;
+	border: $dividerDark;
+	line-height: 7px;
+}
+
+.ant-btn-primary:hover {
+	background-color: $button2;
+}
+
+.ant-btn-primary:focus {
+	background-color: $button1;
+}
+
+.ant-btn-ghost {
+	color: $white;
+	border: solid $button1 1px;
+	line-height: 7px;
+}
+
+.ant-btn-ghost:hover {
+	color: $white;
+	border-color: $button2;
+}
+
+.ant-btn-ghost:focus {
+	color: $white;
+	border: solid $button1 1px;
+}
+
+/* Removes notification badge animation */
+.ant-badge-zoom-appear {
+	animation: none !important;
+}
+
+/* Form label style */
+.form-section .form-group label {
+	font-size: 15px;
+	color: $white;
+}
+
+/* The tabs in StrategySettingsPage */
+.ant-tabs-top-bar .ant-tabs-card-bar {
+	margin-bottom: 0;
+}
+
+.ant-tabs-tab-active {
+	background-color: $primary1 !important;
+	color: $blue2;
+}
+
+.ant-tabs-tab {
+	background-color: $primary1 !important;
+	color: $white;
+	font-weight: 500;
+	border: solid $primary1 1px !important;
+}
+
+.ant-tabs-bar {
+	border-bottom: solid $primary1 1px;
+}
+
+.ant-tabs-tabpane > div {
+	background-color: $primary1 !important;
+	min-height: 34.8rem !important;
+	max-height: none !important;
+}
+
+/* The content section of Layouts  */
+.site-layout-background {
+	background-color: #1d222c;
+}
+
+.ant-layout-content {
+	background-color: $primary2;
+}
+
+/* Removes the step arrows on InputNumber components*/
+.ant-input-number-handler-wrap {
+	visibility: hidden;
+}
+
+/* Styles for the CoinSelector Module */
+.ant-transfer-list {
+	background-color: #1a1c25;
+	color: $white;
+}
+
+.ant-transfer-list-content-item:hover {
+	color: $black;
+}
+
+/* Removes the visibility toggle on password fields */
+.ant-input-password-icon {
+	display: none;
+}
+
+// Overlay modals (like the registration one on the LandingPage
+.ant-modal-content {
+	background-color: $opaque;
+	border: solid #12141a 1px;
+}
+
+.ant-modal-header {
+	background-color: $opaque;
+	border-bottom: none;
+}
+
+.ant-modal-title {
+	font-size: 16pt;
+	color: $white;
+}
+
+// Enable Trading Switch
+.ant-switch .ant-switch-checked {
+	background-color: $logoBlue;
+}
