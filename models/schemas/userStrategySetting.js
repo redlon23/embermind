@@ -8,6 +8,7 @@ const UserStrategySetting = new Schema(
 		strategyIsEquipped: { type: Boolean, required: true, default: true },
 		requiredSettings: { type: Array, required: true },
 		optionalSettings: { type: Array },
+		userRating: { type: Number, default: null },
 
 		// Settings
 		// NOTE: If you add or subtract settings here, change them in the allSettingsDefault object in userTradingModels.js too.
