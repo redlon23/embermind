@@ -58,30 +58,28 @@ class StrategySettingsPage extends Component {
 
 	render() {
 		return (
-			<div className="StrategySettingsPage">
+			<Layout className="StrategySettingsPage">
+				<SideNavBar />
 				<Layout>
-					<SideNavBar />
-					<Layout>
-						<HeaderNavBar />
-						<Content style={{ padding: '2rem 2rem 0rem 2rem' }}>
-							<Row gutter={[ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]} style={{ marginBottom: 0 }}>
-								<Col span={24}>
-									<PageTitleHeader header="Strategy Settings" />
-								</Col>
-							</Row>
-							<Row style={{ height: '10rem' }}>
-								<Col span={24}>
-									{this.state.renderDataLoaded ? (
-										<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
-											{this.state.equippedStrategySettings.map((strategy) => this.strategyTabPane(strategy))}
-										</Tabs>
-									) : null}
-								</Col>
-							</Row>
-						</Content>
-					</Layout>
+					<HeaderNavBar />
+					<Content className="contentSection">
+						<Row gutter={[ 28, 16 ]}>
+							<Col span={24}>
+								<PageTitleHeader header="Strategy Settings" />
+							</Col>
+						</Row>
+						<Row>
+							<Col className="tabSection" span={24}>
+								{this.state.renderDataLoaded ? (
+									<Tabs className="ant-tabs-top-bar ant-tabs-card-bar" type="card" animated={false}>
+										{this.state.equippedStrategySettings.map((strategy) => this.strategyTabPane(strategy))}
+									</Tabs>
+								) : null}
+							</Col>
+						</Row>
+					</Content>
 				</Layout>
-			</div>
+			</Layout>
 		)
 	}
 }

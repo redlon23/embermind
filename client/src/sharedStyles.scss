@@ -48,12 +48,34 @@ It's currently imported in index.js
 /* Form label style */
 .form-section .form-group label {
 	font-size: 15px;
-	color: #ebebeb;
+	color: $white;
 }
 
 /* The tabs in StrategySettingsPage */
 .ant-tabs-top-bar .ant-tabs-card-bar {
 	margin-bottom: 0;
+}
+
+.ant-tabs-tab-active {
+	background-color: $primary1 !important;
+	color: $blue2;
+}
+
+.ant-tabs-tab {
+	background-color: $primary1 !important;
+	color: $white;
+	font-weight: 500;
+	border: solid $primary1 1px !important;
+}
+
+.ant-tabs-bar {
+	border-bottom: solid $primary1 1px;
+}
+
+.ant-tabs-tabpane > div {
+	background-color: $primary1 !important;
+	min-height: 34.8rem !important;
+	max-height: none !important;
 }
 
 /* The content section of Layouts  */
@@ -73,11 +95,11 @@ It's currently imported in index.js
 /* Styles for the CoinSelector Module */
 .ant-transfer-list {
 	background-color: #1a1c25;
-	color: #fcfcfc;
+	color: $white;
 }
 
 .ant-transfer-list-content-item:hover {
-	color: #020202;
+	color: $black;
 }
 
 /* Removes the visibility toggle on password fields */
@@ -98,9 +120,10 @@ It's currently imported in index.js
 
 .ant-modal-title {
 	font-size: 16pt;
-	color: #ebebeb;
+	color: $white;
 }
 
+// Enable Trading Switch
 .ant-switch .ant-switch-checked {
 	background-color: $logoBlue;
 }
