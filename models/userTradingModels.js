@@ -51,12 +51,18 @@ exports.unequipStrategy = async ({ userId, strategyName }) => {
 	}
 }
 
-exports.getStrategyEquippedStatus = async ({ userId, strategyName }) => {
+exports.getStrategyEquippedAndRatingStatus = async ({ userId, strategyName }) => {
 	try {
 		const hasPreviouslyUsed = await UserStrategySetting.exists({ userId, strategyName })
 		if (hasPreviouslyUsed) {
-			const strategyIsEquipped = await UserStrategySetting.find({ userId, strategyName }, 'strategyIsEquipped')
-			return strategyIsEquipped[0].strategyIsEquipped
+			const dbResult = await UserStrategySetting.find({ userId, strategyName }, 'strategyIsEquipped userRating -_id')
+
+			const data = {
+				strategyIsEquipped: dbResult[0].strategyIsEquipped,
+				userRating: dbResult[0].userRating
+			}
+			console.log(data)
+			return data
 		}
 		return false
 	} catch (err) {

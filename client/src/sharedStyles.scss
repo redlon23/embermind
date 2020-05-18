@@ -127,3 +127,12 @@ It's currently imported in index.js
 .ant-switch .ant-switch-checked {
 	background-color: $logoBlue;
 }
+
+// Start Rating
+.ant-rate:hover {
+	color: #094d7a !important;
+}
+
+.ant-rate-star {
+	transition-duration: 0s !important;
+}

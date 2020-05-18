@@ -1,9 +1,11 @@
+const strategyModel = require('../models/strategyModels')
 const userTradingModel = require('../models/userTradingModels')
 
 exports.equipStrategy = async (req, res) => {
 	try {
 		await userTradingModel.equipStrategy({ userId: req.session.userId, strategyName: req.query.strategyName })
-		res.status(200).send({ message: 'Strategy Equipped ' })
+		const strategyUserCount = await strategyModel.incrementStrategyUserCount({ userId: req.session.userId, strategyName: req.query.strategyName })
+		res.status(200).send({ strategyUserCount, message: 'Strategy Equipped ' })
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'Error equipping strategy' })
@@ -13,20 +15,21 @@ exports.equipStrategy = async (req, res) => {
 exports.unequipStrategy = async (req, res) => {
 	try {
 		await userTradingModel.unequipStrategy({ userId: req.session.userId, strategyName: req.query.strategyName })
-		res.status(200).send({ message: 'Strategy Unequipped' })
+		const strategyUserCount = await strategyModel.decrementStrategyUserCount({ userId: req.session.userId, strategyName: req.query.strategyName })
+		res.status(200).send({ strategyUserCount, message: 'Strategy Unequipped' })
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'Error unequipping strategy' })
 	}
 }
 
-exports.getStrategyEquippedStatus = async (req, res) => {
+exports.getStrategyEquippedAndRatingStatus = async (req, res) => {
 	try {
-		const strategyIsEquipped = await userTradingModel.getStrategyEquippedStatus({
+		const data = await userTradingModel.getStrategyEquippedAndRatingStatus({
 			userId: req.session.userId,
 			strategyName: req.query.strategyName
 		})
-		res.status(200).send({ strategyIsEquipped })
+		res.status(200).send({ strategyIsEquipped: data.strategyIsEquipped, userRating: data.userRating })
 	} catch (err) {
 		console.error(err)
 		res.status(500).send({ message: 'Error fetching strategy status' })

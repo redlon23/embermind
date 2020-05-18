@@ -7,7 +7,7 @@ const Strategy = new Schema({
 	supportedCoins: { type: Array, required: true },
 	details: {
 		avgProfitPerTrade: { type: Number, required: false },
-		subscriberCount: { type: Number, required: false, default: 0 },
+		userCount: { type: Number, required: false, default: 0 },
 		avgDailySignals: { type: Number, required: false },
 		ratingCount: { type: Number, required: true, default: 0 },
 		avgRating: { type: Number, required: false }
