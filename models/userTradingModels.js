@@ -61,7 +61,6 @@ exports.getStrategyEquippedAndRatingStatus = async ({ userId, strategyName }) =>
 				strategyIsEquipped: dbResult[0].strategyIsEquipped,
 				userRating: dbResult[0].userRating
 			}
-			console.log(data)
 			return data
 		}
 		return false

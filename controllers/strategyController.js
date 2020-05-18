@@ -33,6 +33,7 @@ exports.setUserStrategyRating = async (req, res) => {
 			})
 
 			newRatingCount = null
+
 			// userRating going from null to a pos number = increment rating count
 			if (!oldUserRating) {
 				newRatingCount = await strategyModel.incrementStrategyRatingCount({ strategyName: req.query.strategyName })

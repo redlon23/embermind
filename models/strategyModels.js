@@ -28,9 +28,9 @@ exports.setUserStrategyRating = async ({ userId, strategyName, userRating }) => 
 	}
 }
 
-exports.isCurrentlyRatedByUser = async ({ strategyName }) => {
+exports.isCurrentlyRatedByUser = async ({ userId, strategyName }) => {
 	try {
-		const result = await UserStrategySetting.findOne({ strategyName }, 'userRating')
+		const result = await UserStrategySetting.findOne({ userId, strategyName }, 'userRating', { new: true })
 		return result.userRating
 	} catch (err) {
 		throw err
@@ -69,8 +69,8 @@ exports.calculateAndUpdateAvgRating = async ({ strategyName }) => {
 		const sumRatings = ratingsArray.reduce((a, b) => a + b, 0)
 		const avgRating = sumRatings / ratingsArray.length || 0
 
-		let strategy = await Strategy.findOneAndUpdate({ strategyName }, { 'details.avgRating': avgRating }, { new: true })
-		return strategy.details.avgRating
+		const strategy = await Strategy.findOneAndUpdate({ strategyName }, { 'details.avgRating': avgRating }, { new: true })
+		return strategy.details.avgRating.toFixed(1)
 	} catch (err) {
 		throw err
 	}
