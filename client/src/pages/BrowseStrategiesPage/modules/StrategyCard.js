@@ -13,7 +13,7 @@ class StrategyCard extends Component {
 	}
 
 	componentDidMount = async () => {
-		const response = await fetch(`./api/getStrategyEquippedAndRateStatus?strategyName=${this.props.strategyName}`)
+		const response = await fetch(`./api/getStrategyEquippedAndRatingStatus?strategyName=${this.props.strategyName}`)
 		const data = await response.json()
 		if (response.status === 200) {
 			console.log(JSON.stringify(data))
@@ -30,7 +30,12 @@ class StrategyCard extends Component {
 		const data = await response.json()
 		if (response.status === 200) {
 			message.success(data.message)
-			this.setState({ userRating: data.userRating })
+			if (!data.userRating) {
+				this.props.history.push('/')
+				this.props.history.push('/browse-strategies')
+			} else {
+				this.setState({ userRating: data.userRating })
+			}
 		} else {
 			message.error(data.message)
 		}

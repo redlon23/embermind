@@ -20,9 +20,9 @@ exports.unequipStrategy = async (req, res) => {
 	}
 }
 
-exports.getStrategyEquippedAndRateStatus = async (req, res) => {
+exports.getStrategyEquippedAndRatingStatus = async (req, res) => {
 	try {
-		const data = await userTradingModel.getStrategyEquippedAndRateStatus({
+		const data = await userTradingModel.getStrategyEquippedAndRatingStatus({
 			userId: req.session.userId,
 			strategyName: req.query.strategyName
 		})

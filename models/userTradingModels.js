@@ -51,7 +51,7 @@ exports.unequipStrategy = async ({ userId, strategyName }) => {
 	}
 }
 
-exports.getStrategyEquippedAndRateStatus = async ({ userId, strategyName }) => {
+exports.getStrategyEquippedAndRatingStatus = async ({ userId, strategyName }) => {
 	try {
 		const hasPreviouslyUsed = await UserStrategySetting.exists({ userId, strategyName })
 		if (hasPreviouslyUsed) {

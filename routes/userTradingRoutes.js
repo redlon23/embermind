@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/equipStrategy', isApiAuth, userTradingController.equipStrategy)
 router.get('/unequipStrategy', isApiAuth, userTradingController.unequipStrategy)
-router.get('/getStrategyEquippedAndRateStatus', isApiAuth, userTradingController.getStrategyEquippedAndRateStatus)
+router.get('/getStrategyEquippedAndRatingStatus', isApiAuth, userTradingController.getStrategyEquippedAndRatingStatus)
 router.get('/getAllEquippedStrategySettings', isApiAuth, userTradingController.getAllEquippedStrategySettings)
 router.post('/updateStrategySettings', isApiAuth, userTradingController.updateStrategySettings)
 router.get('/toggleTrading', isApiAuth, userTradingController.toggleTrading)

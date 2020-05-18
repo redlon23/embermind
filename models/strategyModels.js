@@ -10,6 +10,15 @@ exports.getAllStrategiesInfo = async () => {
 	}
 }
 
+exports.hasPreviouslyUsedStrategy = async ({ userId }) => {
+	try {
+		const hasPreviouslyUsed = await UserStrategySetting.exists({ userId })
+		return hasPreviouslyUsed
+	} catch (err) {
+		throw err
+	}
+}
+
 exports.setUserStrategyRating = async ({ userId, userRating }) => {
 	try {
 		const result = await UserStrategySetting.findOneAndUpdate({ userId }, { userRating }, { new: true })
