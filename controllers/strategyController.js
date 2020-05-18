@@ -32,8 +32,14 @@ exports.setUserStrategyRating = async (req, res) => {
 				userRating: userRating
 			})
 
+			// userRating going from null to a pos number = increment rating count
 			if (!oldUserRating) {
 				await strategyModel.incrementStrategyRatingCount({ strategyName: req.query.strategyName })
+			}
+
+			// userRating going from pos number to null = decrement rating count
+			if (oldUserRating) {
+				await strategyModel.decrementStrategyRatingCount({ strategyName: req.query.strategyName })
 			}
 
 			res.status(200).send({ userRating: newRating, message: 'Rating set successfully' })

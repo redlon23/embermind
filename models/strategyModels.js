@@ -42,7 +42,6 @@ exports.isCurrentlyRatedByUser = async ({ strategyName }) => {
 exports.incrementStrategyRatingCount = async ({ strategyName }) => {
 	try {
 		const result = await Strategy.findOneAndUpdate({ strategyName }, { $inc: { 'details.ratingCount': 1 } }, { new: true })
-		console.log(result)
 		return result.details.ratingCount
 	} catch (err) {
 		throw err
@@ -51,9 +50,8 @@ exports.incrementStrategyRatingCount = async ({ strategyName }) => {
 
 exports.decrementStrategyRatingCount = async ({ strategyName }) => {
 	try {
-		const result = await Strategy.findOneAndUpdate({ strategyName }, { $dec: { ratingCount: 1 } }, { new: true })
-		console.log(result.ratingCount)
-		return result.ratingCount
+		const result = await Strategy.findOneAndUpdate({ strategyName }, { $inc: { 'details.ratingCount': -1 } }, { new: true })
+		return result.details.ratingCount
 	} catch (err) {
 		throw err
 	}
