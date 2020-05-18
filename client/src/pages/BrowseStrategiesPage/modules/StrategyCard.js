@@ -9,21 +9,19 @@ const { Meta } = Card
 class StrategyCard extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { isEquipped: null, userRating: null, renderDataLoaded: false }
+		this.state = { isEquipped: null, avgRating: this.avgNearestHalfStar, userRating: null, renderDataLoaded: false }
 	}
 
 	componentDidMount = async () => {
-		if (!this.state.renderDataLoaded) {
-			const response = await fetch(`./api/getStrategyEquippedAndRateStatus?strategyName=${this.props.strategyName}`)
-			const data = await response.json()
-			if (response.status === 200) {
-				console.log(JSON.stringify(data))
-				this.setState({ isEquipped: data.strategyIsEquipped, userRating: data.userRating, renderDataLoaded: true }, () => {
-					console.log(JSON.stringify(this.state))
-				})
-			} else {
-				message.error(data.message)
-			}
+		const response = await fetch(`./api/getStrategyEquippedAndRateStatus?strategyName=${this.props.strategyName}`)
+		const data = await response.json()
+		if (response.status === 200) {
+			console.log(JSON.stringify(data))
+			this.setState({ isEquipped: data.strategyIsEquipped, userRating: data.userRating, renderDataLoaded: true }, () => {
+				console.log(JSON.stringify(this.state))
+			})
+		} else {
+			message.error(data.message)
 		}
 	}
 
@@ -32,7 +30,7 @@ class StrategyCard extends Component {
 		const data = await response.json()
 		if (response.status === 200) {
 			message.success(data.message)
-			this.setState({ userRating: data.rating })
+			this.setState({ userRating: data.userRating })
 		} else {
 			message.error(data.message)
 		}
@@ -73,7 +71,7 @@ class StrategyCard extends Component {
 								extra={
 									<Rate
 										allowHalf
-										defaultValue={this.state.userRating ? this.state.userRating : this.avgNearestHalfStar}
+										defaultValue={this.state.userRating ? this.state.userRating : this.state.avgRating}
 										style={this.state.userRating ? { color: '#094d7a' } : { color: '#FADB14' }}
 										onChange={(rating) => {
 											this.setUserStrategyRating(rating)
