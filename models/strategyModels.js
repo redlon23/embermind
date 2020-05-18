@@ -56,3 +56,21 @@ exports.decrementStrategyRatingCount = async ({ strategyName }) => {
 		throw err
 	}
 }
+
+exports.incrementStrategyUserCount = async ({ strategyName }) => {
+	try {
+		const result = await Strategy.findOneAndUpdate({ strategyName }, { $inc: { 'details.userCount': 1 } }, { new: true })
+		return result.details.userCount
+	} catch (err) {
+		throw err
+	}
+}
+
+exports.decrementStrategyUserCount = async ({ strategyName }) => {
+	try {
+		const result = await Strategy.findOneAndUpdate({ strategyName }, { $inc: { 'details.userCount': -1 } }, { new: true })
+		return result.details.userCount
+	} catch (err) {
+		throw err
+	}
+}

@@ -17,7 +17,7 @@ exports.setUserStrategyRating = async (req, res) => {
 			strategyName: req.query.strategyName
 		})
 		if (!hasPreviouslyUsedStrategy) {
-			res.status(405).send({ message: 'Must have equipped strategy at least once before rating' })
+			res.status(405).send({ message: 'Must have equipped strategy at least once before rating possible' })
 		} else {
 			const oldUserRating = await strategyModel.isCurrentlyRatedByUser({
 				userId: req.session.userId,
@@ -32,17 +32,18 @@ exports.setUserStrategyRating = async (req, res) => {
 				userRating: userRating
 			})
 
+			newRatingCount = null
 			// userRating going from null to a pos number = increment rating count
 			if (!oldUserRating) {
-				await strategyModel.incrementStrategyRatingCount({ strategyName: req.query.strategyName })
+				newRatingCount = await strategyModel.incrementStrategyRatingCount({ strategyName: req.query.strategyName })
 			}
 
 			// userRating going from pos number to null = decrement rating count
 			if (oldUserRating) {
-				await strategyModel.decrementStrategyRatingCount({ strategyName: req.query.strategyName })
+				newRatingCount = await strategyModel.decrementStrategyRatingCount({ strategyName: req.query.strategyName })
 			}
 
-			res.status(200).send({ userRating: newRating, message: 'Rating set successfully' })
+			res.status(200).send({ userRating: newRating, ratingCount: newRatingCount, message: 'Rating set successfully' })
 		}
 	} catch (err) {
 		console.error(err)

@@ -9,14 +9,22 @@ const { Meta } = Card
 class StrategyCard extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { isEquipped: null, avgRating: this.avgNearestHalfStar, userRating: null, renderDataLoaded: false }
+		this.state = {
+			isEquipped: null,
+			avgRating: this.avgNearestHalfStar,
+			userRating: null,
+			renderDataLoaded: false,
+			ratingCount: this.props.details.ratingCount,
+			strategyUserCount: this.props.details.userCount
+		}
 	}
 
 	componentDidMount = async () => {
 		const response = await fetch(`./api/getStrategyEquippedAndRatingStatus?strategyName=${this.props.strategyName}`)
 		const data = await response.json()
 		if (response.status === 200) {
-			console.log(JSON.stringify(data))
+			//console.log(JSON.stringify(data))
+			console.log(JSON.stringify(this.props.details.userCount))
 			this.setState({ isEquipped: data.strategyIsEquipped, userRating: data.userRating, renderDataLoaded: true }, () => {
 				console.log(JSON.stringify(this.state))
 			})
@@ -34,7 +42,7 @@ class StrategyCard extends Component {
 				this.props.history.push('/')
 				this.props.history.push('/browse-strategies')
 			} else {
-				this.setState({ userRating: data.userRating })
+				this.setState({ userRating: data.userRating, ratingCount: data.ratingCount })
 			}
 		} else {
 			message.error(data.message)
@@ -50,7 +58,7 @@ class StrategyCard extends Component {
 		const data = await response.json()
 		if (response.status === 200) {
 			message.success(data.message)
-			this.setState({ isEquipped: !this.state.isEquipped })
+			this.setState({ isEquipped: !this.state.isEquipped, strategyUserCount: data.strategyUserCount })
 		} else {
 			message.error(data.message)
 		}
@@ -91,8 +99,8 @@ class StrategyCard extends Component {
 										<Meta description={this.props.description} />
 									</Col>
 									<Col className="endContainer" span={9}>
-										<Meta className="statsText" description={`${this.props.details.subscriberCount} Traders Using`} />
-										<Meta className="statsText" description={`${this.props.details.ratingCount} Ratings`} />
+										<Meta className="statsText" description={`${this.state.strategyUserCount} Traders Using`} />
+										<Meta className="statsText" description={`${this.state.ratingCount} Ratings`} />
 										<Row className="bottomRow">
 											<Col span={24} className="bottomContainer">
 												{this.props.details.avgProfitPerTrade >= 0 ? this.posAvg() : this.negAvg()}
