@@ -26,7 +26,7 @@ class StrategyCard extends Component {
 	}
 
 	setUserStrategyRating = async (userRating) => {
-		const response = await fetch(`./api/setUserStrategyRating?userRating=${userRating}`)
+		const response = await fetch(`./api/setUserStrategyRating?userRating=${userRating}&strategyName=${this.props.strategyName}`)
 		const data = await response.json()
 		if (response.status === 200) {
 			message.success(data.message)

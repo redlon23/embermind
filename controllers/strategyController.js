@@ -12,13 +12,30 @@ exports.getAllStrategiesInfo = async (req, res) => {
 
 exports.setUserStrategyRating = async (req, res) => {
 	try {
-		const hasPreviouslyUsedStrategy = await strategyModel.hasPreviouslyUsedStrategy({ userId: req.session.userId })
+		const hasPreviouslyUsedStrategy = await strategyModel.hasPreviouslyUsedStrategy({
+			userId: req.session.userId,
+			strategyName: req.query.strategyName
+		})
 		if (!hasPreviouslyUsedStrategy) {
 			res.status(405).send({ message: 'Must have equipped strategy at least once before rating' })
 		} else {
+			const oldUserRating = await strategyModel.isCurrentlyRatedByUser({
+				userId: req.session.userId,
+				strategyName: req.query.strategyName
+			})
+
 			// Using == instead of === on purpose to change 0 ratings to null on purpose -- don't change
 			const userRating = req.query.userRating == 0 ? null : req.query.userRating
-			const newRating = await strategyModel.setUserStrategyRating({ userId: req.session.userId, userRating: userRating })
+			const newRating = await strategyModel.setUserStrategyRating({
+				userId: req.session.userId,
+				strategyName: req.query.strategyName,
+				userRating: userRating
+			})
+
+			if (!oldUserRating) {
+				await strategyModel.incrementStrategyRatingCount({ strategyName: req.query.strategyName })
+			}
+
 			res.status(200).send({ userRating: newRating, message: 'Rating set successfully' })
 		}
 	} catch (err) {
