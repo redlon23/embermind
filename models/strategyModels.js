@@ -31,7 +31,6 @@ exports.setUserStrategyRating = async ({ userId, strategyName, userRating }) => 
 exports.isCurrentlyRatedByUser = async ({ strategyName }) => {
 	try {
 		const result = await UserStrategySetting.findOne({ strategyName }, 'userRating')
-		console.log(result.userRating)
 		return result.userRating
 	} catch (err) {
 		throw err
