@@ -43,7 +43,10 @@ exports.setUserStrategyRating = async (req, res) => {
 				newRatingCount = await strategyModel.decrementStrategyRatingCount({ strategyName: req.query.strategyName })
 			}
 
-			res.status(200).send({ userRating: newRating, ratingCount: newRatingCount, message: 'Rating set successfully' })
+			// Update avgRating
+			const newAvgRating = await strategyModel.calculateAndUpdateAvgRating({ strategyName: req.query.strategyName })
+
+			res.status(200).send({ userRating: newRating, ratingCount: newRatingCount, avgRating: newAvgRating, message: 'Rating set successfully' })
 		}
 	} catch (err) {
 		console.error(err)

@@ -13,9 +13,9 @@ class StrategyCard extends Component {
 			isEquipped: null,
 			avgRating: this.avgNearestHalfStar,
 			userRating: null,
-			renderDataLoaded: false,
 			ratingCount: this.props.details.ratingCount,
-			strategyUserCount: this.props.details.userCount
+			strategyUserCount: this.props.details.userCount,
+			renderDataLoaded: false
 		}
 	}
 
@@ -42,7 +42,7 @@ class StrategyCard extends Component {
 				this.props.history.push('/')
 				this.props.history.push('/browse-strategies')
 			} else {
-				this.setState({ userRating: data.userRating, ratingCount: data.ratingCount })
+				this.setState({ userRating: data.userRating, ratingCount: data.ratingCount, avgRating: data.avgRating })
 			}
 		} else {
 			message.error(data.message)
@@ -77,7 +77,7 @@ class StrategyCard extends Component {
 				{this.state.renderDataLoaded ? (
 					<div className="BrowseStategiesCard">
 						<img className="cardImg" src={`${process.env.PUBLIC_URL} ${this.props.imgPath}`} alt="Strategy Img" />
-						<Tooltip placement="topRight" align={{ offset: [ 5, 20 ] }} title={`Avg Rating: ${this.props.details.avgRating}`}>
+						<Tooltip placement="topRight" align={{ offset: [ 5, 20 ] }} title={`Avg Rating: ${this.state.avgRating}`}>
 							<Card
 								className="cardContent"
 								title={this.props.strategyName}

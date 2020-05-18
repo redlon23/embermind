@@ -57,6 +57,27 @@ exports.decrementStrategyRatingCount = async ({ strategyName }) => {
 	}
 }
 
+exports.calculateAndUpdateAvgRating = async ({ strategyName }) => {
+	try {
+		let ratingsObjs = await UserStrategySetting.find({ strategyName }, 'userRating -_id')
+
+		let ratingsArray = []
+		for (ratingObj of ratingsObjs) {
+			if (ratingObj.userRating !== null) {
+				ratingsArray.push(ratingObj.userRating)
+			}
+		}
+
+		const sumRatings = ratingsArray.reduce((a, b) => a + b, 0)
+		const avgRating = sumRatings / ratingsArray.length || 0
+
+		let strategy = await Strategy.findOneAndUpdate({ strategyName }, { 'details.avgRating': avgRating }, { new: true })
+		return strategy.details.avgRating
+	} catch (err) {
+		throw err
+	}
+}
+
 exports.incrementStrategyUserCount = async ({ strategyName }) => {
 	try {
 		const result = await Strategy.findOneAndUpdate({ strategyName }, { $inc: { 'details.userCount': 1 } }, { new: true })
