@@ -20,7 +20,6 @@ exports.hasPreviouslyUsedStrategy = async ({ userId, strategyName }) => {
 }
 
 exports.setUserStrategyRating = async ({ userId, strategyName, userRating }) => {
-	console.log({ userId, strategyName, userRating })
 	try {
 		const result = await UserStrategySetting.findOneAndUpdate({ userId, strategyName }, { userRating }, { new: true })
 		return result.userRating
@@ -31,7 +30,7 @@ exports.setUserStrategyRating = async ({ userId, strategyName, userRating }) => 
 
 exports.isCurrentlyRatedByUser = async ({ strategyName }) => {
 	try {
-		const result = await UserStrategySetting.findOneAndUpdate({ strategyName }, 'userRating')
+		const result = await UserStrategySetting.findOne({ strategyName }, 'userRating')
 		console.log(result.userRating)
 		return result.userRating
 	} catch (err) {

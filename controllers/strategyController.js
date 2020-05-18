@@ -26,7 +26,7 @@ exports.setUserStrategyRating = async (req, res) => {
 
 			// Using == instead of === on purpose to change 0 ratings to null on purpose -- don't change
 			const userRating = req.query.userRating == 0 ? null : req.query.userRating
-			const newRating = await strategyModel.setUserStrategyRating({
+			const newUserRating = await strategyModel.setUserStrategyRating({
 				userId: req.session.userId,
 				strategyName: req.query.strategyName,
 				userRating: userRating
@@ -39,14 +39,16 @@ exports.setUserStrategyRating = async (req, res) => {
 			}
 
 			// userRating going from pos number to null = decrement rating count
-			if (oldUserRating) {
+			if (oldUserRating && !newUserRating) {
 				newRatingCount = await strategyModel.decrementStrategyRatingCount({ strategyName: req.query.strategyName })
 			}
 
 			// Update avgRating
 			const newAvgRating = await strategyModel.calculateAndUpdateAvgRating({ strategyName: req.query.strategyName })
 
-			res.status(200).send({ userRating: newRating, ratingCount: newRatingCount, avgRating: newAvgRating, message: 'Rating set successfully' })
+			res
+				.status(200)
+				.send({ userRating: newUserRating, ratingCount: newRatingCount, avgRating: newAvgRating, message: 'Rating set successfully' })
 		}
 	} catch (err) {
 		console.error(err)

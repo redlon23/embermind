@@ -11,8 +11,8 @@ class StrategyCard extends Component {
 		super(props)
 		this.state = {
 			isEquipped: null,
-			avgRating: this.avgNearestHalfStar,
 			userRating: null,
+			avgRating: this.avgNearestHalfStar,
 			ratingCount: this.props.details.ratingCount,
 			strategyUserCount: this.props.details.userCount,
 			renderDataLoaded: false
@@ -23,11 +23,7 @@ class StrategyCard extends Component {
 		const response = await fetch(`./api/getStrategyEquippedAndRatingStatus?strategyName=${this.props.strategyName}`)
 		const data = await response.json()
 		if (response.status === 200) {
-			//console.log(JSON.stringify(data))
-			console.log(JSON.stringify(this.props.details.userCount))
-			this.setState({ isEquipped: data.strategyIsEquipped, userRating: data.userRating, renderDataLoaded: true }, () => {
-				console.log(JSON.stringify(this.state))
-			})
+			this.setState({ isEquipped: data.strategyIsEquipped, userRating: data.userRating, renderDataLoaded: true })
 		} else {
 			message.error(data.message)
 		}
@@ -37,12 +33,12 @@ class StrategyCard extends Component {
 		const response = await fetch(`./api/setUserStrategyRating?userRating=${userRating}&strategyName=${this.props.strategyName}`)
 		const data = await response.json()
 		if (response.status === 200) {
-			message.success(data.message)
 			if (!data.userRating) {
 				this.props.history.push('/')
 				this.props.history.push('/browse-strategies')
 			} else {
-				this.setState({ userRating: data.userRating, ratingCount: data.ratingCount, avgRating: data.avgRating })
+				const ratingCount = data.ratingCount ? data.ratingCount : this.state.ratingCount
+				this.setState({ userRating: data.userRating, ratingCount, avgRating: data.avgRating })
 			}
 		} else {
 			message.error(data.message)
