@@ -1,7 +1,7 @@
 import React from 'react'
 // import CoinSelector from './CoinSelector'
 
-import { Form, InputNumber, Tooltip } from 'antd'
+import { Form, InputNumber, Radio, Space, Tooltip } from 'antd'
 
 const fieldStyle = { width: '15rem' }
 
@@ -63,13 +63,21 @@ const rsiKLinePeriod = (context) => (
 		name="rsiKlinePeriod"
 		label={
 			<Tooltip placement="left" title="How far back in time Strategy looks when determining whether coin is overbought or oversold">
-				RSI K-Line Period (minutes)
+				RSI K-Line Period
 			</Tooltip>
 		}
 		key="rsiKlinePeriod"
 		onChange={context.handleSaveInputToState}
 	>
-		<InputNumber placeholder={'15'} parser={numIntInputRegEx} style={fieldStyle} />
+		<Radio.Group defaultValue="1m" buttonSyle="solid">
+			<Space>
+				<Radio.Button className="myButton" value="1m">
+					1 Min
+				</Radio.Button>
+				<Radio.Button value="15m">15 Min</Radio.Button>
+				<Radio.Button value="1h">1 Hour</Radio.Button>
+			</Space>
+		</Radio.Group>
 	</Form.Item>
 )
 
