@@ -35,7 +35,7 @@ class Dashboard extends Component {
 						<Content theme="dark" style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#1d222c' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
-									<div style={{ ...contentStyle, height: '2.6rem' }}>
+									<div style={{ ...contentStyle, height: '4.6rem' }}>
 										<AccountBalancesBar />
 									</div>
 								</Col>
