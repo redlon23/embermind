@@ -3,12 +3,37 @@ import Chart from 'chart.js'
 import { Card } from 'antd'
 
 export default class ProfitLossChart extends Component {
+    state = {
+        dailyPnLData: {},
+        weeklyPnLData: {},
+        monthlyPnLData: {},
+        dailyLabels: []
+    }
     chartRef = React.createRef();
 
-    componentDidMount(){
+    async componentDidMount(){
+        const processPnL = async (data) => {
+            var result = { gain: [], loss: [] }
+            for(let i = 0; i < data.length; i++){
+                result.gain.push(data[i].gain)
+                result.loss.push(Math.abs(data[i].loss))
+            }
+            return result
+        }
         const myChartRef = this.chartRef.current.getContext('2d')
 
-        //get data
+        const dailyResp = await fetch('/api/getDailyPnL')
+        const dailyData = await dailyResp.json()
+        console.log(dailyData)
+        const weeklyResp = await fetch('/api/getWeeklyPnL')
+        const weeklyData = await weeklyResp.json()
+        console.log(weeklyData)
+        const monthlyResp = await fetch('/api/getMonthlyPnL')
+        const monthlyData = await monthlyResp.json()
+        console.log(monthlyData)
+
+        this.setState({dailyPnLData: await processPnL(dailyData)})
+        console.log(this.state.dailyPnLData)
 
         new Chart(myChartRef, {
             type: 'bar',
@@ -18,14 +43,14 @@ export default class ProfitLossChart extends Component {
                     label: "Profit",
                     barPercentage: 0.2,
                     categoryPercentage: 0.5,
-                    data: [19, 15, 24, 8, 11, 10, 18, 19, 12, 17, 24, 13],
+                    data: this.state.dailyPnLData.gain,
                     backgroundColor: "rgba(0, 255, 0 , 1)",
                 },
                 {
                     label: "Loss",
                     barPercentage: 0.2,
                     categoryPercentage: 0.5,
-                    data: [12, 13, 20, 5, 9, 7, 15, 14, 8, 15, 19, 10],
+                    data: this.state.dailyPnLData.loss,
                     backgroundColor: "rgba(255, 0, 0 , 1)",
                 }]
             },
