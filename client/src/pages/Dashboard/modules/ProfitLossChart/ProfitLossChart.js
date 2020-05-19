@@ -7,16 +7,20 @@ export default class ProfitLossChart extends Component {
         dailyPnLData: {},
         weeklyPnLData: {},
         monthlyPnLData: {},
-        dailyLabels: []
     }
     chartRef = React.createRef();
 
     async componentDidMount(){
         const processPnL = async (data) => {
-            var result = { gain: [], loss: [] }
-            for(let i = 0; i < data.length; i++){
+            var result = { gain: [], loss: [], labels: [] }
+            for(let i = 0; i < 7; i++){
+                if(data[i]){
+                var date = data[i].date
+                var date = date.substring(5, 10)
+                result.labels.push(date)
                 result.gain.push(data[i].gain)
                 result.loss.push(Math.abs(data[i].loss))
+                }
             }
             return result
         }
@@ -38,7 +42,7 @@ export default class ProfitLossChart extends Component {
         new Chart(myChartRef, {
             type: 'bar',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                labels: this.state.dailyPnLData.labels,
                 datasets: [{
                     label: "Profit",
                     barPercentage: 0.2,
