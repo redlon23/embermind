@@ -60,20 +60,21 @@ const stopLoss = (context) => (
 const rsiKLinePeriod = (context) => (
 	<Form.Item
 		className="form-group"
-		name="rsiKlinePeriod"
 		label={
 			<Tooltip placement="left" title="How far back in time Strategy looks when determining whether coin is overbought or oversold">
 				RSI K-Line Period
 			</Tooltip>
 		}
 		key="rsiKlinePeriod"
-		onChange={context.handleSaveInputToState}
 	>
-		<Radio.Group defaultValue="1m" buttonSyle="solid">
+		<Radio.Group
+			name="rsiKlinePeriod"
+			defaultValue={context.props.strategySettings.rsiKlinePeriod}
+			buttonSyle="solid"
+			onChange={context.handleSaveInputToState}
+		>
 			<Space>
-				<Radio.Button className="myButton" value="1m">
-					1 Min
-				</Radio.Button>
+				<Radio.Button value="1m">1 Min</Radio.Button>
 				<Radio.Button value="15m">15 Min</Radio.Button>
 				<Radio.Button value="1h">1 Hour</Radio.Button>
 			</Space>

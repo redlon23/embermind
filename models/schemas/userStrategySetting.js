@@ -20,7 +20,7 @@ const UserStrategySetting = new Schema(
 		numOrders: { type: Number },
 		orderSpread: { type: Number },
 		quantity: { type: Number },
-		rsiKlinePeriod: { type: Number },
+		rsiKlinePeriod: { type: String },
 		rsiOverBought: { type: Number },
 		rsiOverSold: { type: Number },
 		spread: { type: Boolean },
