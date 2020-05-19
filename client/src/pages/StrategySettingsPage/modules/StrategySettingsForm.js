@@ -140,6 +140,8 @@ class StrategySettingsForm extends Component {
 		const data = await response.json()
 		if (response.status === 200) {
 			message.success(data.message)
+			this.props.history.push('/')
+			this.props.history.push('/strategy-settings')
 		} else {
 			message.error(data.message)
 		}
@@ -164,6 +166,9 @@ class StrategySettingsForm extends Component {
 								</Menu.Item>
 							</Menu>
 						</Sider>
+						{console.log('Create: ' + this.displayOptions[this.state.displayCategory])}
+						{console.log('This: ' + JSON.stringify(this.displayOptions))}
+						{console.log('One: ' + JSON.stringify(this.state.displayCategory))}
 						<Content className="content">{this.displayOptions[this.state.displayCategory](this)}</Content>
 					</Layout>
 				) : null}
