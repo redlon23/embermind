@@ -60,7 +60,7 @@ export default class ProfitLossChart extends Component {
             },
             options: {
                 maintainAspectRatio:false,
-                aspectRatio: 0.812,
+                aspectRatio: 0.612,
                 legend: {
                     labels: {
                         boxWidth: 5,
