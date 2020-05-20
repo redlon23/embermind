@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Descriptions, Statistic } from 'antd'
 
-import classes from './AccountBalancesBar.module.css'
-import './AccountBalancesBar.css'
 
 
 class AccountBalancesBar extends Component{
@@ -30,7 +28,7 @@ class AccountBalancesBar extends Component{
 
     render(){
             return (
-                <div className={classes.AccountBalancesBar}>
+                <div>
                         <Descriptions> 
                             <Descriptions.Item label='Unrealized P&L'>
                                 <Statistic
