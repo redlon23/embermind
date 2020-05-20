@@ -1,8 +1,14 @@
-.ant-descriptions-item-label{
-    color: #fcfcfc;
+.AccountBalancesBar .ant-descriptions-item-label {
+	color: #fcfcfc;
 }
 
-.ant-descriptions-item{
-    text-align: center;
-    padding-right: 5%;
+.AccountBalancesBar .ant-descriptions-item {
+	text-align: center;
+	padding-right: 5%;
+	padding-top: 0.4rem;
+	padding-bottom: 0.4rem;
+}
+
+.AccountBalancesBar .ant-row {
+	height: 1rem;
 }

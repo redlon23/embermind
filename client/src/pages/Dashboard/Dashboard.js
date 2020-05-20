@@ -13,7 +13,7 @@ import CoinDistributionChart from './modules/CoinDistributionChart/CoinDistribut
 import ProfitLossChart from './modules/ProfitLossChart/ProfitLossChart'
 const { Content } = Layout
 
-const contentStyle = { background: '#1d222c' }
+const contentStyle = { background: '#13161d' }
 const contentGutter = [ 28, { xs: 8, sm: 16, md: 24, lg: 32 } ]
 
 class Dashboard extends Component {
@@ -32,10 +32,10 @@ class Dashboard extends Component {
 					<SideNavBar />
 					<Layout>
 						<HeaderNavBar />
-						<Content theme="dark" style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#1d222c' }}>
+						<Content theme="dark" style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#181a22' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
-									<div style={{ ...contentStyle, height: '4.6rem' }}>
+									<div style={{ ...contentStyle, height: '2rem' }}>
 										<AccountBalancesBar />
 									</div>
 								</Col>
