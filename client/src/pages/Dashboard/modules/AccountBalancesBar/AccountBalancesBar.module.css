@@ -1,9 +1,14 @@
 .AccountBalancesBar{
-    height: 3rem;
+    margin-top: 20px;
+    height: 5rem;
     background-color: #1A1C25;
-    border: solid;
-    border-color: #f0f0f0;
     border-width: 0.5px;
 }
 
+div.AccountBalancesBar > * {
+    position: asolute;
+    top: 50%;
+    margin: 0;
+    line-height: 80px;
 
+}

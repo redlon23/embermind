@@ -104,8 +104,12 @@ function VirtualTable(props) {
       width: 150
     },
     {
-      title: 'Contracts',
-      dataIndex: 'contracts',
+      title: 'Side',
+      dataIndex: 'side',
+    },
+    {
+      title: 'Size',
+      dataIndex: 'size',
     },
     {
       title: 'Entry Price',
@@ -127,12 +131,15 @@ function VirtualTable(props) {
 class OpenPositionsTable extends Component {
   state = {
     openPositionData: [
-    {symbol: 'BTCUSDT', contracts: 400, entryPrice: 7674.05},
-    {symbol: 'ETHUSDT', contracts: 300, entryPrice: 140.65},
-    {symbol: 'XRPUSDT', contracts: 7200, entryPrice: 0.012},
-  ]
+      {symbol: 'N/A', side: 'N/A', size: 'N/A', entryPrice: 'N/A'}
+    ]
 }
-  
+  async componentDidMount(){
+    const resp = await fetch('/api/getOpenPositions')
+    const data = await resp.json()
+    console.log(data)
+    this.setState({openPositionData: data})
+  }
     render(){
         return (
             <Card title="Open Positions">

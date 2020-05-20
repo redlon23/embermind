@@ -37,14 +37,14 @@ class AccountBalancesBar extends Component{
                                 value = { this.state.unrealizedPLValue }
                                 precision = { 4 }
                                 valueStyle = { this.dynamicValueColourRG(this.state.unrealizedPLValue)}
-                                suffix =''
+                                suffix ='USDT'
                                 />
                             </Descriptions.Item>
                             <Descriptions.Item label='Total in USDT'>
                                 <Statistic
                                 value = { this.state.totalUSDTValue }
                                 precision = { 2 }
-                                valueStyle = {{ color: '#ffff00' }}/>
+                                valueStyle = {{ color: '#00ff00' }}/>
                                 </Descriptions.Item>
                             <Descriptions.Item label='Total in CAD'>
                                 <Statistic

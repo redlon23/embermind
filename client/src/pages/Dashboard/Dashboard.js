@@ -35,7 +35,7 @@ class Dashboard extends Component {
 						<Content theme="dark" style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#1d222c' }}>
 							<Row gutter={contentGutter}>
 								<Col span={24}>
-									<div style={{ ...contentStyle, height: '2.6rem' }}>
+									<div style={{ ...contentStyle, height: '4.6rem' }}>
 										<AccountBalancesBar />
 									</div>
 								</Col>
@@ -48,17 +48,17 @@ class Dashboard extends Component {
 								</Col>
 								<Col span={9}>
 									<div style={{ ...contentStyle, height: '30rem' }}>
-										<CoinDistributionChart />
-									</div>
-								</Col>
-							</Row>
-							<Row gutter={contentGutter}>
-								<Col span={24}>
-									<div style={{ ...contentStyle, height: '13rem' }}>
 										<OpenPositionsTable />
 									</div>
 								</Col>
 							</Row>
+							{/* <Row gutter={contentGutter}>
+								<Col span={24}>
+									<div style={{ ...contentStyle, height: '13rem' }}>
+										
+									</div>
+								</Col>
+							</Row> */}
 						</Content>
 					</Layout>
 				</Layout>
