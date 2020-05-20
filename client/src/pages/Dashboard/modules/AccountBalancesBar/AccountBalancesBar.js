@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Descriptions, Statistic } from 'antd'
-
-import classes from './AccountBalancesBar.module.css'
 import './AccountBalancesBar.css'
 
 class AccountBalancesBar extends Component {
@@ -29,25 +27,23 @@ class AccountBalancesBar extends Component {
 
 	render() {
 		return (
-			<div className={classes.AccountBalancesBar}>
-				<div className="AccountBalancesBar">
-					<Descriptions>
-						<Descriptions.Item label="Unrealized P&L">
-							<Statistic
-								value={this.state.unrealizedPLValue}
-								precision={4}
-								valueStyle={this.dynamicValueColourRG(this.state.unrealizedPLValue)}
-								suffix="USDT"
-							/>
-						</Descriptions.Item>
-						<Descriptions.Item className="descItem" label="Total in USDT">
-							<Statistic value={this.state.totalUSDTValue} precision={2} valueStyle={{ color: '#00ff00' }} />
-						</Descriptions.Item>
-						<Descriptions.Item className="descItem" label="Total in CAD">
-							<Statistic value={this.state.totalCADValue} precision={2} valueStyle={{ color: '#00ff00' }} />
-						</Descriptions.Item>
-					</Descriptions>
-				</div>
+			<div className="AccountBalancesBar">
+				<Descriptions>
+					<Descriptions.Item label="Unrealized P&L">
+						<Statistic
+							value={this.state.unrealizedPLValue}
+							precision={4}
+							valueStyle={this.dynamicValueColourRG(this.state.unrealizedPLValue)}
+							suffix="USDT"
+						/>
+					</Descriptions.Item>
+					<Descriptions.Item label="Total in USDT">
+						<Statistic value={this.state.totalUSDTValue} precision={2} valueStyle={{ color: '#00ff00' }} />
+					</Descriptions.Item>
+					<Descriptions.Item label="Total in CAD">
+						<Statistic value={this.state.totalCADValue} precision={2} valueStyle={{ color: '#00ff00' }} />
+					</Descriptions.Item>
+				</Descriptions>
 			</div>
 		)
 	}

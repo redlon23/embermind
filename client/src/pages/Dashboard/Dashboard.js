@@ -33,9 +33,9 @@ class Dashboard extends Component {
 					<Layout>
 						<HeaderNavBar />
 						<Content theme="dark" style={{ padding: '1rem 1rem 0rem 1rem', backgroundColor: '#181a22' }}>
-							<Row gutter={contentGutter}>
+							<Row gutter={contentGutter} style={{ marginBottom: 0 }}>
 								<Col span={24}>
-									<div style={{ ...contentStyle, height: '2rem' }}>
+									<div style={{ ...contentStyle, height: '3rem' }}>
 										<AccountBalancesBar />
 									</div>
 								</Col>

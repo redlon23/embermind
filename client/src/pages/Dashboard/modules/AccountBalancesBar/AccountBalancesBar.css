@@ -1,5 +1,5 @@
 .AccountBalancesBar .ant-descriptions-item-label {
-	color: #fcfcfc;
+	color: #fcfcfc !important;
 }
 
 .AccountBalancesBar .ant-descriptions-item {
@@ -10,5 +10,5 @@
 }
 
 .AccountBalancesBar .ant-row {
-	height: 1rem;
+	margin-bottom: 0;
 }

@@ -7,6 +7,7 @@ import { Card, Table } from 'antd'
 import './OpenPositionsTable.scss'
 
 function VirtualTable(props) {
+	const gridRef = useRef()
 	const { columns, scroll, className } = props
 	const [ tableWidth, setTableWidth ] = useState(0)
 	const widthColumnCount = columns.filter(({ width }) => !width).length
@@ -17,7 +18,7 @@ function VirtualTable(props) {
 
 		return { ...column, width: Math.floor(tableWidth / widthColumnCount) }
 	})
-	const gridRef = useRef()
+
 	const [ connectObject ] = useState(() => {
 		const obj = {}
 		Object.defineProperty(obj, 'scrollLeft', {
@@ -33,15 +34,15 @@ function VirtualTable(props) {
 		return obj
 	})
 
-	const resetVirtualGrid = () => {
-		gridRef.current.resetAfterIndices({
-			columnIndex: 0,
-			shouldForceUpdate: false
-		})
-	}
+	// const resetVirtualGrid = () => {
+	//   gridRef.current.resetAfterIndices({
+	//     columnIndex: 0,
+	//     shouldForceUpdate: false,
+	//   });
+	// };
 
-	useEffect(() => resetVirtualGrid, [])
-	useEffect(() => resetVirtualGrid, [ tableWidth ])
+	// useEffect(() => resetVirtualGrid, []);
+	// useEffect(() => resetVirtualGrid, [tableWidth]);
 
 	const renderVirtualList = (rawData, { scrollbarSize, ref, onScroll }) => {
 		ref.current = connectObject
