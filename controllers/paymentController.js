@@ -18,7 +18,7 @@ exports.initializePaypalPayment = async (req, res) => {
 						{
 							name: 'EmberMind Monthly Subscription',
 							sku: '001',
-							price: '1.00',
+							price: '30.00',
 							currency: 'USD',
 							quantity: 1
 						}
@@ -26,7 +26,7 @@ exports.initializePaypalPayment = async (req, res) => {
 				},
 				amount: {
 					currency: 'USD',
-					total: '1.00'
+					total: '30.00'
 				},
 				description: 'One month subscription to EmberMind.'
 			}
@@ -63,7 +63,7 @@ exports.executePayment = async (req, res) => {
 			{
 				amount: {
 					currency: 'USD',
-					total: '1.00'
+					total: '30.00'
 				}
 			}
 		]

@@ -166,9 +166,6 @@ class StrategySettingsForm extends Component {
 								</Menu.Item>
 							</Menu>
 						</Sider>
-						{console.log('Create: ' + this.displayOptions[this.state.displayCategory])}
-						{console.log('This: ' + JSON.stringify(this.displayOptions))}
-						{console.log('One: ' + JSON.stringify(this.state.displayCategory))}
 						<Content className="content">{this.displayOptions[this.state.displayCategory](this)}</Content>
 					</Layout>
 				) : null}

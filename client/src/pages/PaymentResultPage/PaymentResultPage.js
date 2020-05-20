@@ -33,7 +33,7 @@ class PaymentResultPage extends Component {
 		return (
 			<div className="PaymentResultPage">
 				{this.state.renderDataLoaded ? (
-					<div>
+					<div className="messageContainer">
 						<h2>{this.state.message}</h2>
 						{this.state.result === 'failed' ? (
 							<div>
