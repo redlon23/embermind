@@ -107,12 +107,16 @@ class StrategySettingsForm extends Component {
 	// }
 
 	handleSaveInputToState = (event) => {
-		// Ensures only null, numbers, or decimals are saved to state (need one for boolean?)
+		if (event.target.name) {
+			event.target.id = event.target.name
+		}
+
 		if (event.target.value === '') {
 			this.setState({ [event.target.id]: null })
 		}
 
 		if (
+			typeof event.target.value === 'string' ||
 			!isNaN(
 				event.target.value[event.target.value.length - 1] ||
 					(event.target.value[event.target.value.length - 1] === '.' && !this.state[event.target.id].includes('.'))
@@ -136,6 +140,8 @@ class StrategySettingsForm extends Component {
 		const data = await response.json()
 		if (response.status === 200) {
 			message.success(data.message)
+			this.props.history.push('/')
+			this.props.history.push('/strategy-settings')
 		} else {
 			message.error(data.message)
 		}

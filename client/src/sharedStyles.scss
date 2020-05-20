@@ -40,6 +40,23 @@ It's currently imported in index.js
 	border: solid $button1 1px;
 }
 
+// Radio Buttons
+.ant-radio-button-wrapper > span {
+	color: $black;
+}
+
+.ant-radio-button-wrapper-checked {
+	background-color: $blue2 !important;
+}
+
+.ant-radio-button-wrapper-checked > span {
+	color: $white !important;
+}
+
+.ant-radio-button-wrapper-checked {
+	background-color: $blue2 !important;
+}
+
 /* Removes notification badge animation */
 .ant-badge-zoom-appear {
 	animation: none !important;
@@ -135,10 +152,4 @@ It's currently imported in index.js
 
 .ant-rate-star {
 	transition-duration: 0s !important;
-}
-
-.ant-card-bordered {
-	border: none;
-	height: 600px;
-	margin-top: 20px;
 }

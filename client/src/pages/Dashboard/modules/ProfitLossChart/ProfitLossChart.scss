@@ -1,0 +1,6 @@
+@import './../../../../styleVariables';
+
+.ProfitLoss .ant-card-bordered {
+	border: 1px $moduleBorder solid;
+	background-color: #13161d !important;
+}

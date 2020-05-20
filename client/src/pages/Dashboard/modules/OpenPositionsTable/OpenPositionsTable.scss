@@ -1,0 +1,30 @@
+@import './../../../../styleVariables';
+
+.OpenPositionsTable > div {
+	height: 30rem;
+	border: 1px $moduleBorder solid !important;
+}
+
+.OpenPositionsTable > * {
+	background-color: #13161d !important;
+}
+
+.OpenPositionsTable .ant-table {
+	background-color: #13161d;
+	color: $white;
+}
+
+.OpenPositionsTable .ant-table-thead tr th {
+	background-color: #13161d;
+	color: $white;
+	text-align: center;
+}
+
+.OpenPositionsTable div.virtual-table-cell {
+	text-align: center;
+	padding-top: 1rem;
+}
+
+.OpenPositionsTable .virtual-grid {
+	height: 19rem !important;
+}

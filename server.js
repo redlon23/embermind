@@ -19,21 +19,22 @@ app.use(
 console.log('ENV: ' + process.env.NODE_ENV)
 
 const paypal = require('paypal-rest-sdk')
-if (process.env.NODE_ENV === 'production') {
-	// LIVE payment credentials (Real money)
-	paypal.configure({
-		mode: 'live',
-		client_id: 'AUwiml3PxTRl9TY64pOE9v5vSIcPMS0ZSgUIKReYSsvaVSoMd_Y61awY59rhjmrE37MT7Vx4fExy6Lp1',
-		client_secret: 'EOYQcMMYH3AySZLfMuPKG0hsMVDqQxJuTNZ9KU8v1fbfsHNEfQR9u6fSD40YFKsYAiv6g1RuKCpVVtHD'
-	})
-} else {
-	// SANDBOX payment credentials (Fake money -- use for development)
-	paypal.configure({
-		mode: 'sandbox',
-		client_id: 'AeGuz5Q24jPl20xErgTDIMRbkvDDNYOKOOSHTSr_boJlFuhK0uNiHRBywgQ_C0kiQgsFo9n6mg__aEGs',
-		client_secret: 'EHSb993cvMR3jsLLkmta4Y9jONzYEK095rbNnrLj8U-YTYkvJHs34eI4VAVo5evDEz1jS_irQOIw8gvk'
-	})
-}
+// if (process.env.NODE_ENV === 'production') {
+// 	// LIVE payment credentials (Real money)
+// 	paypal.configure({
+// 		mode: 'live',
+// 		client_id: 'AUwiml3PxTRl9TY64pOE9v5vSIcPMS0ZSgUIKReYSsvaVSoMd_Y61awY59rhjmrE37MT7Vx4fExy6Lp1',
+// 		client_secret: 'EOYQcMMYH3AySZLfMuPKG0hsMVDqQxJuTNZ9KU8v1fbfsHNEfQR9u6fSD40YFKsYAiv6g1RuKCpVVtHD'
+// 	})
+// } else {
+
+// 	// SANDBOX payment credentials (Fake money -- use for development)
+paypal.configure({
+	mode: 'sandbox',
+	client_id: 'AeGuz5Q24jPl20xErgTDIMRbkvDDNYOKOOSHTSr_boJlFuhK0uNiHRBywgQ_C0kiQgsFo9n6mg__aEGs',
+	client_secret: 'EHSb993cvMR3jsLLkmta4Y9jONzYEK095rbNnrLj8U-YTYkvJHs34eI4VAVo5evDEz1jS_irQOIw8gvk'
+})
+// }
 
 const userRoutes = require('./routes/userRoutes')
 app.use('/api', userRoutes)
