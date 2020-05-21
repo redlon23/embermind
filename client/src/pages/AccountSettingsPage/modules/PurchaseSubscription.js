@@ -77,7 +77,6 @@ class PurchaseSubscription extends Component {
 						Purchase Subscription
 						<Row className="featureContainer" justify="end">
 							<Row className="featureText">• Only $30/month</Row>
-							<br />
 							<Row className="featureText">• Total Access</Row>
 							<Row className="featureText">• Unlimited Positions</Row>
 						</Row>

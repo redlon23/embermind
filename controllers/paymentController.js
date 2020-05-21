@@ -6,8 +6,8 @@ exports.initializePaypalPayment = async (req, res) => {
 	let cancel_url = null
 
 	if (process.env.NODE_ENV === 'production') {
-		return_url = 'https://embermind-test.herokuapp.com//api/executePayment'
-		cancel_url = 'https://embermind-test.herokuapp.com//api/paymentCancelled'
+		return_url = 'https://embermind-test.herokuapp.com/api/executePayment'
+		cancel_url = 'https://embermind-test.herokuapp.com/api/paymentCancelled'
 	} else {
 		return_url = 'http://localhost:3000/api/executePayment'
 		cancel_url = 'http://localhost:3000/api/paymentCancelled'
