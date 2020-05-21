@@ -2,14 +2,25 @@ const paypal = require('paypal-rest-sdk')
 const userModel = require('../models/userModels')
 
 exports.initializePaypalPayment = async (req, res) => {
+	let return_url = null
+	let cancel_url = null
+
+	if (process.env.NODE_ENV === 'production') {
+		return_url = 'https://embermind-test.herokuapp.com//api/executePayment'
+		cancel_url = 'https://embermind-test.herokuapp.com//api/paymentCancelled'
+	} else {
+		return_url = 'http://localhost:3000/api/executePayment'
+		cancel_url = 'http://localhost:3000/api/paymentCancelled'
+	}
+
 	const create_payment_json = {
 		intent: 'sale',
 		payer: {
 			payment_method: 'paypal'
 		},
 		redirect_urls: {
-			return_url: 'http://localhost:3000/api/executePayment',
-			cancel_url: 'http://localhost:3000/api/paymentCancelled'
+			return_url,
+			cancel_url
 		},
 		transactions: [
 			{
